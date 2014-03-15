@@ -4,4 +4,5 @@ SwiftIntro::Application.routes.draw do
   get 'signout', to: 'sessions#destroy', as: 'signout'
 
   root to: 'dashboard#index'
+  resources :users
 end

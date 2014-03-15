@@ -36,10 +36,14 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-group :test do
-  gem 'rspec-rails'
+group :development do
+  gem 'pry-rails'
   gem 'better_errors'
   gem 'binding_of_caller'
+end
+
+group :test do
+  gem 'rspec-rails'
   gem 'capybara-rails'
   gem 'capybara'
 end

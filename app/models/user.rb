@@ -4,6 +4,9 @@ class User < ActiveRecord::Base
   has_many :jobs
   has_many :connections
 
+  has_many :first_users, class_name: "Match", foreign_key: :first_user_id
+  has_many :second_users, class_name: "Match", foreign_key: :second_user_id
+
   def self.from_omniauth(auth)
     where(auth.slice("provider", "uid")).first || create_from_omniauth(auth)
   end

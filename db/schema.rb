@@ -11,10 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140316203034) do
+ActiveRecord::Schema.define(version: 20140316212833) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "companies", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "degrees", force: true do |t|
     t.datetime "created_at"
@@ -36,6 +42,18 @@ ActiveRecord::Schema.define(version: 20140316203034) do
   add_index "educations", ["subject_id"], name: "index_educations_on_subject_id", using: :btree
   add_index "educations", ["user_id"], name: "index_educations_on_user_id", using: :btree
 
+  create_table "jobs", force: true do |t|
+    t.integer  "company_id"
+    t.integer  "position_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "jobs", ["company_id"], name: "index_jobs_on_company_id", using: :btree
+  add_index "jobs", ["position_id"], name: "index_jobs_on_position_id", using: :btree
+  add_index "jobs", ["user_id"], name: "index_jobs_on_user_id", using: :btree
+
   create_table "locations", force: true do |t|
     t.string   "area"
     t.integer  "user_id"
@@ -44,6 +62,12 @@ ActiveRecord::Schema.define(version: 20140316203034) do
   end
 
   add_index "locations", ["user_id"], name: "index_locations_on_user_id", using: :btree
+
+  create_table "positions", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "schools", force: true do |t|
     t.string   "name"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140316212833) do
+ActiveRecord::Schema.define(version: 20140316213733) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,16 @@ ActiveRecord::Schema.define(version: 20140316212833) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "connections", force: true do |t|
+    t.integer  "linkedin_user_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "connections", ["linkedin_user_id"], name: "index_connections_on_linkedin_user_id", using: :btree
+  add_index "connections", ["user_id"], name: "index_connections_on_user_id", using: :btree
 
   create_table "degrees", force: true do |t|
     t.datetime "created_at"
@@ -53,6 +63,12 @@ ActiveRecord::Schema.define(version: 20140316212833) do
   add_index "jobs", ["company_id"], name: "index_jobs_on_company_id", using: :btree
   add_index "jobs", ["position_id"], name: "index_jobs_on_position_id", using: :btree
   add_index "jobs", ["user_id"], name: "index_jobs_on_user_id", using: :btree
+
+  create_table "linkedin_users", force: true do |t|
+    t.string   "uid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "locations", force: true do |t|
     t.string   "area"

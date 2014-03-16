@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   has_one :location
   has_many :educations
   has_many :jobs
+  has_many :connections
 
   def self.from_omniauth(auth)
     where(auth.slice("provider", "uid")).first || create_from_omniauth(auth)
@@ -27,6 +28,8 @@ class User < ActiveRecord::Base
     current_jobs = auth["extra"]["raw_info"]["threeCurrentPositions"]["values"]
     past_jobs = auth["extra"]["raw_info"]["threePastPositions"]["values"]
 
+    user_connections = auth["extra"]["raw_info"]["connections"]["values"]
+
     if user_educations
       add_educations(user_educations, user.id)
     end
@@ -37,6 +40,10 @@ class User < ActiveRecord::Base
 
     if past_jobs
       add_past_jobs(past_jobs, user.id)
+    end
+
+    if user_connections
+      add_connections(user_connections, user.id)
     end
 
     user
@@ -64,6 +71,13 @@ class User < ActiveRecord::Base
       company = Company.find_or_create_by(name: job["company"].name)
       position = Position.find_or_create_by(name: job["title"])
       Job.create(user_id: user_id, company_id: company.id, position_id: position.id)
+    end
+  end
+
+  def self.add_connections(user_connections, user_id)
+    user_connections.each do |connection|
+      linkedin_user = LinkedinUser.find_or_create_by(uid: connection["id"])
+      Connection.create(user_id: user_id, linkedin_user_id: linkedin_user.id)
     end
   end
 end

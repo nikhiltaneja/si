@@ -1,4 +1,21 @@
-Welcome <%= @user.name %>!
-<div>
-  <%= image_tag @user.image %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-offset-3 col-md-3">
+      <%= image_tag @user.image, size: "140x140" %>
+    </div>
+
+    <div class="col-md-3">
+      <h3><%= @user.name %></h3>
+      <h4><%= @user.headline %></h4>
+      <h4><%= @user.location %></h4>
+      <h4><%= link_to "LinkedIn Profile", @user.public_profile, target: 'blank' %></h4>
+    </div>
+  </div>
+
+  <% if @user.summary && !@user.summary.empty? %>
+    <div class="summary center">
+      <h3>Summary</h3>
+      <p><%= @user.summary %></p>
+    </div>
+  <% end %>
 </div>

@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  has_one :location
+  belongs_to :location
   has_many :educations
   has_many :jobs
   has_many :connections

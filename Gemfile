@@ -29,6 +29,10 @@ gem 'jbuilder', '~> 1.2'
 
 gem 'omniauth-linkedin'
 
+gem 'unicorn'
+gem 'sidekiq'
+gem 'sidetiq'
+
 gem 'figaro'
 
 group :doc do

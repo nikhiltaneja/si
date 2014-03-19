@@ -27,7 +27,7 @@
       <ul>
         <% @user.educations.each do |education| %>
           <li><%= education.school.name %></li>
-          <% if education.subject && !education.subject.name.empty? %>
+          <% if education.subject && !education.subject.name.nil? %>
             <ul>
               <li><%= education.degree.name %> <%= education.subject.name %></li>
             </ul>

@@ -13,6 +13,7 @@ class MatchesController < ApplicationController
     @match = Match.find(params[:id])
     to_update = current_user.id == @match.first_user_id ? :first_user_status : :second_user_status
     @match.update(to_update => params[:decision])
+
     redirect_to root_path, notice: "Thanks for submitting your response!"
   end
 end

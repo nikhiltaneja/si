@@ -8,7 +8,26 @@ class User < ActiveRecord::Base
   has_many :second_users, class_name: "Match", foreign_key: :second_user_id
 
   def self.from_omniauth(auth)
-    where(auth.slice("provider", "uid")).first || create_from_omniauth(auth)
+    where(auth.slice("provider", "uid")).first.update(auth) || create_from_omniauth(auth)
+  end
+
+  def update(auth)
+    self.update_attributes(
+      :provider => auth["provider"],
+      :uid => auth["uid"],
+      :first_name => auth["info"]["first_name"],
+      :last_name => auth["info"]["last_name"],
+      :name => auth["info"]["name"],
+      :email => auth["info"]["email"],
+      :headline => auth["info"]["headline"],
+      :summary => auth["extra"]["raw_info"]["summary"],
+      :industry => auth["info"]["industry"],
+      :location => Location.find_or_create_by(area: auth["info"]["location"]),
+      :image => auth["info"]["image"],
+      :public_profile => auth["info"]["urls"]["public_profile"],
+    )
+
+    self
   end
 
   def self.create_from_omniauth(auth)

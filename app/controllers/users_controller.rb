@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :correct_user?
+  # before_action :correct_user?
 
   def index
     id = params[:id]

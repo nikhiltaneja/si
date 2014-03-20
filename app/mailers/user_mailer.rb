@@ -5,6 +5,6 @@ class UserMailer < ActionMailer::Base
     @first_user = first_user
     @second_user = second_user
 
-    mail to: [@first_user.email, @second_user.email], subject: 'Successful Match'
+    mail to: [@first_user.email, @second_user.email], subject: 'Successful Match!'
   end
 end

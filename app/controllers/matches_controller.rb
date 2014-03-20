@@ -14,6 +14,10 @@ class MatchesController < ApplicationController
     to_update = current_user.id == @match.first_user_id ? :first_user_status : :second_user_status
     @match.update(to_update => params[:decision])
 
+    if @match.match_status
+      UserMailer.match_confirmation(@match.first_user, @match.second_user).deliver
+    end
+
     redirect_to root_path, notice: "Thanks for submitting your response!"
   end
 end

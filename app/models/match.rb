@@ -6,5 +6,6 @@ class Match < ActiveRecord::Base
 
   def set_match_status
     self.match_status = first_user_status && second_user_status
+    nil
   end
 end

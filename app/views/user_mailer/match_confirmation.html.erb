@@ -1,5 +1,18 @@
-<p><%= @first_user.name %> and <%= @second_user.name %>,</p>
+<p><%= @first_user.first_name %> and <%= @second_user.first_name %>,</p>
 
 <p>Congrats! Both of you expressed interest in meeting up. Be sure to coordinate a time and place to meet soon.</p>
 
-<p>-The SwiftIntro Team</p>
+<div>
+  <div>
+    <div><%= @first_user.name %></div>
+    <div><%= @first_user.headline %></div>
+    <div><%= image_tag @first_user.image %></div>
+  </div>
+
+  <div>
+    <div><%= @second_user.name %></div>
+    <div><%= @second_user.headline %></div>
+    <div><%= image_tag @second_user.image %></div>
+  </div>
+  <p>-The SwiftIntro Team</p>
+</div>

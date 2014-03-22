@@ -7,8 +7,12 @@ class MatchesController < ApplicationController
   end
 
   def show
-    id = params[:id]
-    @match = Match.find(id)
+    if params[:id]
+      id = params[:id]
+      @match = Match.find(id)
+    else
+      @match = current_user.matches.last
+    end
 
     if @match.first_user == current_user
       @user = @match.second_user

@@ -84,5 +84,8 @@ class User < ActiveRecord::Base
   def matches
     Match.where(first_user_id: self.id) + Match.where(second_user_id: self.id)
   end
- 
+
+  def current_match
+    matches.last
+  end
 end

@@ -48,10 +48,9 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-offset-3">
-      <%= button_to "Yes", match_path(@match, decision: true), method: 'patch', class: 'btn btn-success btn-lg col-xs-1' %>
-      <%= button_to "No", match_path(@match, decision: false), method: 'patch', class: 'btn btn-danger btn-lg col-xs-1 col-xs-offset-2' %>
-    </div>
-  </div>
+  <% if current_user.id == @match.first_user_id && @match.first_user_status == "pending" %>
+    <%= render partial: 'matches/decision_buttons' %>
+  <% elsif current_user.id == @match.second_user_id && @match.second_user_status == "pending" %>
+    <%= render partial: 'matches/decision_buttons' %>
+  <% end %>
 </div>

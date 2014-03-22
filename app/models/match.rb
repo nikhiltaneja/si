@@ -5,7 +5,8 @@ class Match < ActiveRecord::Base
   before_save :set_match_status
 
   def set_match_status
-    self.match_status = first_user_status && second_user_status
-    nil
+    if first_user_status == "Yes" && second_user_status == "Yes"
+      self.match_status = true
+    end
   end
 end

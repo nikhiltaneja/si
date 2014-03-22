@@ -83,57 +83,35 @@ class User < ActiveRecord::Base
       Connection.create(user_id: user_id, linkedin_user_id: linkedin_user.id)
     end
   end
- 
-#one method to return an array of location matches
-#put 2 users which outputs an array of shared connections 
-#method which removes first degree connection
-# method which removes inactive users
-# method which strips people tehy already matched with
 
-  def location_matches(user)
-    same_location = User.where(location_id: user.location.id)
-    same_user_ids = []
-    same_location.each do |u|
-      same_user_ids << u.id
-    end
-    same_user_ids
+  def location_matches #returns array of users
+    User.where(location_id: self.location.id)
   end
 
-  def shared_connections(user1, user2)
-    shared_connections = []
-    s1 = Connection.where(user_id: user1.id)
-    s2 = Connection.where(user_id: user2.id)
-    s1.each do |c|
-      
+  def shared_connections(user) #returns linkedin_user_id array
+    #want to use a join here
+    s1 = Connection.where(user_id: self.id)
+    s2 = Connection.where(user_id: user.id)
+    s1_connections = []
+    s2_connections = []
+    s1.each do |s|
+      s1_connections << s.linkedin_user_id
     end
+    s2.each do |s|
+      s2_connections << s.linkedin_user_id
+    end
+    s1_connections & s2_connections 
   end
 
-#  def self.create_location_matches(primary_user)
-#   loc_id = primary_user.location.id
-#   same_loc = User.where(location_id: loc_id)
-#   same_loc.each do |user|
-#     if Match.where(first_user_id: user.id, second_user_id: primary_user.id)  == []
-#       if primary_user.id > user.id
-#         Match.create(first_user_id: user.id, second_user_id: primary_user.id)
-#       end
-#     end
-#     if Match.where(first_user_id: primary_user.id, second_user_id: user.id)  == []
-#       if primary_user.id < user.id
-#         Match.create(first_user_id: primary_user.id, second_user_id: user.id)
-#       end
-#     end
-#   end
-#  end
+  def remove_first_degree
+    self.connections
+  end
 
-#  def self.get_match(user_id)
-#     matches = Match.where(first_user_id: user_id)
-#     matches2 = Match.where(second_user_id: user_id)
-#     total_matches = matches + matches2
-#     match = total_matches.sample
-#     if match.first_user_id == user_id
-#       return second_user_id
-#     else
-#       return first_user_id
-#     end
-#  end
+  def self.remove_inactive
+  end
+
+  def remove_previous_matches
+
+  end
+
 end

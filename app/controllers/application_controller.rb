@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
   helper_method :correct_user?
+  helper_method :admin?
 
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
@@ -17,6 +18,10 @@ class ApplicationController < ActionController::Base
     unless current_user == @user
       redirect_to root_url, :alert => "Access denied."
     end
+  end
+
+  def admin?
+    current_user.admin
   end
 
   def authenticate_user!

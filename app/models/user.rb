@@ -83,6 +83,10 @@ class User < ActiveRecord::Base
       Connection.create(user_id: user_id, linkedin_user_id: linkedin_user.id)
     end
   end
+
+  def matches
+    Match.where(first_user_id: self.id) + Match.where(second_user_id: self.id)
+  end
  
  # def self.create_location_matches(primary_user)
  #  loc_id = primary_user.location.id

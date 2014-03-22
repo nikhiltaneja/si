@@ -1,3 +1,7 @@
 <% @matches.each do |match| %>
-  <%= link_to match.second_user.first_name, match_path(match) %>
+  <% if current_user.id == match.first_user_id %>
+    <%= link_to match.second_user.first_name, user_match_path(match.second_user, match) %>
+  <% else %>
+    <%= link_to match.first_user.first_name, user_match_path(match.first_user, match) %>
+  <% end %>
 <% end %>

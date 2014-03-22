@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
     if user.matches.empty?
       redirect_to user_path(user), notice: "Signed in!"
     else
-      redirect_to match_path(user.matches.last), notice: "Signed in!"
+      redirect_to user_match_path(current_user, current_user.current_match), notice: "Signed in!"
     end
   end
 

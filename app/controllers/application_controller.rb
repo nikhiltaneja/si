@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user?
   helper_method :correct_user?
   helper_method :admin?
+  helper_method :matches?
 
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
@@ -29,6 +30,12 @@ class ApplicationController < ActionController::Base
 
   def admin?
     current_user.admin
+  end
+
+  def matches?
+    if current_user.matches.empty?
+      redirect_to user_path(current_user)
+    end
   end
 
   def authenticate_user!

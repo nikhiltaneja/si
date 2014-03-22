@@ -1,5 +1,6 @@
 class MatchesController < ApplicationController
   before_action :current_user?
+  before_action :matches?
 
   def index
     @matches = current_user.matches

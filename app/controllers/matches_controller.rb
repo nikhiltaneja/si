@@ -11,7 +11,7 @@ class MatchesController < ApplicationController
       id = params[:id]
       @match = Match.find(id)
     else
-      @match = current_user.matches.last
+      @match = current_user.current_match
     end
 
     if @match.first_user == current_user

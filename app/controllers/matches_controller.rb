@@ -1,6 +1,13 @@
 class MatchesController < ApplicationController
+  before_action :current_user?
+
+  def index
+    @matches = current_user.matches
+  end
+
   def show
-    @match = Match.find(params[:id])
+    id = params[:id]
+    @match = Match.find(id)
 
     if @match.first_user == current_user
       @user = @match.second_user

@@ -1,0 +1,3 @@
+<% @matches.each do |match| %>
+  <%= link_to match.second_user.first_name, match_path(match) %>
+<% end %>

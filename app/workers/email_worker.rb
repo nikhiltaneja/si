@@ -2,7 +2,7 @@ class EmailWorker
   include Sidekiq::Worker
   include Sidetiq::Schedulable
 
-   recurrence { weekly}
+  recurrence { weekly}
 
   def perform()
    

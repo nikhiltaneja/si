@@ -84,6 +84,30 @@ class User < ActiveRecord::Base
     end
   end
  
+#one method to return an array of location matches
+#put 2 users which outputs an array of shared connections 
+#method which removes first degree connection
+# method which removes inactive users
+# method which strips people tehy already matched with
+
+  def location_matches(user)
+    same_location = User.where(location_id: user.location.id)
+    same_user_ids = []
+    same_location.each do |u|
+      same_user_ids << u.id
+    end
+    same_user_ids
+  end
+
+  def shared_connections(user1, user2)
+    shared_connections = []
+    s1 = Connection.where(user_id: user1.id)
+    s2 = Connection.where(user_id: user2.id)
+    s1.each do |c|
+      
+    end
+  end
+
 #  def self.create_location_matches(primary_user)
 #   loc_id = primary_user.location.id
 #   same_loc = User.where(location_id: loc_id)

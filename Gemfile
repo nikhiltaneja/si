@@ -32,6 +32,7 @@ gem 'omniauth-linkedin'
 gem 'unicorn'
 gem 'sidekiq'
 gem 'sidetiq'
+gem 'redis'
 
 gem 'figaro'
 

@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
     current_user.admin
   end
 
-  def admin?
+  def check_admin?
     if !current_user.admin
       redirect_to root_url
     end

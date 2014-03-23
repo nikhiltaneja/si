@@ -93,10 +93,9 @@ class User < ActiveRecord::Base
     User.where(location_id: self.location.id)
   end
 
-  def shared_connections(user) #returns linkedin_user_id array
-    #want to use a join here
+  def shared_connections(user_id) #returns linkedin_user_id array
     s1 = Connection.where(user_id: self.id)
-    s2 = Connection.where(user_id: user.id)
+    s2 = Connection.where(user_id: user_id)
     s1_connections = []
     s2_connections = []
     s1.each do |s|
@@ -105,37 +104,33 @@ class User < ActiveRecord::Base
     s2.each do |s|
       s2_connections << s.linkedin_user_id
     end
-    s1_connections & s2_connections 
+    s1_connections & s2_connections
+    # LinkedinUser.join('connections my_connections ON connections.linkedin_user_id = linkedin_users.id').
+    #   join('connections other_connections ON connections.linkedin_user_id = linkedin_users.id').
+    #   where(my_connections: { user_id: self.id }).
+    #   where(other_connections: { user_id: user.id })
   end
 
-  def location_matches #returns array of users
-    User.where(location_id: self.location.id)
-  end
-
-  def shared_connections(user) #returns linkedin_user_id array
-    #want to use a join here
-    s1 = Connection.where(user_id: self.id)
-    s2 = Connection.where(user_id: user.id)
-    s1_connections = []
-    s2_connections = []
-    s1.each do |s|
-      s1_connections << s.linkedin_user_id
+  def remove_previous_matches(users)
+    filtered_users = []
+    users.each do |user|
+      if self.id < user.id
+        if Match.find_by(first_user_id: self.id, second_user_id: user.id)
+        else
+          filtered_users << user.id
+        end
+      else
+        if Match.find_by(first_user_id: user.id, second_user_id: self.id)
+        else
+          filtered_users << user.id
+        end
+      end
     end
-    s2.each do |s|
-      s2_connections << s.linkedin_user_id
-    end
-    s1_connections & s2_connections 
+    filtered_users
   end
 
-  def remove_first_degree
-    self.connections
+  def remove_oneself(users)
+    users.delete(self.id)
+    users
   end
-
-  def self.remove_inactive
-  end
-
-  def remove_previous_matches
-
-  end
-
 end

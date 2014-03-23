@@ -5,10 +5,48 @@ class ApplicationController < ActionController::Base
 
   private
 
+  helper_method :current_user
+  helper_method :current_user?
+  helper_method :correct_user?
+  helper_method :admin?
+  helper_method :matches?
+
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
-  
-  helper_method :current_user
 
+  def current_user?
+    if !current_user
+      redirect_to dashboard_index_path
+    end
+  end
+
+  def correct_user?
+    @user = User.find(params[:id])
+    unless current_user == @user
+      redirect_to root_url, :alert => "Access denied."
+    end
+  end
+
+  def admin?
+    current_user.admin
+  end
+
+  def admin?
+    if !current_user.admin
+      redirect_to root_url
+    end
+  end
+
+  def matches?
+    if current_user.matches.empty?
+      redirect_to user_path(current_user)
+    end
+  end
+
+  def authenticate_user!
+    if !current_user
+      redirect_to root_url, :alert => 'You need to sign in for access to this page!'
+    end
+  end
 end

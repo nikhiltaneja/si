@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140317010549) do
+ActiveRecord::Schema.define(version: 20140322224432) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,12 +79,12 @@ ActiveRecord::Schema.define(version: 20140317010549) do
   create_table "matches", force: true do |t|
     t.integer  "first_user_id"
     t.integer  "second_user_id"
-    t.boolean  "first_user_status",  default: false
-    t.boolean  "second_user_status", default: false
     t.boolean  "match_status",       default: false
     t.boolean  "email_status",       default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "first_user_status",  default: "pending"
+    t.string   "second_user_status", default: "pending"
   end
 
   create_table "positions", force: true do |t|
@@ -120,6 +120,7 @@ ActiveRecord::Schema.define(version: 20140317010549) do
     t.string   "image"
     t.string   "public_profile"
     t.integer  "location_id"
+    t.boolean  "admin",          default: false
   end
 
   add_index "users", ["location_id"], name: "index_users_on_location_id", using: :btree

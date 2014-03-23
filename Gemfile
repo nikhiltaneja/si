@@ -29,10 +29,9 @@ gem 'jbuilder', '~> 1.2'
 
 gem 'omniauth-linkedin'
 
+gem 'sinatra'
 gem 'unicorn'
 gem 'sidekiq'
-gem 'sidetiq'
-gem 'redis'
 
 gem 'figaro'
 

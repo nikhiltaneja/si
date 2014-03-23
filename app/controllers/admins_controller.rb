@@ -1,5 +1,6 @@
 class AdminsController < ApplicationController
-
+  before_action :admin?
+  
   def index
     @eligible_users = []
     @users = User.all
@@ -12,6 +13,11 @@ class AdminsController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @location_matches = @user.location_matches
+    @shared = []
+    @location_matches.each do |user_l|
+      @shared << @user.shared_connections(user_l).count
+    end
     
   end
 

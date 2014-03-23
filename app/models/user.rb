@@ -88,4 +88,36 @@ class User < ActiveRecord::Base
   def current_match
     matches.last
   end
+
+  def location_matches #returns array of users
+    User.where(location_id: self.location.id)
+  end
+
+  def shared_connections(user) #returns linkedin_user_id array
+    #want to use a join here
+    s1 = Connection.where(user_id: self.id)
+    s2 = Connection.where(user_id: user.id)
+    s1_connections = []
+    s2_connections = []
+    s1.each do |s|
+      s1_connections << s.linkedin_user_id
+    end
+    s2.each do |s|
+      s2_connections << s.linkedin_user_id
+    end
+    s1_connections & s2_connections 
+  end
+
+  def remove_first_degree
+    self.connections
+  end
+
+  def self.remove_inactive
+  end
+
+  def remove_previous_matches
+
+  end
+
+
 end

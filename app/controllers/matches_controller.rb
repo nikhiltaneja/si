@@ -21,6 +21,11 @@ class MatchesController < ApplicationController
     end
   end
 
+  def create
+    Match.create(first_user_id: params[:user_1], second_user_id: params[:user_2])
+    redirect_to admins_path
+  end
+
   def update
     @match = Match.find(params[:id])
     to_update = current_user.id == @match.first_user_id ? :first_user_status : :second_user_status

@@ -1,11 +1,11 @@
 class AdminsController < ApplicationController
   before_action :admin?
-  
+
   def index
     @eligible_users = []
     @users = User.all
     @users.each do |user|
-      if (Time.now - user.current_match.created_at) > 10
+      if (Time.now - user.current_match.created_at) > 10 #need to change to one day
         @eligible_users << user
       end
     end

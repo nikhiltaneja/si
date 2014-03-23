@@ -1,6 +1,7 @@
 Potential matches for <%= @user.name %>:
-
+<ul>
 <% @location_matches.each_with_index do |user, index| %>
-  <%= user.name %> shared connection: <%= @shared[index] %>
-  <%= button_to "Create Match", user_matches_path(@user, user_1: @user.id, user_2: user.id), method: 'post', class: 'btn btn-primary' %>
+  <li><%= user.name %> shared connection: <%= @shared[index] %> 
+    <%= button_to "Create Match", user_matches_path(@user, user_1: @user.id, user_2: user.id), method: 'post', class: 'btn btn-primary' %></li>
 <% end %>
+</ul>

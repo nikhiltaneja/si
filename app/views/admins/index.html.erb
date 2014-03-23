@@ -1,3 +1,5 @@
+<ul>
 <% @eligible_users.each do |user| %>
-  <%= link_to user.name, admin_path(user) %>
+  <li><%= link_to user.name, admin_path(user) %></li>
 <% end %>
+</ul>

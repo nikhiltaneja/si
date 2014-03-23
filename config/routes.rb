@@ -10,4 +10,5 @@ SwiftIntro::Application.routes.draw do
   end
 
   resources :dashboard, only: [:index]
+  resources :admins, only: [:index, :show]
 end

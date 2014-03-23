@@ -32,6 +32,12 @@ class ApplicationController < ActionController::Base
     current_user.admin
   end
 
+  def admin?
+    if !current_user.admin
+      redirect_to root_url
+    end
+  end
+
   def matches?
     if current_user.matches.empty?
       redirect_to user_path(current_user)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140322224432) do
+ActiveRecord::Schema.define(version: 20140323204519) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,6 +86,9 @@ ActiveRecord::Schema.define(version: 20140322224432) do
     t.string   "first_user_status",  default: "pending"
     t.string   "second_user_status", default: "pending"
   end
+
+  add_index "matches", ["first_user_id"], name: "index_matches_on_first_user_id", using: :btree
+  add_index "matches", ["second_user_id"], name: "index_matches_on_second_user_id", using: :btree
 
   create_table "positions", force: true do |t|
     t.string   "name"

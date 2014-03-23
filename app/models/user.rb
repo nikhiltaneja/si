@@ -86,7 +86,7 @@ class User < ActiveRecord::Base
   end
 
   def current_match
-    matches.last
+    matches.sort.last
   end
 
   def location_matches #returns array of users

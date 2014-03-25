@@ -41,10 +41,10 @@ class User < ActiveRecord::Base
       if past_jobs
         add_past_jobs(past_jobs, user.id)
       end
-      
+
       if user_connections
         #add_connections(user_connections, user.id)
-        Connection_Worker.perform_async(user_connections, user.id)
+        ConnectionWorker.perform_async(user_connections, user.id)
       end
       user.save!
     end

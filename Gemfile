@@ -29,7 +29,7 @@ gem 'jbuilder', '~> 1.2'
 
 gem 'omniauth-linkedin'
 
-gem 'sinatra'
+gem 'sinatra', require: false
 gem 'unicorn'
 gem 'sidekiq'
 

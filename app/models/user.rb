@@ -127,18 +127,6 @@ class User < ActiveRecord::Base
   end
 
     def shared_connections(user_id) #returns linkedin_user_id array
-    # s1 = Connection.where(user_id: self.id)
-    # s2 = Connection.where(user_id: user_id)
-    # s1_connections = []
-    # s2_connections = []
-    # s1.each do |s|
-    #   s1_connections << s.linkedin_user_id
-    # end
-    # s2.each do |s|
-    #   s2_connections << s.linkedin_user_id
-    # end
-    # s1_connections & s2_connections
-
     first_user_connections = Connection.where(user_id: self.id).pluck(:linkedin_user_id)
     second_user_connections = Connection.where(user_id: user_id).pluck(:linkedin_user_id)
 

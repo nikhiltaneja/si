@@ -82,55 +82,54 @@ class User < ActiveRecord::Base
   end
 
   def matches
-    Match.where(first_user_id: self.id) + Match.where(second_user_id: self.id)
+    Match.where("first_user_id = ? OR second_user_id = ?", self.id, self.id).order(:created_at)
   end
 
   def current_match
-    matches.sort.last
+    matches.last
   end
 
-  def location_matches #returns array of users
+  def find_potential_matches
+    users_same_location = location_matches
+    users_removed_previous_matches = remove_previous_matches(users_same_location)
+    remove_oneself(users_removed_previous_matches)
+  end
+
+  def location_matches
     User.where(location_id: self.location.id)
-  end
-
-  def shared_connections(user_id) #returns linkedin_user_id array
-    s1 = Connection.where(user_id: self.id)
-    s2 = Connection.where(user_id: user_id)
-    s1_connections = []
-    s2_connections = []
-    s1.each do |s|
-      s1_connections << s.linkedin_user_id
-    end
-    s2.each do |s|
-      s2_connections << s.linkedin_user_id
-    end
-    s1_connections & s2_connections
-    # LinkedinUser.join('connections my_connections ON connections.linkedin_user_id = linkedin_users.id').
-    #   join('connections other_connections ON connections.linkedin_user_id = linkedin_users.id').
-    #   where(my_connections: { user_id: self.id }).
-    #   where(other_connections: { user_id: user.id })
   end
 
   def remove_previous_matches(users)
     filtered_users = []
     users.each do |user|
       if self.id < user.id
-        if Match.find_by(first_user_id: self.id, second_user_id: user.id)
-        else
-          filtered_users << user.id
+        unless Match.find_by(first_user_id: self.id, second_user_id: user.id)
+          filtered_users << user
         end
       else
-        if Match.find_by(first_user_id: user.id, second_user_id: self.id)
-        else
-          filtered_users << user.id
+        unless Match.find_by(first_user_id: user.id, second_user_id: self.id)
+          filtered_users << user
         end
       end
     end
     filtered_users
+
+    # matched_user_ids1 = Match.where(first_user_id: self.id).pluck(:second_user_id)
+    # matched_user_ids2 = Match.where(second_user_id: self.id).pluck(:first_user_id)
+    
+    # matched_user_ids = matched_user_ids1 + matched_user_ids2
+    # User.where.not(:id => matched_user_ids)
   end
 
   def remove_oneself(users)
-    users.delete(self.id)
+    users.delete(self)
     users
+  end
+
+    def shared_connections(user_id) #returns linkedin_user_id array
+    first_user_connections = Connection.where(user_id: self.id).pluck(:linkedin_user_id)
+    second_user_connections = Connection.where(user_id: user_id).pluck(:linkedin_user_id)
+
+    mutual_connections = first_user_connections & second_user_connections
   end
 end

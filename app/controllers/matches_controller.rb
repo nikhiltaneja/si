@@ -32,8 +32,8 @@ class MatchesController < ApplicationController
     @match.update(to_update => params[:decision])
 
     if @match.match_status
-      UserMailer.match_confirmation(@match.first_user, @match.second_user).deliver
-      #EmailWorker.perform_async(@match.first_user.id, @match.second_user.id)
+      # UserMailer.match_confirmation(@match.first_user, @match.second_user).deliver
+      EmailWorker.perform_async(@match.first_user.id, @match.second_user.id)
     end
 
     redirect_to root_path, notice: "Thanks for submitting your response!"

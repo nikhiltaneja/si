@@ -43,8 +43,8 @@ class User < ActiveRecord::Base
       end
 
       if user_connections
-        #add_connections(user_connections, user.id)
-        ConnectionWorker.perform_async(user_connections, user.id)
+        add_connections(user_connections, user.id)
+        # ConnectionWorker.perform_async(user_connections, user.id)
       end
       user.save!
     end

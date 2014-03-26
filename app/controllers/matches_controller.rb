@@ -22,7 +22,11 @@ class MatchesController < ApplicationController
   end
 
   def create
-    Match.create(first_user_id: params[:user_1], second_user_id: params[:user_2])
+    if params[:user_1] < params[:user_2]
+      Match.create!(first_user_id: params[:user_1], second_user_id: params[:user_2])
+    else
+      Match.create!(first_user_id: params[:user_2], second_user_id: params[:user_1])
+    end
     redirect_to admins_path
   end
 

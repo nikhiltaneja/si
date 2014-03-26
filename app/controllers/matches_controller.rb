@@ -1,6 +1,6 @@
 class MatchesController < ApplicationController
   before_action :current_user?
-  before_action :matches?
+  before_action :matches?, only: [:index, :show]
 
   def index
     @matches = current_user.matches
@@ -27,7 +27,7 @@ class MatchesController < ApplicationController
     else
       Match.create!(first_user_id: params[:user_2], second_user_id: params[:user_1])
     end
-    redirect_to admins_path
+    redirect_to admins_path, notice: "Match successfullty created!"
   end
 
   def update

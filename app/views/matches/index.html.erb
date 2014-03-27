@@ -1,7 +1,21 @@
-<% @matches.each do |match| %>
-  <% if current_user.id == match.first_user_id %>
-    <%= link_to match.second_user.first_name, user_match_path(match.second_user, match) %>
-  <% else %>
-    <%= link_to match.first_user.first_name, user_match_path(match.first_user, match) %>
-  <% end %>
-<% end %>
+<div class="container">
+  <table class="table">
+    <thead>
+      <th>All matches</th>
+    </thead>
+
+    <tbody>
+      <% @matches.each do |match| %>
+        <% if current_user.id == match.first_user_id %>
+          <tr>
+            <td><%= link_to match.second_user.first_name, user_match_path(match.second_user, match) %></td>
+          </tr>
+        <% else %>
+          <tr>
+            <td><%= link_to match.first_user.first_name, user_match_path(match.first_user, match) %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>

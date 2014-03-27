@@ -27,7 +27,14 @@ class MatchesController < ApplicationController
     else
       Match.create!(first_user_id: params[:user_2], second_user_id: params[:user_1])
     end
-    redirect_to admins_path, notice: "Match successfullty created!"
+
+    first_user = User.find(params[:user_1])
+    second_user = User.find(params[:user_2])
+
+    UserMailer.potential_match(first_user).deliver
+    UserMailer.potential_match(second_user).deliver
+
+    redirect_to admins_path, notice: "Match successfully created!"
   end
 
   def update

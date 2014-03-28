@@ -22,7 +22,7 @@ class MatchesController < ApplicationController
   end
 
   def create
-    if params[:user_1] < params[:user_2]
+    if params[:user_1].to_i < params[:user_2].to_i
       Match.create!(first_user_id: params[:user_1], second_user_id: params[:user_2])
     else
       Match.create!(first_user_id: params[:user_2], second_user_id: params[:user_1])

@@ -15,6 +15,6 @@ SwiftIntro::Application.routes.draw do
   resources :dashboard, only: [:index]
   resources :admins, only: [:index, :show]
 
-  mount Sidekiq::Web, at: '/sidekiq'
+  mount Sidekiq::Web, at: '/admins/sidekiq'
   
 end

@@ -133,4 +133,17 @@ class User < ActiveRecord::Base
 
     mutual_connections = first_user_connections & second_user_connections
   end
+
+  def calculate_score  #updates a user's score 
+    # for m in self.matches
+    #   if self.id == m.first_user_id
+
+    #   elsif self.id == m.second_user_id
+
+    #   end
+    # end
+  end
+
+
+
 end

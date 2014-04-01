@@ -5,7 +5,7 @@ class AdminsController < ApplicationController
     users = User.all
     @eligible_users  = users.select do |user|
       if user.current_match
-        (Time.now - user.current_match.created_at) > 10 #need to change to one day
+        (Time.now - user.current_match.created_at) > 86400 #one day
       else
         true
       end

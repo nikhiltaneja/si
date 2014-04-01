@@ -20,4 +20,8 @@ class AdminsController < ApplicationController
       @user.shared_connections(potential_match.id).count
     end
   end
+
+  def requests
+    @users = User.where(approved: false)
+  end
 end

@@ -55,7 +55,8 @@ class User < ActiveRecord::Base
       school = School.find_or_create_by(name: education.schoolName)
       subject = Subject.find_or_create_by(name: education.fieldOfStudy)
       degree = Degree.find_or_create_by(name: education.degree)
-      Education.find_or_create_by(user_id: user_id, school_id: school.id, subject_id: subject.id, degree_id: degree.id)
+      grad_year = education["endDate"]["year"].to_s
+      Education.find_or_create_by(user_id: user_id, school_id: school.id, subject_id: subject.id, degree_id: degree.id).update(year: education["endDate"]["year"])
     end
   end
 

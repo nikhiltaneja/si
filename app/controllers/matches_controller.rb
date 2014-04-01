@@ -1,6 +1,7 @@
 class MatchesController < ApplicationController
-  before_action :current_user?
+  before_action :authenticate_user!
   before_action :matches?, only: [:index, :show]
+  before_action :approved?, only: [:index, :show]
 
   def index
     @matches = current_user.matches

@@ -6,19 +6,13 @@ class ApplicationController < ActionController::Base
   private
 
   helper_method :current_user
-  helper_method :current_user?
   helper_method :correct_user?
   helper_method :admin?
   helper_method :matches?
+  helper_method :approved?
 
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
-  end
-
-  def current_user?
-    if !current_user
-      redirect_to dashboard_index_path
-    end
   end
 
   def correct_user?
@@ -46,7 +40,13 @@ class ApplicationController < ActionController::Base
 
   def authenticate_user!
     if !current_user
-      redirect_to root_url, alert: 'You need to sign in for access to this page!'
+      redirect_to dashboard_index_path, alert: 'You need to sign in for access to this page!'
+    end
+  end
+
+  def approved?
+    if current_user.approved != "Yes"
+      redirect_to users_request_received_path
     end
   end
 end

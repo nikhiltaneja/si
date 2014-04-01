@@ -127,10 +127,23 @@ class User < ActiveRecord::Base
     users
   end
 
-    def shared_connections(user_id) #returns linkedin_user_id array
+  def shared_connections(user_id) #returns linkedin_user_id array
     first_user_connections = Connection.where(user_id: self.id).pluck(:linkedin_user_id)
     second_user_connections = Connection.where(user_id: user_id).pluck(:linkedin_user_id)
 
     mutual_connections = first_user_connections & second_user_connections
   end
+
+  def calculate_score  #updates a user's score 
+    # for m in self.matches
+    #   if self.id == m.first_user_id
+
+    #   elsif self.id == m.second_user_id
+
+    #   end
+    # end
+  end
+
+
+
 end

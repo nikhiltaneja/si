@@ -8,8 +8,8 @@
         <tr>
           <td><%= user.name %></td>
           <td><%= user.location.area %></td>
-          <td><%= button_to "Approve", user_path(user, approved: true), method: 'put', class: 'btn btn-success' %> </td>
-          <td><%= button_to "Reject", user_path(user, approved: false), method: 'put', class: 'btn btn-danger' %> </td>
+          <td><%= button_to "Approve", user_path(user, approved: "Yes"), method: 'put', class: 'btn btn-success' %> </td>
+          <td><%= button_to "Reject", user_path(user, approved: "No"), method: 'put', class: 'btn btn-danger' %> </td>
         </tr>
       <% end %>
     </tbody>

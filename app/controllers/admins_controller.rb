@@ -22,6 +22,6 @@ class AdminsController < ApplicationController
   end
 
   def requests
-    @users = User.where(approved: false)
+    @users = User.where(approved: "pending")
   end
 end

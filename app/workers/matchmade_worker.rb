@@ -1,4 +1,4 @@
-class EmailWorker
+class MatchmadeWorker
   include Sidekiq::Worker
 
   def perform(user1_id, user2_id)

@@ -27,11 +27,7 @@ class MatchesController < ApplicationController
       Match.create!(first_user_id: params[:user_2], second_user_id: params[:user_1])
     end
 
-    first_user = User.find(params[:user_1])
-    second_user = User.find(params[:user_2])
-
-    UserMailer.potential_match(first_user).deliver
-    UserMailer.potential_match(second_user).deliver
+    PotentialmatchWorker.perform_async(params[:user_1], params[:user_2])
 
     redirect_to admins_path, notice: "Match successfully created!"
   end
@@ -44,7 +40,7 @@ class MatchesController < ApplicationController
 
     if @match.match_status
       # UserMailer.match_confirmation(@match.first_user, @match.second_user).deliver
-      EmailWorker.perform_async(@match.first_user.id, @match.second_user.id)
+      MatchmadeWorker.perform_async(@match.first_user.id, @match.second_user.id)
     end
 
     redirect_to root_path, notice: "Thanks for submitting your response!"

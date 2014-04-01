@@ -1,6 +1,18 @@
 class UserMailer < ActionMailer::Base
   default from: "matches@swiftintro.com"
 
+  def approved_confirmation(user)
+    @user = user
+
+    mail to: [@user.email], subject: 'Welcome to SwiftIntro!'
+  end
+
+  def rejected_confirmation(user)
+    @user = user
+
+    mail to: [@user.email], subject: 'SwiftIntro Update'
+  end
+
   def potential_match(user)
     @user = user
 

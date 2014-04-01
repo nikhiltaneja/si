@@ -1,0 +1,17 @@
+<div class="container">
+  <table class="table">
+    <thead>
+      <th>Users requesting invite to beta program</th>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.name %></td>
+          <td><%= user.location.area %></td>
+          <td><%= button_to "Approve", user_path(user, approved: true), method: 'put', class: 'btn btn-success' %> </td>
+          <td><%= button_to "Reject", user_path(user, approved: false), method: 'put', class: 'btn btn-danger' %> </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

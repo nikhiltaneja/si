@@ -8,8 +8,7 @@ class MatchesController < ApplicationController
 
   def show
     if params[:id]
-      id = params[:id]
-      @match = Match.find(id)
+      @match = Match.find(params[:id])
     else
       @match = current_user.current_match
     end

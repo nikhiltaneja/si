@@ -7,13 +7,17 @@ SwiftIntro::Application.routes.draw do
   get 'signout', to: 'sessions#destroy', as: 'signout'
 
   root to: 'matches#show'
+
+  get 'users/request_received'
   
   resources :users, except: [:index] do
     resources :matches
   end
 
-  resources :dashboard, only: [:index]
+  get 'admins/requests'
+
   resources :admins, only: [:index, :show]
+  resources :dashboard, only: [:index]
 
   mount Sidekiq::Web, at: '/sidekiq'
   

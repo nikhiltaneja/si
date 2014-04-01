@@ -10,13 +10,22 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
+    user = User.find(params[:id])
 
     if params[:approved]
-      @user.approved = params[:approved]
+      user.approved = params[:approved]
+
+      if user.approved == "Yes"
+        UserMailer.approved_confirmation(user).deliver
+      end
+
+      if user.approved == "No"
+        UserMailer.rejected_confirmation(user).deliver
+      end
     end
 
-    @user.save
+    user.save
+
     redirect_to :back
   end
 end

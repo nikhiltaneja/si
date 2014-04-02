@@ -16,13 +16,7 @@ class UsersController < ApplicationController
     if params[:approved]
       user.approved = params[:approved]
 
-      if user.approved == "Yes"
-        UserMailer.approved_confirmation(user).deliver
-      end
-
-      if user.approved == "No"
-        UserMailer.rejected_confirmation(user).deliver
-      end
+      DecisionWorker.perform_async(user.id, params[:approved])
     end
 
     user.save

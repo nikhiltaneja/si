@@ -1,1 +1,5 @@
-Questions:
+<%= form_for @user do |f| %>
+  <p> What industry are you in? </p>
+  <%= f.collection_select(:industry_id, Industry.all, :id, :name) %>
+  <%= f.submit "Submit" %>
+<% end %>

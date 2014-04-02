@@ -19,8 +19,16 @@ class UsersController < ApplicationController
       DecisionWorker.perform_async(user.id, params[:approved])
     end
 
+    if params[:user][:industry_id]
+      user.industry_id = params[:user][:industry_id]
+    end
+
     user.save
 
     redirect_to :back
+  end
+
+  def edit
+    @user = User.find(params[:id])
   end
 end

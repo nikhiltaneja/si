@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140401230541) do
+ActiveRecord::Schema.define(version: 20140402173812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,12 @@ ActiveRecord::Schema.define(version: 20140401230541) do
   add_index "educations", ["school_id"], name: "index_educations_on_school_id", using: :btree
   add_index "educations", ["subject_id"], name: "index_educations_on_subject_id", using: :btree
   add_index "educations", ["user_id"], name: "index_educations_on_user_id", using: :btree
+
+  create_table "industries", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "jobs", force: true do |t|
     t.integer  "company_id"
@@ -120,15 +126,16 @@ ActiveRecord::Schema.define(version: 20140401230541) do
     t.string   "email"
     t.text     "headline"
     t.text     "summary"
-    t.string   "industry"
     t.string   "image"
     t.string   "public_profile"
     t.integer  "location_id"
     t.boolean  "admin",          default: false
     t.float    "score",          default: 0.0
     t.string   "approved",       default: "pending"
+    t.integer  "industry_id"
   end
 
+  add_index "users", ["industry_id"], name: "index_users_on_industry_id", using: :btree
   add_index "users", ["location_id"], name: "index_users_on_location_id", using: :btree
 
 end

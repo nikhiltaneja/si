@@ -21,7 +21,9 @@ class User < ActiveRecord::Base
       user.location = Location.find_or_create_by(area: auth["info"]["location"])
       user.image = auth["info"]["image"]
       user.public_profile = auth["info"]["urls"]["public_profile"]
-      user.save!
+      user.token = auth["extra"]["access_token"].token
+      user.secret = auth["extra"]["access_token"].secret
+      user.save! 
     
       user_educations = auth["extra"]["raw_info"]["educations"]["values"]
       current_jobs = auth["extra"]["raw_info"]["threeCurrentPositions"]["values"]
@@ -42,10 +44,9 @@ class User < ActiveRecord::Base
         add_past_jobs(past_jobs, user.id)
       end
 
-      if user_connections
-        add_connections(user_connections, user.id)
-        # ConnectionWorker.perform_async(user_connections, user.id)
-      end
+      #User.get_connections(user)
+      ConnectionWorker.perform_async(user.id)
+
       user.save!
     end
   end
@@ -73,13 +74,6 @@ class User < ActiveRecord::Base
       company = Company.find_or_create_by(name: job["company"].name)
       position = Position.find_or_create_by(name: job["title"])
       Job.find_or_create_by(user_id: user_id, company_id: company.id, position_id: position.id)
-    end
-  end
-
-  def self.add_connections(user_connections, user_id)
-    user_connections.each do |connection|
-      linkedin_user = LinkedinUser.find_or_create_by(uid: connection["id"])
-      Connection.find_or_create_by(user_id: user_id, linkedin_user_id: linkedin_user.id)
     end
   end
 
@@ -136,15 +130,28 @@ class User < ActiveRecord::Base
   end
 
   def calculate_score  #updates a user's score 
-    # for m in self.matches
-    #   if self.id == m.first_user_id
-
-    #   elsif self.id == m.second_user_id
-
-    #   end
-    # end
+    meetups_requested = []
+    #should do an if statement to see if matches.length > 10 to exclude new people
+    for m in self.matches
+      if self.id == m.first_user_id && m.second_user_status == "Yes"
+        meetups_requested << m.second_user_id
+      elsif self.id == m.second_user_id && m.first_user_status == "Yes"
+        meetups_requested << m.first_user_id
+      end
+    end
+    # doesn't account for people who don't respond
+    self.score = (meetups_requested.length / self.matches.length)*100
+    self.save
   end
 
+  def self.get_connections(user)
+    client = LinkedIn::Client.new(ENV['LINKEDIN_API_KEY'], ENV['LINKEDIN_SECRET_KEY'])
+    client.authorize_from_access(user.token, user.secret)
+    client.connections["all"].each do |connection|
+      linkedin_user = LinkedinUser.find_or_create_by(uid: connection["id"])
+      Connection.find_or_create_by(user_id: user.id, linkedin_user_id: linkedin_user.id)
+    end
+  end
 
 
 end

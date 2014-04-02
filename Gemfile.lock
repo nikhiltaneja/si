@@ -80,6 +80,10 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.1)
     kgio (2.9.2)
+    linkedin (0.4.6)
+      hashie (>= 1.2, < 2.1)
+      multi_json (~> 1.0)
+      oauth (~> 0.4)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -211,6 +215,7 @@ DEPENDENCIES
   figaro
   jbuilder (~> 1.2)
   jquery-rails
+  linkedin
   omniauth-linkedin
   pg
   pry-rails

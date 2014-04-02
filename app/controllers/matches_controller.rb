@@ -19,6 +19,9 @@ class MatchesController < ApplicationController
     else
       @user = @match.first_user
     end
+
+    @shared = @user.shared_connections(@match.id).count
+
   end
 
   def create
@@ -37,7 +40,8 @@ class MatchesController < ApplicationController
     @match = Match.find(params[:id])
     to_update = current_user.id == @match.first_user_id ? :first_user_status : :second_user_status
     @match.update(to_update => params[:decision])
-    #ScoreWorker.perform_async(@match.first_user.id, @match.second_user.id)
+    other_user_id = current_user.id == @match.first_user_id ? @match.second_user_id : @match.first_user_id
+    #ScoreWorker.perform_async(other_user_id)
 
     if @match.match_status
       # UserMailer.match_confirmation(@match.first_user, @match.second_user).deliver

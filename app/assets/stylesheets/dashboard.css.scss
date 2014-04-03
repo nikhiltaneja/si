@@ -23,5 +23,16 @@ footer {
 }
 
 .jumbotron {
-  background-color: #B0C4DE;
+  margin: 8% auto;
+  background-color: transparent;
+}
+
+.primary-text {
+  color: white;
+}
+
+body {
+  background-image: url('coffee_meeting.jpg');
+  background-repeat: no-repeat;
+  background-size: 100%;
 }

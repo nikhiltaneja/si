@@ -11,7 +11,7 @@
             <li><%= link_to "Admin", admins_path %></li>
           <% end %>
 
-          <% if !current_user.matches.empty? %>
+          <% if !current_user.matches.empty? && current_user.approved == "Yes" %>
             <li><%= link_to "Current Match", user_match_path(current_user, current_user.current_match) %></li>
             <li><%= link_to "All Matches", user_matches_path(current_user) %></li>
           <% end %>

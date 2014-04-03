@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_many :educations
   has_many :jobs
   has_many :connections
+  has_many :industry_interests
 
   has_many :first_users, class_name: "Match", foreign_key: :first_user_id
   has_many :second_users, class_name: "Match", foreign_key: :second_user_id
@@ -17,7 +18,6 @@ class User < ActiveRecord::Base
       user.name = auth["info"]["name"]
       user.email = auth["info"]["email"]
       user.headline = auth["info"]["headline"]
-      user.summary = auth["extra"]["raw_info"]["summary"]
       user.location = Location.find_or_create_by(area: auth["info"]["location"])
       user.image = auth["info"]["image"]
       user.public_profile = auth["info"]["urls"]["public_profile"]

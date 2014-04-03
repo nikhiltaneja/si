@@ -2,8 +2,9 @@ class SessionsController < ApplicationController
   def create
     user = User.from_omniauth(env["omniauth.auth"])
     session[:user_id] = user.id
+    
     if user.approved != "Yes"
-      redirect_to user_edit_path(user)
+      redirect_to edit_user_path(user)
     elsif user.matches.empty?
       redirect_to user_path(user), notice: "Thanks for signing in. We are currently identifying matches for you. Please check back soon!"
     else

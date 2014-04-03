@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
 
   def approved?
     if current_user.approved != "Yes"
-      redirect_to users_request_received_path
+      redirect_to dashboard_index_path
     end
   end
 end

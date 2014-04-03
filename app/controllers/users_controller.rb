@@ -7,9 +7,6 @@ class UsersController < ApplicationController
   	@user = User.find(params[:id])
   end
 
-  def request_received
-  end
-
   def update
     user = User.find(params[:id])
 
@@ -17,15 +14,27 @@ class UsersController < ApplicationController
       user.approved = params[:approved]
 
       DecisionWorker.perform_async(user.id, params[:approved])
+
+      user.save
+      redirect_to :back
     end
 
-    if params[:user][:industry_id]
+    if params[:user]
       user.industry_id = params[:user][:industry_id]
+      user.summary = params[:user][:summary]
+
+      user.save
+
+      if user.approved == "Yes"
+        redirect_to user_path(user), notice: 'Profile updated!'
+      else        
+        redirect_to user_path(user), notice: 'Thank you for expressing interest in SwiftIntro!  We will email you soon with more information about our beta program.'
+      end
     end
-
-    user.save
-
-    redirect_to :back
+    
+    # if params[:user][:industry_interests]
+    #   IndustryInterest.find_or_create_by(:user_id => params[:user_id], :industry_id => params[:user][:industry_interests])
+    # end
   end
 
   def edit

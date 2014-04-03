@@ -7,8 +7,6 @@ SwiftIntro::Application.routes.draw do
   get 'signout', to: 'sessions#destroy', as: 'signout'
 
   root to: 'matches#show'
-
-  get 'users/request_received'
   
   resources :users, except: [:index] do
     resources :matches

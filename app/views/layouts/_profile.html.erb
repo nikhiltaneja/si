@@ -1,60 +1,52 @@
-<div class="row">
-  <div class="col-md-4 col-md-offset-1 center">
-    <div class="row">
-      <%= image_tag @user.image, size: "250x250" %>
-    </div>
-    <div class="row">
-      <h2><%= @user.name %></h2>
-      <h4><%= @user.headline %></h4>
-      <h4><%= @user.location.area %></h4>
-      <% if @user.industry %>
-        <h4>Industry: <%= @user.industry.name %></h4>
-      <% end %>
-      <h4><%= link_to "LinkedIn Profile", @user.public_profile, target: 'blank' %></h4>
-    </div>
-  </div>
-
-  <div class="col-md-6 col-md-offset-1">
-    <div class="row">
-      <div>
-        <% if @user.summary && !@user.summary.empty? %>
-          <h3>Summary</h3>
-          <p><%= @user.summary %></p>
+<div>
+  <div class="row">
+    <div class="col-md-4 col-md-offset-1 center">
+      <div class="row">
+        <%= image_tag @user.image, size: "250x250", class:'profile-picture' %>
+      </div>
+      <div class="row">
+        <h2><%= @user.name %></h2>
+        <h4><%= @user.headline %></h4>
+        <h4><%= @user.location.area %></h4>
+        <% if @user.industry %>
+          <h4>Industry: <%= @user.industry.name %></h4>
         <% end %>
+        <h4><%= link_to "LinkedIn Profile", @user.public_profile, target: 'blank' %></h4>
       </div>
     </div>
 
-    <div class="row">
-      <div >
-        <h3>Work Experience</h3>
-        <% @user.jobs.each do |job| %>
-          <p><%= job.company.name %>, <%= job.position.name %> </p>
-        <% end %>
+    <div class="col-md-6 col-md-offset-1">
+      <div class="row">
+        <div>
+          <% if @user.summary && !@user.summary.empty? %>
+            <h3>Summary</h3>
+            <p><%= @user.summary %></p>
+          <% end %>
+        </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div>
-        <% if !@user.educations.empty? %>
-          <h3>Education</h3>
-          <% @user.educations.each do |education| %>
-            <p><%= education.school.name %> <%= education.year %></p>
-            <% if education.subject && !education.subject.name.nil? %>
-                <p><%= education.degree.name %> <%= education.subject.name %></p>
+      <div class="row">
+        <div >
+          <h3>Work Experience</h3>
+          <% @user.jobs.each do |job| %>
+            <p><%= job.company.name %>, <%= job.position.name %> </p>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <% if !@user.educations.empty? %>
+            <h3>Education</h3>
+            <% @user.educations.each do |education| %>
+              <p><%= education.school.name %>,
+              <% if education.subject && !education.subject.name.nil? %>
+                <%= education.degree.name %> <%= education.subject.name %> <%= education.year %></p>
+              <% end %>
             <% end %>
           <% end %>
-        <% end %>
-      </div>
-    </div> 
+        </div>
+      </div> 
+    </div>
   </div>
 </div>
-
-
-
-
-
-  
-
-
-
-  

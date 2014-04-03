@@ -51,9 +51,7 @@ class ApplicationController < ActionController::Base
   end
 
   def logged_in?
-    binding.pry
     if current_user
-      binding.pry
       redirect_to user_path(current_user)
     end
   end

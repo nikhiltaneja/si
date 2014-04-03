@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   def correct_user?
     @user = User.find(params[:id])
     unless current_user == @user
-      redirect_to root_url, alert: "Access denied."
+      redirect_to user_path(current_user), alert: "Access denied."
     end
   end
 
@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
 
   def check_admin?
     if !current_user.admin
-      redirect_to root_url
+      redirect_to user_path(current_user)
     end
   end
 
@@ -46,7 +46,13 @@ class ApplicationController < ActionController::Base
 
   def approved?
     if current_user.approved != "Yes"
-      redirect_to dashboard_index_path
+      redirect_to user_path(current_user)
+    end
+  end
+
+  def logged_in?
+    if current_user
+      redirect_to user_path(current_user)
     end
   end
 end

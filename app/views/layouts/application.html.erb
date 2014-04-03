@@ -18,7 +18,12 @@
 
   <%= csrf_meta_tags %>
 </head>
-<body>
+
+<% if current_user %>
+  <body>
+<% else %>
+  <body class="home">
+<% end %>
 
   <%= render partial: 'layouts/flash' %>
 

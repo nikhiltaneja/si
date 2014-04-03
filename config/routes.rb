@@ -6,7 +6,7 @@ SwiftIntro::Application.routes.draw do
   get 'auth/failure', to: redirect('/')
   get 'signout', to: 'sessions#destroy', as: 'signout'
 
-  root to: 'matches#show'
+  root to: 'users#show'
   
   resources :users, except: [:index] do
     resources :matches

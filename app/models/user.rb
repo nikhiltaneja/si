@@ -19,7 +19,6 @@ class User < ActiveRecord::Base
       user.email = auth["info"]["email"]
       user.headline = auth["info"]["headline"]
       user.location = Location.find_or_create_by(area: auth["info"]["location"])
-      user.image = auth["info"]["image"]
       user.public_profile = auth["info"]["urls"]["public_profile"]
       user.token = auth["extra"]["access_token"].token
       user.secret = auth["extra"]["access_token"].secret
@@ -43,6 +42,8 @@ class User < ActiveRecord::Base
       if past_jobs
         add_past_jobs(past_jobs, user.id)
       end
+
+      user.image = User.get_profile_picture(user)
 
       #User.get_connections(user)
       ConnectionWorker.perform_async(user.id)
@@ -151,6 +152,12 @@ class User < ActiveRecord::Base
       linkedin_user = LinkedinUser.find_or_create_by(uid: connection["id"])
       Connection.find_or_create_by(user_id: user.id, linkedin_user_id: linkedin_user.id)
     end
+  end
+
+  def self.get_profile_picture(user)
+    client = LinkedIn::Client.new(ENV['LINKEDIN_API_KEY'], ENV['LINKEDIN_SECRET_KEY'])
+    client.authorize_from_access(user.token, user.secret)
+    client.picture_urls["all"][0]
   end
 
 

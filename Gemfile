@@ -28,6 +28,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 
 gem 'omniauth-linkedin'
+gem "linkedin"
 
 gem 'sinatra', require: false
 gem 'unicorn'

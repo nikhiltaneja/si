@@ -4,8 +4,18 @@
       <h4>What industry are you in?</h4>
       <%= f.collection_select(:industry_id, Industry.all, :id, :name) %>
     </div>
-    <!-- <p> Who are you interested in meeting? Professionals in: </p>
-    <%= f.collection_select(:industry_interests, Industry.all, :id, :name) %>   -->
+    <div class="form-group">
+      <h4> Who are you interested in meeting? Professionals in: </h4>
+      <% Industry.all.each do |industry| %>
+        <% checked = current_user.industry_interests.pluck(:industry_id).include?(industry.id) %>
+          <div class="checkbox">
+            <label>
+              <%= check_box_tag("industry_interests[]", industry.id, checked) %> <%= industry.name %>
+            </label>
+          </div>        
+      <% end %>
+    </div>
+    
 
     <div class="form-group">
       <h4>Please write a one sentence summary that describes you (optional)</h4>

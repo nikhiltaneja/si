@@ -9,6 +9,7 @@ SwiftIntro::Application.routes.draw do
   root to: 'users#show'
   
   resources :users, except: [:index] do
+    get 'matches/prior_matches', to: 'matches#prior_matches'
     resources :matches
   end
 

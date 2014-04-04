@@ -4,7 +4,7 @@ class MatchesController < ApplicationController
   before_action :approved?, only: [:index, :show]
 
   def index
-    @matches = current_user.matches
+    @matches = current_user.matches.where(match_status: false)
   end
 
   def show
@@ -21,7 +21,6 @@ class MatchesController < ApplicationController
     end
 
     @shared = @user.shared_connections(@match.id).count
-
   end
 
   def create
@@ -49,5 +48,9 @@ class MatchesController < ApplicationController
     end
 
     redirect_to root_path, notice: "Thanks for submitting your response!"
+  end
+
+  def prior_matches
+    @matches = current_user.matches.where(match_status: true)
   end
 end

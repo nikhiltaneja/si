@@ -13,7 +13,7 @@
           <tr>
             <td><%= image_tag match.second_user.image, size: "30x30" %></td>    
             <td><%= link_to match.second_user.name, user_match_path(match.second_user, match) %></td>
-            <% if match.industry %>
+            <% if match.second_user.industry%>
             <td><%= match.second_user.industry.name %></td>
             <% else %>
             <td></td>
@@ -24,7 +24,7 @@
           <tr>
             <td><%= image_tag match.first_user.image, size: "30x30" %></td>   
             <td><%= link_to match.first_user.name, user_match_path(match.first_user, match) %></td>
-            <% if match.industry %>
+            <% if match.first_user.industry %>
             <td><%= match.first_user.industry.name %></td>
             <% else %>
             <td></td>

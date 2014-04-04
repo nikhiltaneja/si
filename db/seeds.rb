@@ -1,4 +1,3 @@
-
 Industry.find_or_create_by(name: "Education")
 Industry.find_or_create_by(name: "Fashion")
 Industry.find_or_create_by(name: "Finance")

@@ -16,6 +16,8 @@ class ApplicationController < ActionController::Base
   end
 
   def correct_user?
+    return true unless params[:id] #hack to make sure it does not break without param
+
     @user = User.find(params[:id])
     unless current_user == @user
       redirect_to user_path(current_user), alert: "Access denied."

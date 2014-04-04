@@ -142,9 +142,9 @@ ActiveRecord::Schema.define(version: 20140402215248) do
     t.boolean  "admin",          default: false
     t.float    "score",          default: 0.0
     t.string   "approved",       default: "pending"
+    t.integer  "industry_id"
     t.string   "token"
     t.string   "secret"
-    t.integer  "industry_id"
   end
 
   add_index "users", ["industry_id"], name: "index_users_on_industry_id", using: :btree

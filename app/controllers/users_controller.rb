@@ -27,16 +27,10 @@ class UsersController < ApplicationController
       user.industry_id = params[:user][:industry_id]
       user.summary = params[:user][:summary]
 
-      initial_interests = IndustryInterest.where(user_id: user.id)
+      user.industry_interests.where.not(industry_id: params[:industry_interests]).delete_all
 
-      updated_interests = params[:industry_interests].collect do |industry_interest_id|
+      params[:industry_interests].each do |industry_interest_id|
         IndustryInterest.find_or_create_by(user_id: user.id, industry_id: industry_interest_id)
-      end
-
-      expired_interests = initial_interests - updated_interests
-
-      expired_interests.each do |expired_interest|
-        expired_interest.delete
       end
 
       user.save

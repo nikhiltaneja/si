@@ -25,3 +25,19 @@ body.home {
   background-repeat: no-repeat;
   background-size: 100%;
 }
+
+@media (min-width: 100px) {
+
+body.home {
+  background: image-url('rsz_1city.jpg');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  
+}}
+
+@media (min-width: 1050px) {
+body.home {
+  background: image-url('coffee_meeting.jpg');
+  background-repeat: no-repeat;
+  background-size: 100%;
+}}

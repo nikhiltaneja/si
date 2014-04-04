@@ -1,18 +1,27 @@
 <div class="container">
-  <table class="table">
+  <table class="table .table-striped table-hover">
     <thead>
-      <th>All matches</th>
+      <th>Match Name</th>
+      <th>Match Industry</th>
+      <th>Match Headline</th>
+      <th>Match Image</th>
     </thead>
 
     <tbody>
       <% @matches.each do |match| %>
         <% if current_user.id == match.first_user_id %>
           <tr>
-            <td><%= link_to match.second_user.first_name, user_match_path(match.second_user, match) %></td>
+            <td><%= link_to match.second_user.name, user_match_path(match.second_user, match) %></td>
+            <td><%= match.second_user.industry %></td>
+            <td><%= match.second_user.headline %></td>
+            <td><%= image_tag match.second_user.image, size: "30x30" %></td>     
           </tr>
         <% else %>
           <tr>
-            <td><%= link_to match.first_user.first_name, user_match_path(match.first_user, match) %></td>
+            <td><%= link_to match.first_user.name, user_match_path(match.first_user, match) %></td>
+            <td><%= match.first_user.industry %></td>
+            <td><%= match.first_user.headline %></td>
+             <td><%= image_tag match.first_user.image, size: "30x30" %></td>   
           </tr>
         <% end %>
       <% end %>

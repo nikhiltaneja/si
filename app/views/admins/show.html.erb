@@ -11,7 +11,7 @@
     <tbody>
       <% @potential_matches.each_with_index do |potential_match, index| %>
         <tr>
-          <td><%= potential_match.name %></td>
+          <td><%= link_to potential_match.name, user_path(potential_match) %></td>
           <% if potential_match.industry %>
             <td><%= potential_match.industry.name %></td>
           <% else %>

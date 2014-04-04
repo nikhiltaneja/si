@@ -41,7 +41,7 @@ class MatchesController < ApplicationController
     to_update = current_user.id == @match.first_user_id ? :first_user_status : :second_user_status
     @match.update(to_update => params[:decision])
     other_user_id = current_user.id == @match.first_user_id ? @match.second_user_id : @match.first_user_id
-    #ScoreWorker.perform_async(other_user_id)
+    ScoreWorker.perform_async(other_user_id)
 
     if @match.match_status
       # UserMailer.match_confirmation(@match.first_user, @match.second_user).deliver

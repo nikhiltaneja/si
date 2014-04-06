@@ -12,32 +12,40 @@ footer {
 }
 
 .jumbotron {
-  margin: 8% auto;
   background-color: transparent;
+  padding-top: 12%;
 }
 
 .primary-text {
   color: white;
 }
 
-body.home {
+.home {
   background: image-url('coffee_meeting.jpg');
   background-repeat: no-repeat;
   background-size: 100%;
+  height: 100%;
+}
+
+html, body {
+  height: 100%;
 }
 
 @media (min-width: 100px) {
 
-body.home {
-  background: image-url('rsz_1city.jpg');
-  background-repeat: no-repeat;
-  background-size: 100%;
-  
-}}
+  .home {
+    background: image-url('rsz_1city.jpg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    height: 100%;
+  }
+}
 
 @media (min-width: 1050px) {
-body.home {
-  background: image-url('coffee_meeting.jpg');
-  background-repeat: no-repeat;
-  background-size: 100%;
-}}
+  .home {
+    background: image-url('coffee_meeting.jpg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    height: 100%;
+  }
+}

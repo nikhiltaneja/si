@@ -9,12 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
-<% if current_user %>
-  <body>
-<% else %>
-  <body class="home">
-<% end %>
-
+<body>
   <%= render partial: 'layouts/flash' %>
 
   <% if current_user %>

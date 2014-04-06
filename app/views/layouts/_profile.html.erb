@@ -25,10 +25,12 @@
     </div>
 
     <div class="row">
-      <div >
-        <h3>Work Experience</h3>
-        <% @user.jobs.each do |job| %>
-          <p><%= job.company.name %>, <%= job.position.name %> </p>
+      <div>
+        <% if !@user.jobs.empty? %>
+          <h3>Work Experience</h3>
+          <% @user.jobs.each do |job| %>
+            <p><%= job.company.name %>, <%= job.position.name %> </p>
+          <% end %>
         <% end %>
       </div>
     </div>
@@ -38,7 +40,7 @@
         <% if !@user.educations.empty? %>
           <h3>Education</h3>
           <% @user.educations.each do |education| %>
-            <p><%= education.school.name %>,
+            <p><%= education.school.name %>
             <% if education.subject && !education.subject.name.nil? %>
               <%= education.degree.name %> <%= education.subject.name %> <%= education.year %></p>
             <% end %>

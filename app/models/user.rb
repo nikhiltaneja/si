@@ -57,8 +57,12 @@ class User < ActiveRecord::Base
       school = School.find_or_create_by(name: education.schoolName)
       subject = Subject.find_or_create_by(name: education.fieldOfStudy)
       degree = Degree.find_or_create_by(name: education.degree)
-      grad_year = education["endDate"]["year"].to_s
-      Education.find_or_create_by(user_id: user_id, school_id: school.id, subject_id: subject.id, degree_id: degree.id).update(year: education["endDate"]["year"])
+      if education["endDate"] && education["endDate"]["year"]
+        grad_year = education["endDate"]["year"].to_s
+        Education.find_or_create_by(user_id: user_id, school_id: school.id, subject_id: subject.id, degree_id: degree.id).update(year: grad_year)
+      else
+        Education.find_or_create_by(user_id: user_id, school_id: school.id, subject_id: subject.id, degree_id: degree.id)
+      end
     end
   end
 
@@ -157,7 +161,11 @@ class User < ActiveRecord::Base
   def self.get_profile_picture(user)
     client = LinkedIn::Client.new(ENV['LINKEDIN_API_KEY'], ENV['LINKEDIN_SECRET_KEY'])
     client.authorize_from_access(user.token, user.secret)
-    client.picture_urls["all"][0]
+    if client.picture_urls['total'] != 0
+      return client.picture_urls["all"][0]
+    else
+      return ""
+    end
   end
 
 

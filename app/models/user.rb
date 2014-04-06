@@ -164,9 +164,7 @@ class User < ActiveRecord::Base
     if client.picture_urls['total'] != 0
       return client.picture_urls["all"][0]
     else
-      return ""
+      return 'http://food52.com/assets/avatars/default-medium.png'
     end
   end
-
-
 end

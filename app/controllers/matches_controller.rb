@@ -4,7 +4,7 @@ class MatchesController < ApplicationController
   before_action :approved?, only: [:index, :show]
 
   def index
-    @matches = current_user.matches.where(match_status: false)
+    @matches = current_user.matches.where(match_status: false).where("first_user_status = ? OR second_user_status = ?", "pending", "pending")
   end
 
   def show

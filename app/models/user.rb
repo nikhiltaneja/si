@@ -91,13 +91,18 @@ class User < ActiveRecord::Base
   end
 
   def find_potential_matches
-    users_same_location = location_matches
-    users_removed_previous_matches = remove_previous_matches(users_same_location)
-    remove_oneself(users_removed_previous_matches)
+    users_same_location = remove_different_location(remove_unapproved_users)
+    users_no_previous_matches = remove_previous_matches(users_same_location)
+    users_no_first_degree_connections = remove_first_degree_connections(users_no_previous_matches)
+    remove_oneself(users_no_first_degree_connections)
   end
 
-  def location_matches
-    User.where(location_id: self.location.id)
+  def remove_unapproved_users
+    User.where(approved: "Yes")
+  end
+
+  def remove_different_location(users)
+    users.where(location_id: self.location.id)
   end
 
   def remove_previous_matches(users)
@@ -120,6 +125,14 @@ class User < ActiveRecord::Base
     
     # matched_user_ids = matched_user_ids1 + matched_user_ids2
     # User.where.not(:id => matched_user_ids)
+  end
+
+  def remove_first_degree_connections(users)
+    users.reject do |user|
+      if LinkedinUser.find_by(uid: user.uid)
+        self.connections.pluck(:linkedin_user_id).include?(LinkedinUser.find_by(uid: user.uid).id)
+      end
+    end
   end
 
   def remove_oneself(users)

@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     elsif user.matches.empty?
       redirect_to user_path(user), notice: "Thanks for signing in. We are currently identifying matches for you. Please check back soon!"
     else
-      redirect_to user_path(user), notice: "Signed in!"
+      redirect_to user_path(user), notice: "Signed in! Click on Current Match to see your match."
     end
   end
 

@@ -47,7 +47,15 @@ class MatchesController < ApplicationController
       MatchmadeWorker.perform_async(@match.first_user.id, @match.second_user.id)
     end
 
-    redirect_to root_path, notice: "Thanks for submitting your response!"
+    user_decision = current_user.id == @match.first_user_id ? @match.first_user_status : @match.second_user_status
+
+    if user_decision == "Yes"
+      redirect_to root_path, notice: "Thanks for submitting your response! We will email you soon if a match is made."
+    elsif user_decision == "No"
+      redirect_to root_path, notice: "Thanks for submitting your response."
+    else
+      redirect_to root_path
+    end
   end
 
   def prior_matches

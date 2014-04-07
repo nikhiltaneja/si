@@ -36,6 +36,8 @@ class User < ActiveRecord::Base
 
       user_connections = auth["extra"]["raw_info"]["connections"]["values"]
 
+      user.image = User.get_profile_picture(user)
+
       if user_educations
         add_educations(user_educations, user.id)
       end
@@ -48,9 +50,6 @@ class User < ActiveRecord::Base
         add_past_jobs(past_jobs, user.id)
       end
 
-      user.image = User.get_profile_picture(user)
-
-      #User.get_connections(user)
       ConnectionWorker.perform_async(user.id)
 
       user.save!
@@ -62,12 +61,12 @@ class User < ActiveRecord::Base
       school = School.find_or_create_by(name: education.schoolName)
       subject = Subject.find_or_create_by(name: education.fieldOfStudy)
       degree = Degree.find_or_create_by(name: education.degree)
-      if education["endDate"] && education["endDate"]["year"]
-        grad_year = education["endDate"]["year"].to_s
-        Education.find_or_create_by(user_id: user_id, school_id: school.id, subject_id: subject.id, degree_id: degree.id).update(year: grad_year)
-      else
+      # if education["endDate"] && education["endDate"]["year"]
+      #   grad_year = education["endDate"]["year"].to_s
+      #   Education.find_or_create_by(user_id: user_id, school_id: school.id, subject_id: subject.id, degree_id: degree.id).update(year: grad_year)
+      # else
         Education.find_or_create_by(user_id: user_id, school_id: school.id, subject_id: subject.id, degree_id: degree.id)
-      end
+      # end
     end
   end
 

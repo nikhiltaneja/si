@@ -23,6 +23,9 @@ class User < ActiveRecord::Base
       user.token = auth["extra"]["access_token"].token
       user.secret = auth["extra"]["access_token"].secret
       user.save! 
+
+      user.linkedin_user_id = LinkedinUser.find_or_create_by(uid: user.uid).id
+      user.save!
     
       user_educations = auth["extra"]["raw_info"]["educations"]["values"]
       current_jobs = auth["extra"]["raw_info"]["threeCurrentPositions"]["values"]
@@ -128,8 +131,10 @@ class User < ActiveRecord::Base
   end
 
   def remove_first_degree_connections(users)
+    # self.connections.pluck(:linkedin_user_id) & users.pluck(:linkedin_user_id)
+
     users.reject do |user|
-      self.connections.pluck(:linkedin_user_id).include?(LinkedinUser.find_or_create_by(uid: user.uid).id)
+      self.connections.pluck(:linkedin_user_id).include?(user.linkedin_user_id)
     end
   end
 

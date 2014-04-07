@@ -129,9 +129,7 @@ class User < ActiveRecord::Base
 
   def remove_first_degree_connections(users)
     users.reject do |user|
-      if LinkedinUser.find_by(uid: user.uid)
-        self.connections.pluck(:linkedin_user_id).include?(LinkedinUser.find_by(uid: user.uid).id)
-      end
+      self.connections.pluck(:linkedin_user_id).include?(LinkedinUser.find_or_create_by(uid: user.uid).id)
     end
   end
 

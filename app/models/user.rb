@@ -24,8 +24,10 @@ class User < ActiveRecord::Base
       user.secret = auth["extra"]["access_token"].secret
       user.save! 
 
-      user.linkedin_user_id = LinkedinUser.find_or_create_by(uid: user.uid).id
-      user.save!
+      if !user.linkedin_user_id
+        user.linkedin_user_id = LinkedinUser.find_or_create_by(uid: user.uid).id
+        user.save!
+      end
     
       user_educations = auth["extra"]["raw_info"]["educations"]["values"]
       current_jobs = auth["extra"]["raw_info"]["threeCurrentPositions"]["values"]

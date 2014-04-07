@@ -23,6 +23,9 @@ class User < ActiveRecord::Base
       user.token = auth["extra"]["access_token"].token
       user.secret = auth["extra"]["access_token"].secret
       user.save! 
+
+      user.linkedin_user_id = LinkedinUser.find_or_create_by(uid: user.uid).id
+      user.save!
     
       user_educations = auth["extra"]["raw_info"]["educations"]["values"]
       current_jobs = auth["extra"]["raw_info"]["threeCurrentPositions"]["values"]
@@ -91,13 +94,18 @@ class User < ActiveRecord::Base
   end
 
   def find_potential_matches
-    users_same_location = location_matches
-    users_removed_previous_matches = remove_previous_matches(users_same_location)
-    remove_oneself(users_removed_previous_matches)
+    users_same_location = remove_different_location(remove_unapproved_users)
+    users_no_previous_matches = remove_previous_matches(users_same_location)
+    users_no_first_degree_connections = remove_first_degree_connections(users_no_previous_matches)
+    remove_oneself(users_no_first_degree_connections)
   end
 
-  def location_matches
-    User.where(location_id: self.location.id)
+  def remove_unapproved_users
+    User.where(approved: "Yes")
+  end
+
+  def remove_different_location(users)
+    users.where(location_id: self.location.id)
   end
 
   def remove_previous_matches(users)
@@ -120,6 +128,14 @@ class User < ActiveRecord::Base
     
     # matched_user_ids = matched_user_ids1 + matched_user_ids2
     # User.where.not(:id => matched_user_ids)
+  end
+
+  def remove_first_degree_connections(users)
+    # self.connections.pluck(:linkedin_user_id) & users.pluck(:linkedin_user_id)
+
+    users.reject do |user|
+      self.connections.pluck(:linkedin_user_id).include?(user.linkedin_user_id)
+    end
   end
 
   def remove_oneself(users)

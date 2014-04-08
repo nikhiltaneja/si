@@ -7,11 +7,15 @@
   <table class="table">
     <thead>
       <th>Users requiring a match</th>
+      <th>City</th>
+      <th>Link to profile</th>
     </thead>
     <tbody>
       <% @eligible_users.each do |user| %>
         <tr>
           <td><%= link_to user.name, admin_path(user) %></td>
+          <td><%= user.location.area %></td>
+          <td><%= link_to 'Profile', user_path(user) %></td>
         </tr>
       <% end %>
     </tbody>

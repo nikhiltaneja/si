@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
       past_jobs = auth["extra"]["raw_info"]["threePastPositions"]["values"]
 
 
-      user_connections = auth["extra"]["raw_info"]["connections"]["values"]
+      #user_connections = auth["extra"]["raw_info"]["connections"]["values"]
 
       user.image = User.get_profile_picture(user)
 
@@ -65,7 +65,7 @@ class User < ActiveRecord::Base
       #   grad_year = education["endDate"]["year"].to_s
       #   Education.find_or_create_by(user_id: user_id, school_id: school.id, subject_id: subject.id, degree_id: degree.id).update(year: grad_year)
       # else
-        Education.find_or_create_by(user_id: user_id, school_id: school.id, subject_id: subject.id, degree_id: degree.id)
+      Education.find_or_create_by(user_id: user_id, school_id: school.id, subject_id: subject.id, degree_id: degree.id)
       # end
     end
   end

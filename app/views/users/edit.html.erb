@@ -1,8 +1,8 @@
 <div class="container">
   <%= form_for @user do |f| %>
     <div class="form-group">
-      <h4>What industry are you in?</h4>
-      <%= f.collection_select(:industry_id, Industry.all, :id, :name) %>
+      <h4>What industry best describes your line of work?</h4>
+      <%= f.collection_select(:industry_id, Industry.all, :id, :name, include_blank: true) %>
     </div>
 
     <div class="form-group">
@@ -16,11 +16,10 @@
           </div>        
       <% end %>
     </div>
-    
 
     <div class="form-group">
       <h4>Please write a one sentence summary that describes you (optional)</h4>
-      <%= f.text_area :summary, size: '150' %>
+      <%= f.text_field :summary, class: 'form-control' %>
     </div>
 
     <%= f.submit "Submit", class:"btn btn-primary" %>

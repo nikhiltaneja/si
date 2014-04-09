@@ -2,12 +2,12 @@
   <%= form_for @user do |f| %>
     <div class="form-group">
       <h4>What industry best describes your line of work?</h4>
-      <%= f.collection_select(:industry_id, Industry.all, :id, :name, include_blank: true) %>
+      <%= f.collection_select(:industry_id, Industry.all.sort, :id, :name, include_blank: true) %>
     </div>
 
     <div class="form-group">
       <h4> Who are you interested in meeting? Professionals in: </h4>
-      <% Industry.all.each do |industry| %>
+      <% Industry.all.sort.each do |industry| %>
         <% checked = current_user.industry_interests.pluck(:industry_id).include?(industry.id) %>
           <div class="checkbox">
             <label>

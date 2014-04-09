@@ -49,7 +49,7 @@ class User < ActiveRecord::Base
 
   def eligible_for_new_match?
     if self.current_match
-      (Time.now - user.current_match.created_at) > 86400 #one day
+      (Time.now - self.current_match.created_at) > 86400 #one day
     else
       true
     end

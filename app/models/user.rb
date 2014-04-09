@@ -47,6 +47,14 @@ class User < ActiveRecord::Base
     matches.last
   end
 
+  def eligible_for_new_match?
+    if self.current_match
+      (Time.now - user.current_match.created_at) > 86400 #one day
+    else
+      true
+    end
+  end
+
   def find_potential_matches
     users_same_location = remove_different_location(remove_unapproved_users)
     users_no_previous_matches = remove_previous_matches(users_same_location)
@@ -63,25 +71,26 @@ class User < ActiveRecord::Base
   end
 
   def remove_previous_matches(users)
-    filtered_users = []
-    users.each do |user|
-      if self.id < user.id
-        unless Match.find_by(first_user_id: self.id, second_user_id: user.id)
-          filtered_users << user
-        end
-      else
-        unless Match.find_by(first_user_id: user.id, second_user_id: self.id)
-          filtered_users << user
-        end
-      end
-    end
-    filtered_users
+    # filtered_users = []
+    # users.each do |user|
+    #   if self.id < user.id
+    #     unless Match.find_by(first_user_id: self.id, second_user_id: user.id)
+    #       filtered_users << user
+    #     end
+    #   else
+    #     unless Match.find_by(first_user_id: user.id, second_user_id: self.id)
+    #       filtered_users << user
+    #     end
+    #   end
+    # end
+    # filtered_users
 
-    # matched_user_ids1 = Match.where(first_user_id: self.id).pluck(:second_user_id)
-    # matched_user_ids2 = Match.where(second_user_id: self.id).pluck(:first_user_id)
+    #simon's code
+    matched_user_ids1 = Match.where(first_user_id: self.id).pluck(:second_user_id)
+    matched_user_ids2 = Match.where(second_user_id: self.id).pluck(:first_user_id)
     
-    # matched_user_ids = matched_user_ids1 + matched_user_ids2
-    # User.where.not(:id => matched_user_ids)
+    matched_user_ids = matched_user_ids1 + matched_user_ids2
+    users.where.not(:id => matched_user_ids)
   end
 
   def remove_first_degree_connections(users)
@@ -122,9 +131,11 @@ class User < ActiveRecord::Base
   def self.get_connections(user)
     client = LinkedIn::Client.new(ENV['LINKEDIN_API_KEY'], ENV['LINKEDIN_SECRET_KEY'])
     client.authorize_from_access(user.token, user.secret)
-    client.connections["all"].each do |connection|
-      linkedin_user = LinkedinUser.find_or_create_by(uid: connection["id"])
-      Connection.find_or_create_by(user_id: user.id, linkedin_user_id: linkedin_user.id)
+    if client.connections["total"] != 0
+      client.connections["all"].each do |connection|
+        linkedin_user = LinkedinUser.find_or_create_by(uid: connection["id"])
+        Connection.find_or_create_by(user_id: user.id, linkedin_user_id: linkedin_user.id)
+      end
     end
   end
 

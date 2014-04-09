@@ -4,11 +4,7 @@ class AdminsController < ApplicationController
   def index
     users = User.where(approved: "Yes")
     @eligible_users  = users.select do |user|
-      if user.current_match
-        (Time.now - user.current_match.created_at) > 86400 #one day
-      else
-        true
-      end
+      user.eligible_for_new_match?
     end
   end
 

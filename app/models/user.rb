@@ -99,6 +99,8 @@ class User < ActiveRecord::Base
     users.reject do |user|
       if user.eligible_for_new_match?
         self.connections.pluck(:linkedin_user_id).include?(user.linkedin_user_id)
+      else
+        true
       end
     end
   end

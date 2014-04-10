@@ -2,8 +2,14 @@
   <h5>Potential matches for <%= @user.name %>. Score: <%= @user.score %>
     <% if @user.industry %>
       , Industry: <%= @user.industry.name %>
-    <% else %>    
-    <% end %></h5>
+    <% end %>
+
+    <% if @user.industry_interests %>
+      , Interests: <% @user.industry_interests.each do |industry_interest| %>
+        <%= industry_interest.industry.name %>
+      <% end %>
+    <% end %>
+  </h5>
 
   <table class="table">
     <thead>

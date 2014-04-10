@@ -26,6 +26,7 @@ class UsersController < ApplicationController
     if params[:user]
       user.industry_id = params[:user][:industry_id]
       user.summary = params[:user][:summary]
+      user.seeking = params[:user][:seeking]
 
       user.industry_interests.where.not(industry_id: params[:industry_interests]).delete_all
 

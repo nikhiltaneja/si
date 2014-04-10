@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140407163241) do
+ActiveRecord::Schema.define(version: 20140410042651) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -142,10 +142,11 @@ ActiveRecord::Schema.define(version: 20140407163241) do
     t.boolean  "admin",            default: false
     t.float    "score",            default: 0.0
     t.string   "approved",         default: "pending"
+    t.integer  "industry_id"
     t.string   "token"
     t.string   "secret"
-    t.integer  "industry_id"
     t.integer  "linkedin_user_id"
+    t.text     "seeking"
   end
 
   add_index "users", ["industry_id"], name: "index_users_on_industry_id", using: :btree

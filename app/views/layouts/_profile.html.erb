@@ -17,7 +17,7 @@
   <div class="col-md-6 col-md-offset-1">
     <div class="row">
       <div>
-        <% if @user.summary && !@user.summary.empty? %>
+        <% if @user.summary %>
           <h3>Summary</h3>
           <p><%= @user.summary %></p>
         <% end %>
@@ -48,5 +48,15 @@
         <% end %>
       </div>
     </div> 
+
+    <div class="row">
+      <div>
+        <% if @user.seeking %>
+          <h3>Interested in Meeting</h3>
+          <p><%= @user.seeking %></p>
+        <% end %>
+      </div>
+    </div>
+
   </div>
 </div>

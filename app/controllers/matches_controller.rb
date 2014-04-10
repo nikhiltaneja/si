@@ -20,7 +20,7 @@ class MatchesController < ApplicationController
       @user = @match.first_user
     end
 
-    @shared = @user.shared_connections(@match.id).count
+    @shared_count = current_user.shared_connections(@user.id).count
   end
 
   def create

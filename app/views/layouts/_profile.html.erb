@@ -17,7 +17,7 @@
   <div class="col-md-6 col-md-offset-1">
     <div class="row">
       <div>
-        <% if @user.summary %>
+        <% if @user.summary && !@user.summary.empty? %>
           <h3>Summary</h3>
           <p><%= @user.summary %></p>
         <% end %>
@@ -28,7 +28,7 @@
       <div>
         <% if !@user.jobs.empty? %>
           <h3>Work Experience</h3>
-          <% @user.jobs.each do |job| %>
+          <% @user.jobs.sort.each do |job| %>
             <p><%= job.company.name %>, <%= job.position.name %> </p>
           <% end %>
         <% end %>
@@ -39,7 +39,7 @@
       <div>
         <% if !@user.educations.empty? %>
           <h3>Education</h3>
-          <% @user.educations.each do |education| %>
+          <% @user.educations.sort.each do |education| %>
             <p><%= education.school.name %>
             <% if education.subject && !education.subject.name.nil? %>
               <%= education.degree.name %> <%= education.subject.name %> <%= education.year %></p>
@@ -51,7 +51,7 @@
 
     <div class="row">
       <div>
-        <% if @user.seeking %>
+        <% if @user.seeking && !@user.seeking.empty? %>
           <h3>Interested in Meeting</h3>
           <p><%= @user.seeking %></p>
         <% end %>

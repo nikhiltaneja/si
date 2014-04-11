@@ -157,11 +157,12 @@ class User < ActiveRecord::Base
     client = LinkedIn::Client.new(ENV['LINKEDIN_API_KEY'], ENV['LINKEDIN_SECRET_KEY'])
     client.authorize_from_access(user.token, user.secret)
     jobs = client.profile(:fields => %w(positions))
-
-    jobs['positions']['all'].each do |job|
-      company = Company.find_or_create_by(name: job['company']['name'])
-      position = Position.find_or_create_by(name: job['title'])
-      Job.find_or_create_by(user_id: user.id, company_id: company.id, position_id: position.id)
+    if jobs['positions']['total'] > 0
+      jobs['positions']['all'].each do |job|
+        company = Company.find_or_create_by(name: job['company']['name'])
+        position = Position.find_or_create_by(name: job['title'])
+        Job.find_or_create_by(user_id: user.id, company_id: company.id, position_id: position.id)
+      end
     end
   end
 
@@ -170,16 +171,18 @@ class User < ActiveRecord::Base
     client.authorize_from_access(user.token, user.secret)
     educations = client.profile(:fields => %w(educations))
 
-    educations['educations']['all'].each do |education|
-      school = School.find_or_create_by(name: education["school_name"])
-      subject = Subject.find_or_create_by(name: education["field_of_study"])
-      degree = Degree.find_or_create_by(name: education['degree'])
-      # if education["endDate"] && education["endDate"]["year"]
-      #   grad_year = education["endDate"]["year"].to_s
-      #   Education.find_or_create_by(user_id: user_id, school_id: school.id, subject_id: subject.id, degree_id: degree.id).update(year: grad_year)
-      # else
-        Education.find_or_create_by(user_id: user.id, school_id: school.id, subject_id: subject.id, degree_id: degree.id)
-      # end
+    if educations['educations']['total'] > 0
+      educations['educations']['all'].each do |education|
+        school = School.find_or_create_by(name: education["school_name"])
+        subject = Subject.find_or_create_by(name: education["field_of_study"])
+        degree = Degree.find_or_create_by(name: education['degree'])
+        # if education["endDate"] && education["endDate"]["year"]
+        #   grad_year = education["endDate"]["year"].to_s
+        #   Education.find_or_create_by(user_id: user_id, school_id: school.id, subject_id: subject.id, degree_id: degree.id).update(year: grad_year)
+        # else
+          Education.find_or_create_by(user_id: user.id, school_id: school.id, subject_id: subject.id, degree_id: degree.id)
+        # end
+      end
     end
   end
 

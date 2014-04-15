@@ -20,4 +20,9 @@ class AdminsController < ApplicationController
   def requests
     @users = User.where(approved: "pending")
   end
+
+  def matches
+    @all_matches = Match.all
+    @true_status = Match.where(match_status: true)
+  end
 end

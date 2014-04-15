@@ -5,9 +5,11 @@ class User < ActiveRecord::Base
   has_many :jobs
   has_many :connections
   has_many :industry_interests
+  has_many :references
 
   has_many :first_users, class_name: "Match", foreign_key: :first_user_id
   has_many :second_users, class_name: "Match", foreign_key: :second_user_id
+
 
   def self.from_omniauth(auth)
     where(auth.slice("provider", "uid")).first_or_initialize.tap do |user|

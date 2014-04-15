@@ -16,8 +16,12 @@ SwiftIntro::Application.routes.draw do
   mount Sidekiq::Web, at: '/admins/sidekiq'
 
   get 'admins/requests'
+  get 'admins/matches'
+
+  get 'users/:id/invite', to: 'users#invite', as: 'user_invite'
 
   resources :admins, only: [:index, :show]
   resources :dashboard, only: [:index]
+  get '/:ref', to: 'dashboard#index'
   
 end

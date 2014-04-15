@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :correct_user?, only: [:show, :edit], unless: :admin?
+  before_action :correct_user?, only: [:show, :edit, :invite], unless: :admin?
 
   def show
     if params[:id]
@@ -46,9 +46,19 @@ class UsersController < ApplicationController
     # if params[:user][:industry_interests]
     #   IndustryInterest.find_or_create_by(:user_id => params[:user_id], :industry_id => params[:user][:industry_interests])
     # end
+    if cookies.signed['ref-id'] && Reference.where.not(other_user_id: current_user.id)
+      cookie_user = User.where(uid: cookies.signed['ref-id'])
+      if cookie_user.length == 1
+        Reference.create(user_id: cookie_user[0].id, other_user_id: current_user.id)
+      end
+    end
   end
 
   def edit
+    @user = User.find(params[:id])
+  end
+
+  def invite
     @user = User.find(params[:id])
   end
 end

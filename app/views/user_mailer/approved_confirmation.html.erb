@@ -1,5 +1,12 @@
 <p>Hi <%= @user.first_name %>,</p>
 
-<p>Thanks for signing up for our beta program. We will officially start matching users in a few weeks, but in the meantime we may suggest a potential match or two. When you log in, you will be able to see your match's profile and decide if you would like an introduction. Expect an email once we have found your first match.</p>
+<p>
+  Thanks for signing up for our beta program. We will officially start matching users in a few weeks, but in the meantime we may suggest a potential match or two. When you log in, you will be able to see your match's profile and decide if you would like an introduction. Expect an email once we have found your first match.
+</p>
+
+<p>
+  In the meantime, feel free to invite your friends to SwiftIntro using your personal link: 
+  www.swiftintro.com/<%=@user.uid%>. If you sign up more than 5 users, you will be given special privileges such as free premium features.
+</p>
 
 <p>-The SwiftIntro Team</p>

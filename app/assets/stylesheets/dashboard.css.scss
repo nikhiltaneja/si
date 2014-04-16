@@ -54,7 +54,7 @@ footer {
   .home {
     background: image-url('mobile_coffee_background.jpg');
     background-repeat: no-repeat;
-    background-size: 100%;
+    height: 100%;
   }
 
   body {
@@ -81,5 +81,10 @@ footer {
   .descriptions {
     padding-bottom: 5%;
     text-align: center;
+  }
+
+  .contact {
+    visibility: hidden;
+    display: none;
   }
 }

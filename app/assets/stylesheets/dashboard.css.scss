@@ -10,7 +10,7 @@ html, body {
   background: image-url('rsz_coffee_meeting.jpg');
   background-repeat: no-repeat;
   background-size: 100%;
-  height: 100%;
+  height: 75%;
 }
 
 .jumbotron {
@@ -44,15 +44,42 @@ footer {
   margin: 0 auto;
 }
 
+#demo-video {
+  padding: 5%;
+  background-color: lightgrey;
+}
+
 @media (min-width: 100px) and (max-width: 1050px) {
 
   .home {
-    background: image-url('rsz_1city.jpg');
+    background: image-url('mobile_coffee_background.jpg');
     background-repeat: no-repeat;
     background-size: 100%;
   }
 
   body {
     margin: 5%;
+  }
+
+  .primary-text {
+    font-size: 15px;
+  }
+
+  #demo-video {
+    visibility: hidden;
+    display: none;
+    padding: 0;
+  }
+
+  .glyph-pic {
+    width: 35px;
+    height: 25px;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .descriptions {
+    padding-bottom: 5%;
+    text-align: center;
   }
 }

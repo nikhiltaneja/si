@@ -22,6 +22,8 @@ SwiftIntro::Application.routes.draw do
 
   resources :admins, only: [:index, :show]
   resources :dashboard, only: [:index]
+
+  get '/contact', to: 'dashboard#contact', as: 'contact'
+
   get '/:ref', to: 'dashboard#index'
-  
 end

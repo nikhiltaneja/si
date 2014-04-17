@@ -194,7 +194,9 @@ class User < ActiveRecord::Base
     if self.seeking.nil?
       return true
     elsif self.seeking.empty?
-      errors.add(:seeking, "What You're Looking For Cannot Be Blank")
+      self.errors[:base] << "What You're Looking For Cannot Be Blank"
+    else
+      return true
     end
   end
 end

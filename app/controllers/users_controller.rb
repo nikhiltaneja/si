@@ -12,33 +12,36 @@ class UsersController < ApplicationController
   end
 
   def update
-    user = User.find(params[:id])
+    @user = User.find(params[:id])
 
     if params[:approved]
-      user.approved = params[:approved]
+      @user.approved = params[:approved]
 
-      DecisionWorker.perform_async(user.id, params[:approved])
+      DecisionWorker.perform_async(@user.id, params[:approved])
 
-      user.save
+      @user.save
       redirect_to :back
     end
 
     if params[:user]
-      user.industry_id = params[:user][:industry_id]
-      user.summary = params[:user][:summary]
-      user.seeking = params[:user][:seeking]
+      @user.industry_id = params[:user][:industry_id]
+      @user.summary = params[:user][:summary]
+      @user.seeking = params[:user][:seeking]
 
-      user.industry_interests.where.not(industry_id: params[:industry_interests]).delete_all
+      @user.industry_interests.where.not(industry_id: params[:industry_interests]).delete_all
 
-      params[:industry_interests].each do |industry_interest_id|
-        IndustryInterest.find_or_create_by(user_id: user.id, industry_id: industry_interest_id)
+
+      if params[:industry_interests]
+        params[:industry_interests].each do |industry_interest_id|
+          IndustryInterest.find_or_create_by(user_id: @user.id, industry_id: industry_interest_id)
+        end
       end
 
-      if user.save
-        if user.approved == "Yes"
-          redirect_to user_path(user), notice: 'Profile updated!'
+      if @user.save
+        if @user.approved == "Yes"
+          redirect_to user_path(@user), notice: 'Profile updated!'
         else        
-          redirect_to user_path(user), notice: 'Thank you for expressing interest in SwiftIntro!  We will email you soon with more information about our beta program.'
+          redirect_to user_path(@user), notice: 'Thank you for expressing interest in SwiftIntro!  We will email you soon with more information about our beta program.'
         end
       else
         render action: 'edit'

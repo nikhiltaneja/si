@@ -1,5 +1,15 @@
-<p>Hi <%= @user.first_name %>,</p>
+<p>Hi <%= @first_user.first_name %>,</p>
 
-<p>We found someone that you should consider meeting. <%= link_to 'Log in to see their profile.', root_url %></p>
+<p>We found someone that you should consider meeting.</p>
+
+<div style="display: inline-block">
+  <div><%= image_tag @second_user.image, size: '150x150' %></div>
+  <div><%= @second_user.name %></div>
+  <div><%= @second_user.headline %></div>
+</div>
+
+<div style="font-size:18px">
+  <p><%= link_to 'Log in to request an intro.', root_url %></p>
+</div>
 
 <p>-The SwiftIntro Team</p>

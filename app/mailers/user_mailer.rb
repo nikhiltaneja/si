@@ -13,10 +13,11 @@ class UserMailer < ActionMailer::Base
     mail to: [@user.email], subject: 'SwiftIntro Update'
   end
 
-  def potential_match(user)
-    @user = user
+  def potential_match(first_user, second_user)
+    @first_user = first_user
+    @second_user = second_user
 
-    mail to: [@user.email], subject: 'Potential Match!'
+    mail to: [@first_user.email], subject: 'Potential Match!'
   end
 
   def match_confirmation(first_user, second_user)

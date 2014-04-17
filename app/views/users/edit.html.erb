@@ -1,5 +1,19 @@
 <div class="container">
   <%= form_for @user do |f| %>
+
+    <% if @user.errors.any? %>
+      <div id="error-explanation">
+        <div class="alert alert-danger">
+          The form contains <%= pluralize(@user.errors.count, "error") %>.
+        </div>
+        <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li>* <%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
     <div class="form-group">
       <h4>Which industry best describes your line of work?</h4>
       <%= f.collection_select(:industry_id, Industry.all.sort, :id, :name, include_blank: true) %>

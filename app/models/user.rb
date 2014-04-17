@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   has_many :first_users, class_name: "Match", foreign_key: :first_user_id
   has_many :second_users, class_name: "Match", foreign_key: :second_user_id
 
+  validate :seeking_complete?, on: :update
+
 
   def self.from_omniauth(auth)
     where(auth.slice("provider", "uid")).first_or_initialize.tap do |user|
@@ -188,4 +190,15 @@ class User < ActiveRecord::Base
     end
   end
 
+  private
+  
+  def seeking_complete?
+    if self.seeking.nil?
+      return true
+    elsif self.seeking.empty?
+      self.errors[:base] << "What You're Looking For Cannot Be Blank"
+    else
+      return true
+    end
+  end
 end

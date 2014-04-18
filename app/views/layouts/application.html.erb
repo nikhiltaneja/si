@@ -13,13 +13,18 @@
 </head>
 
 <body>
-  <%= render partial: 'layouts/flash' %>
+  <div id="wrap">
+    <%= render partial: 'layouts/flash' %>
 
-  <% if current_user %>
-    <%= render partial: 'layouts/navbar' %>
-  <% end %>
+    <% if current_user %>
+      <%= render partial: 'layouts/navbar' %>
+    <% end %>
 
-  <%= yield %>
+    <%= yield %>
+
+    <div id="push">
+    </div>
+  </div>
 
   <%= render partial: 'layouts/contact_us' %>
 

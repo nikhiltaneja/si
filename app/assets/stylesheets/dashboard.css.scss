@@ -49,10 +49,6 @@ footer {
   background-color: lightgrey;
 }
 
-.contact {
-  margin-top: 10%;
-}
-
 @media (min-width: 100px) and (max-width: 1050px) {
 
   .home {
@@ -85,10 +81,5 @@ footer {
   .descriptions {
     padding-bottom: 5%;
     text-align: center;
-  }
-
-  .contact {
-    visibility: hidden;
-    display: none;
   }
 }

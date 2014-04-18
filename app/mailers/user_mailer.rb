@@ -23,6 +23,7 @@ class UserMailer < ActionMailer::Base
   def match_confirmation(first_user, second_user)
     @first_user = first_user
     @second_user = second_user
+    @shared_connections_count = first_user.shared_connections(second_user.id).count
 
     mail to: [@first_user.email, @second_user.email], subject: 'Successful Match!'
   end

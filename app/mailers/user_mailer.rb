@@ -17,7 +17,7 @@ class UserMailer < ActionMailer::Base
     @first_user = first_user
     @second_user = second_user
 
-    mail to: [@first_user.email], subject: 'Potential Match!'
+    mail to: [@first_user.email], subject: "Potential Match: Meet #{@second_user.first_name}"
   end
 
   def match_confirmation(first_user, second_user)
@@ -25,6 +25,6 @@ class UserMailer < ActionMailer::Base
     @second_user = second_user
     @shared_connections_count = first_user.shared_connections(second_user.id).count
 
-    mail to: [@first_user.email, @second_user.email], subject: 'Successful Match!'
+    mail to: [@first_user.email, @second_user.email], subject: "Intro: #{@first_user.first_name} <> #{@second_user.first_name}"
   end
 end

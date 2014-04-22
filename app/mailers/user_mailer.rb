@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "matches@swiftintro.com"
+  default from: '"SwiftIntro" <matches@swiftintro.com>'
 
   def approved_confirmation(user)
     @user = user

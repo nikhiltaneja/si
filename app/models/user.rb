@@ -32,18 +32,21 @@ class User < ActiveRecord::Base
         user.linkedin_user_id = LinkedinUser.find_or_create_by(uid: user.uid).id
         user.save!
       end
-    
-      if !user.signup_email
-        InitialSignupWorker.perform_async(user.id)
-        user.signup_email = true
-        user.save!
-      end
 
       ProfileWorker.perform_async(user.id)
       ConnectionWorker.perform_async(user.id)
 
       user.image = User.get_profile_picture(user)
+
       user.save!
+
+      if user.signup_email == false
+        InitialSignupWorker.perform_async(user.id)
+        user.signup_email = true
+        user.save!
+      end
+
+      user
     end
   end
 

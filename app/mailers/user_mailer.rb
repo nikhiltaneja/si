@@ -1,5 +1,11 @@
 class UserMailer < ActionMailer::Base
-  default from: "matches@swiftintro.com"
+  default from: '"SwiftIntro" <matches@swiftintro.com>'
+
+  def initial_signup(user)
+    @user = user
+
+    mail to: [@user.email], subject: 'Thanks for signing up for SwiftIntro'
+  end
 
   def approved_confirmation(user)
     @user = user

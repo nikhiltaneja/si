@@ -33,6 +33,11 @@ class User < ActiveRecord::Base
         user.save!
       end
     
+      if !user.signup_email
+        InitialSignupWorker.perform_async(user.id)
+        user.signup_email = true
+        user.save!
+      end
 
       ProfileWorker.perform_async(user.id)
       ConnectionWorker.perform_async(user.id)

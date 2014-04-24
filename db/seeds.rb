@@ -1,5 +1,7 @@
+Industry.find_or_create_by(name: "Art & Design")
 Industry.find_or_create_by(name: "Education")
 Industry.find_or_create_by(name: "Energy")
+Industry.find_or_create_by(name: "Engineering")
 Industry.find_or_create_by(name: "Finance")
 Industry.find_or_create_by(name: "Food")
 Industry.find_or_create_by(name: "Government")

@@ -7,4 +7,7 @@ class DashboardController < ApplicationController
 
   def contact
   end
+
+  def faq
+  end
 end

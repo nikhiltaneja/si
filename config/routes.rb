@@ -24,6 +24,7 @@ SwiftIntro::Application.routes.draw do
   resources :dashboard, only: [:index]
 
   get '/contact', to: 'dashboard#contact', as: 'contact'
+  get '/faq', to: 'dashboard#faq', as: 'faq'
 
   get '/:ref', to: 'dashboard#index'
 end

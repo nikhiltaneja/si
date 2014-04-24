@@ -5,12 +5,13 @@ class User < ActiveRecord::Base
   has_many :jobs
   has_many :connections
   has_many :industry_interests
+  has_many :topic_interests
   has_many :references
 
   has_many :first_users, class_name: "Match", foreign_key: :first_user_id
   has_many :second_users, class_name: "Match", foreign_key: :second_user_id
 
-  validate :seeking_complete?, on: :update
+  # validate :topic_interests_complete?, on: :update
 
 
   def self.from_omniauth(auth)
@@ -200,13 +201,11 @@ class User < ActiveRecord::Base
 
   private
   
-  def seeking_complete?
-    if self.seeking.nil?
-      return true
-    elsif self.seeking.empty?
-      self.errors[:base] << "What You're Looking For Cannot Be Blank"
-    else
-      return true
-    end
-  end
+  # def topic_interests_complete?
+  #   if self.topic_interests.empty?
+  #     self.errors[:base] << '"What Are You Interested In?" Cannot Be Blank'
+  #   else
+  #     return true
+  #   end
+  # end
 end

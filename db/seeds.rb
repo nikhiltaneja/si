@@ -11,3 +11,12 @@ Industry.find_or_create_by(name: "Media and Advertising")
 Industry.find_or_create_by(name: "Retail")
 Industry.find_or_create_by(name: "Technology")
 Industry.find_or_create_by(name: "Other")
+
+
+Topic.find_or_create_by(name: 'General Networking')
+Topic.find_or_create_by(name: 'Sharing Expertise')
+Topic.find_or_create_by(name: 'Mentorship')
+Topic.find_or_create_by(name: 'Looking to Hire')
+Topic.find_or_create_by(name: 'Job Opportunities')
+Topic.find_or_create_by(name: 'Investing')
+Topic.find_or_create_by(name: 'Seeking Investment')

@@ -32,12 +32,24 @@
     </div>
 
     <div class="form-group">
+      <h4> What are you interested in? </h4>
+      <% Topic.all.each do |topic| %>
+        <% checked = current_user.topic_interests.pluck(:topic_id).include?(topic.id) %>
+          <div class="checkbox">
+            <label>
+              <%= check_box_tag("topic_interests[]", topic.id, checked) %> <%= topic.name %>
+            </label>
+          </div>        
+      <% end %>
+    </div>
+
+    <div class="form-group">
       <h4>Please write a short summary that describes you (example: Lawyer with an interest in corporate M&A).</h4>
       <%= f.text_field :summary, class: 'form-control' %>
     </div>
 
     <div class="form-group">
-      <h4>Please describe what you’re looking for (e.g., general networking, job opportunities, technical co-founder, mentorship, etc.). The more specific your response the better. Please note that potential matches will be able to see your response on your profile page.</h4>
+      <h4>Please describe in more detail what you’re looking for (e.g., people interested in big data, technical co-founder, etc.).</h4>
       <%= f.text_area :seeking, class: 'form-control' %>
     </div>
 

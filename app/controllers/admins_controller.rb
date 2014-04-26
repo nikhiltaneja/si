@@ -22,7 +22,10 @@ class AdminsController < ApplicationController
   end
 
   def matches
+    @all_users_count = User.all.count
     @all_matches = Match.all
-    @true_status = Match.where(match_status: true)
+    @successful_matches_count = @all_matches.where(match_status: true).count
+    @first_user_yes_count = @all_matches.where(first_user_status: 'Yes').count
+    @second_user_yes_count = @all_matches.where(second_user_status: 'Yes').count
   end
 end

@@ -1,8 +1,12 @@
 <div class="container">
+  <h2>Match Metrics:</h2>
 
-All Matches:<br><br>
+  <p>All Users: <%= @all_users_count %></p>
+  <p>All Matches: <%= @all_matches.count %></p>
+  <p>Both Agree to Meet: <%= @successful_matches_count %></p>
+  <p>Success Rate: <%= (@successful_matches_count.to_f / @all_matches.count.to_f) * 100 %>%</p>
 
-All Matches:<%= @all_matches.count %><br>
-Both Agree to Meet:<%= @true_status.count %>
-
+  <p>First User Agrees to Meet: <%= @first_user_yes_count %></p>
+  <p>Second User Agrees to Meet: <%= @second_user_yes_count %></p>
+  
 </div>

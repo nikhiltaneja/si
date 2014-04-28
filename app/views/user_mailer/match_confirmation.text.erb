@@ -1,0 +1,15 @@
+<%= @first_user.first_name %> and <%= @second_user.first_name %>,
+
+Congrats! Both of you expressed interest in meeting up. Be sure to schedule a call or coordinate a time and place to meet soon. Both of you are located in the <%= @first_user.location.area %>.
+
+<% if @shared_connections_count > 1 %>
+  You have <%= @shared_connections_count %> shared connections on LinkedIn.
+<% end %>
+
+<%= @first_user.name %>
+<%= @first_user.headline %>
+
+<%= @second_user.name %>
+<%= @second_user.headline %>
+
+-The SwiftIntro Team

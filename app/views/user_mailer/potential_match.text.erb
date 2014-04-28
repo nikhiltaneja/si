@@ -1,0 +1,13 @@
+Hi <%= @first_user.first_name %>,
+
+We found someone that you should consider meeting in the <%= @second_user.location.area %>.
+
+<%= @second_user.name %>
+<%= @second_user.headline %>
+
+It will take less than 10 seconds to decide if you would like an intro, so click on the button below!
+
+<%= link_to "See #{@second_user.first_name}'s Profile", user_match_url(@first_user, @first_user.current_match) %>
+
+
+-The SwiftIntro Team

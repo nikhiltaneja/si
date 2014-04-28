@@ -20,10 +20,10 @@ class UsersController < ApplicationController
       DecisionWorker.perform_async(@user.id, params[:approved])
 
       @user.save
-      redirect_to :back
+      return redirect_to :back
     end
 
-    if params[:user][:number_of_matches]
+    if params[:user] && params[:user][:number_of_matches]
       if @user.premium?
         @user.number_of_matches = params[:user][:number_of_matches].to_i
         @user.save!

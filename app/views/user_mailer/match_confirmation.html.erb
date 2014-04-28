@@ -8,7 +8,7 @@
 
 <div>
   <div style="display: inline-block">
-    <div><%= image_tag @first_user.image, size: '150x150' %></div>
+    <div><%= image_tag @first_user.image, size: '150x150', alt: 'Profile Picture' %></div>
     <div><%= @first_user.name %></div>
     <div><%= @first_user.headline %></div>
   </div>
@@ -16,7 +16,7 @@
   <div style="display: inline-block"></div>
 
   <div style="display: inline-block">
-    <div><%= image_tag @second_user.image, size: '150x150' %></div>
+    <div><%= image_tag @second_user.image, size: '150x150', alt: 'Profile Picture' %></div>
     <div><%= @second_user.name %></div>
     <div><%= @second_user.headline %></div>
   </div>

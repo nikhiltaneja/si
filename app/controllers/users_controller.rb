@@ -23,7 +23,7 @@ class UsersController < ApplicationController
       return redirect_to :back
     end
 
-    if params[:user] && params[:user][:number_of_matches]
+    if params[:user] && params[:user][:number_of_matches] #premium users only
       if @user.premium?
         @user.number_of_matches = params[:user][:number_of_matches].to_i
 
@@ -31,6 +31,14 @@ class UsersController < ApplicationController
           @user.badge = true
         else
           @user.badge = false
+        end
+
+        @user.location_interests.where.not(location_id: params[:location_interests]).delete_all
+
+        if params[:location_interests]
+          params[:location_interests].each do |location_interest_id|
+            LocationInterest.find_or_create_by(user_id: @user.id, location_id: location_interest_id)
+          end
         end
 
         @user.save!
@@ -47,7 +55,6 @@ class UsersController < ApplicationController
 
       @user.industry_interests.where.not(industry_id: params[:industry_interests]).delete_all
       @user.topic_interests.where.not(topic_id: params[:topic_interests]).delete_all
-
 
       if params[:industry_interests]
         params[:industry_interests].each do |industry_interest_id|
@@ -91,10 +98,13 @@ class UsersController < ApplicationController
 
   def premium
     @user = User.find(params[:id])
+    
     if @user.number_of_matches == 1
       @alternative = 2
     elsif @user.number_of_matches == 2
       @alternative = 1
     end
+
+    @select_cities = [Location.find_by(area: 'Greater Denver Area, US'), Location.find_by(area: 'Greater New York City Area, US'), Location.find_by(area: 'Greater Atlanta Area, US'), Location.find_by(area: 'San Francisco Bay Area, US'), Location.find_by(area: 'Washington D.C. Metro Area, US')]
   end
 end

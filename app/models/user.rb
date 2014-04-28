@@ -68,6 +68,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def premium?
+    self.references.count >= 5
+  end
+
   def find_potential_matches
     users_same_location = remove_different_location(remove_unapproved_users)
     users_no_previous_matches = remove_previous_matches(users_same_location)

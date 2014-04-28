@@ -33,4 +33,10 @@ class UserMailer < ActionMailer::Base
 
     mail to: [@first_user.email, @second_user.email], subject: "Intro: #{@first_user.first_name} <> #{@second_user.first_name}"
   end
+
+  def premium_notification(user)
+    @user = user
+
+    mail to: [@user.email], subject: "#{@user.first_name}: Congratulations on Achieving Premium Status"
+  end
 end

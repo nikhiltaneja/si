@@ -34,6 +34,12 @@ class User < ActiveRecord::Base
         user.save!
       end
 
+      if !user.premium_email && user.premium?
+        PremiumWorker.perform_async(user.id)
+        user.premium_email = true
+        user.save!
+      end
+
       ProfileWorker.perform_async(user.id)
       ConnectionWorker.perform_async(user.id)
 

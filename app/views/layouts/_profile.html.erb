@@ -14,7 +14,7 @@
 
       <h4><%= link_to "LinkedIn Profile", @user.public_profile, target: 'blank' %></h4>
 
-      <% if @user.premium? %>
+      <% if @user.badge %>
         <%= image_tag 'premium_badge.jpg', size: '70x60' %>
       <% end %>
     </div>

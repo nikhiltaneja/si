@@ -37,6 +37,7 @@ class User < ActiveRecord::Base
       if !user.premium_email && user.premium?
         PremiumWorker.perform_async(user.id)
         user.premium_email = true
+        user.badge = true
         user.save!
       end
 

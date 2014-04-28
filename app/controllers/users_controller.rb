@@ -26,6 +26,13 @@ class UsersController < ApplicationController
     if params[:user] && params[:user][:number_of_matches]
       if @user.premium?
         @user.number_of_matches = params[:user][:number_of_matches].to_i
+
+        if params[:user][:badge] == "1"
+          @user.badge = true
+        else
+          @user.badge = false
+        end
+
         @user.save!
         return redirect_to user_path(@user), notice: 'Profile updated!'
       else

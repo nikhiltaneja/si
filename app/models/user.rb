@@ -34,6 +34,12 @@ class User < ActiveRecord::Base
         user.save!
       end
 
+      if !user.premium_email && user.premium?
+        PremiumWorker.perform_async(user.id)
+        user.premium_email = true
+        user.save!
+      end
+
       ProfileWorker.perform_async(user.id)
       ConnectionWorker.perform_async(user.id)
 
@@ -61,11 +67,23 @@ class User < ActiveRecord::Base
   end
 
   def eligible_for_new_match?
-    if self.current_match
-      (Time.now - self.current_match.created_at) > 432000 #five days
+    if self.number_of_matches == 2
+      if self.current_match
+        (Time.now - self.current_match.created_at) > 172800 #two days
+      else
+        true
+      end
     else
-      true
+      if self.current_match
+        (Time.now - self.current_match.created_at) > 432000 #five days
+      else
+        true
+      end
     end
+  end
+
+  def premium?
+    self.references.count >= 5
   end
 
   def find_potential_matches

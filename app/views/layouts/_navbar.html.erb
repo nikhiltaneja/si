@@ -12,6 +12,7 @@
     <div class="navbar-collapse collapse" id="swiftintro-navbar">
       <ul class="nav navbar-nav navbar-right">
         <% if current_user %>
+        <li><%= link_to "Premium Features", user_premium_path(current_user) %></li>
         <li><%= link_to "Invite Friends", user_invite_path(current_user) %></li>
           <% if current_user.admin %>
             <li><%= link_to "Admin", admins_path %></li>

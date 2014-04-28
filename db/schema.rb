@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140424175257) do
+ActiveRecord::Schema.define(version: 20140428184710) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -165,15 +165,17 @@ ActiveRecord::Schema.define(version: 20140424175257) do
     t.string   "image"
     t.string   "public_profile"
     t.integer  "location_id"
-    t.boolean  "admin",            default: false
-    t.float    "score",            default: 0.0
-    t.string   "approved",         default: "pending"
+    t.boolean  "admin",             default: false
+    t.float    "score",             default: 0.0
+    t.string   "approved",          default: "pending"
     t.integer  "industry_id"
     t.string   "token"
     t.string   "secret"
     t.integer  "linkedin_user_id"
     t.text     "seeking"
-    t.boolean  "signup_email",     default: false
+    t.boolean  "signup_email",      default: false
+    t.integer  "number_of_matches", default: 1
+    t.boolean  "premium_email",     default: false
   end
 
   add_index "users", ["industry_id"], name: "index_users_on_industry_id", using: :btree

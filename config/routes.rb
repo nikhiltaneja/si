@@ -19,6 +19,7 @@ SwiftIntro::Application.routes.draw do
   get 'admins/matches'
 
   get 'users/:id/invite', to: 'users#invite', as: 'user_invite'
+  get 'users/:id/premium', to: 'users#premium', as: 'user_premium'
 
   resources :admins, only: [:index, :show]
   resources :dashboard, only: [:index]

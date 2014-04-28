@@ -23,6 +23,16 @@ class UsersController < ApplicationController
       redirect_to :back
     end
 
+    if params[:user][:number_of_matches]
+      if @user.premium?
+        @user.number_of_matches = params[:user][:number_of_matches].to_i
+        @user.save!
+        return redirect_to user_path(@user), notice: 'Profile updated!'
+      else
+        return redirect_to user_invite_path(@user), alert: "You must sign up 5 or more friends to access premium features."
+      end
+    end
+
     if params[:user]
       @user.industry_id = params[:user][:industry_id]
       @user.summary = params[:user][:summary]
@@ -70,5 +80,14 @@ class UsersController < ApplicationController
 
   def invite
     @user = User.find(params[:id])
+  end
+
+  def premium
+    @user = User.find(params[:id])
+    if @user.number_of_matches == 1
+      @alternative = 2
+    elsif @user.number_of_matches == 2
+      @alternative = 1
+    end
   end
 end

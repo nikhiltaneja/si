@@ -1,0 +1,35 @@
+<div class="container">
+
+  <p>To access these premium features you must sign up 5 or more users using your personal link: 
+    <b>www.swiftintro.com/<%=@user.uid%></b>
+
+    <a href="https://twitter.com/share" class="twitter-share-button" data-text="Sign up for the @SwiftIntro beta to meet one like-minded professional a week: swiftintro.com/<%=@user.uid%>" data-url="swiftintro.com" data-count="none">Tweet</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+  </p>
+
+
+  <%= form_for @user do |f| %>
+
+    <% if @user.errors.any? %>
+      <div id="error-explanation">
+        <div class="alert alert-danger">
+          The form contains <%= pluralize(@user.errors.count, "error") %>.
+        </div>
+        <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li>* <%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <h4>How many matches would you like per week?</h4>
+      <%= f.select :number_of_matches, options_for_select([@user.number_of_matches, @alternative]) %>
+    </div>
+
+    <%= f.submit "Submit", class:"btn btn-primary" %>
+  <% end %>
+</div>
+
+

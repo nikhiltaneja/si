@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :connections
   has_many :industry_interests
   has_many :topic_interests
+  has_many :location_interests
   has_many :references
 
   has_many :first_users, class_name: "Match", foreign_key: :first_user_id

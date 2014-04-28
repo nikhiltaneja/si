@@ -36,6 +36,18 @@
       <%= f.check_box(:badge) %>
     </div>
 
+    <div class="form-group">
+      <h4>If you are interested in receiving suggested matches in additional cities, please select which ones below:</h4>
+      <% @select_cities.each do |location| %>
+        <% checked = current_user.location_interests.pluck(:location_id).include?(location.id) %>
+          <div class="checkbox">
+            <label>
+              <%= check_box_tag("location_interests[]", location.id, checked) %> <%= location.area %>
+            </label>
+          </div>        
+      <% end %>
+    </div>
+
     <%= f.submit "Submit", class:"btn btn-primary" %>
   <% end %>
 </div>

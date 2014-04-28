@@ -1,7 +1,10 @@
 <div class="container">
 
   <p>To access these premium features you must sign up 5 or more users using your personal link: 
-    <b>www.swiftintro.com/<%=@user.uid%></b></p>
+    <b>www.swiftintro.com/<%=@user.uid%></b>
+
+    <%= render partial: 'users/twitter' %>
+  </p>
 
 
   <%= form_for @user do |f| %>

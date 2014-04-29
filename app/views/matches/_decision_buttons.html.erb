@@ -1,8 +1,8 @@
 <div class="buttons">
   <div class="row">
     <div class="col-md-offset-3">
-      <%= button_to "I'd like an intro ", user_match_path(current_user, @match, decision: "Yes"), method: 'patch', class: 'btn btn-success btn-lg col-md-3' %>
-      <%= button_to "No thanks", user_match_path(current_user, @match, decision: "No"), method: 'patch', class: 'btn btn-danger btn-lg col-md-3 col-md-offset-1' %>
+      <%= button_to "I'd Like an Intro ", user_match_path(current_user, @match, decision: "Yes"), method: 'patch', class: 'btn btn-success btn-lg col-md-3' %>
+      <%= button_to "Maybe Later", user_match_path(current_user, @match, decision: "No"), method: 'patch', class: 'btn btn-danger btn-lg col-md-3 col-md-offset-1' %>
     </div>
   </div>
 </div>

@@ -171,7 +171,10 @@ class User < ActiveRecord::Base
     if client.connections["total"] != 0
       client.connections["all"].each do |connection|
         linkedin_user = LinkedinUser.find_or_create_by(uid: connection["id"])
-        Connection.find_or_create_by(user_id: user.id, linkedin_user_id: linkedin_user.id)
+        c = Connection.find_or_create_by(user_id: user.id, linkedin_user_id: linkedin_user.id)
+        c.image = connection['picture_url']
+        c.first_name = connection['first_name']
+        c.save!
       end
     end
   end

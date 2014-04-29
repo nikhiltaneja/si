@@ -28,6 +28,8 @@ class MatchesController < ApplicationController
     end
 
     @shared_count = current_user.shared_connections(@user.id).count
+    @shared_connection_images = current_user.shared_connections_pics(@user.id)
+    
   end
 
   def create

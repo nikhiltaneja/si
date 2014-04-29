@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140428231132) do
+ActiveRecord::Schema.define(version: 20140429040132) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 20140428231132) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "image"
+    t.string   "first_name"
   end
 
   add_index "connections", ["linkedin_user_id"], name: "index_connections_on_linkedin_user_id", using: :btree
@@ -178,9 +180,9 @@ ActiveRecord::Schema.define(version: 20140428231132) do
     t.boolean  "admin",             default: false
     t.float    "score",             default: 0.0
     t.string   "approved",          default: "pending"
-    t.integer  "industry_id"
     t.string   "token"
     t.string   "secret"
+    t.integer  "industry_id"
     t.integer  "linkedin_user_id"
     t.text     "seeking"
     t.boolean  "signup_email",      default: false

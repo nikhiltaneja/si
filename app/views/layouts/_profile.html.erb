@@ -18,6 +18,10 @@
         <%= image_tag 'premium_badge.jpg', size: '70x60' %>
       <% end %>
     </div>
+
+    <% if @match %>
+      <%= render partial: 'matches/mutual_connections' %>
+    <% end %>
   </div>
 
   <div class="col-md-6 col-md-offset-1">

@@ -148,6 +148,16 @@ class User < ActiveRecord::Base
     second_user_connections = Connection.where(user_id: user_id).pluck(:linkedin_user_id)
 
     mutual_connections = first_user_connections & second_user_connections
+
+  end
+
+   def shared_connections_pics(user_id) #returns connection images and first names array
+    first_user_connections = Connection.where(user_id: self.id).where.not(image: nil).pluck(:first_name, :image)
+    second_user_connections = Connection.where(user_id: user_id).where.not(image: nil).pluck(:first_name, :image)
+
+    mutual_connections = first_user_connections & second_user_connections
+    mutual_connections.sample(5)
+
   end
 
   def calculate_score  #updates a user's score 

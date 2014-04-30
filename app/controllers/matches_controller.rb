@@ -41,7 +41,7 @@ class MatchesController < ApplicationController
 
     PotentialmatchWorker.perform_async(params[:user_1], params[:user_2])
 
-    redirect_to admins_path, notice: "Match successfully created!"
+    redirect_to admins_path, notice: "Intro successfully created!"
   end
 
   def update
@@ -59,7 +59,7 @@ class MatchesController < ApplicationController
     user_decision = current_user.id == @match.first_user_id ? @match.first_user_status : @match.second_user_status
 
     if user_decision == "Yes"
-      redirect_to root_path, notice: "Thanks for submitting your response! We will email you soon if a match is made."
+      redirect_to root_path, notice: "Thanks for submitting your response! We will email you soon if an introduction is made."
     elsif user_decision == "No"
       redirect_to root_path, notice: "Thanks for submitting your response."
     else

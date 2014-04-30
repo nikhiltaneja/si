@@ -107,4 +107,17 @@ class UsersController < ApplicationController
 
     @select_cities = [Location.find_by(area: 'Greater Denver Area, US'), Location.find_by(area: 'Greater New York City Area, US'), Location.find_by(area: 'Greater Atlanta Area, US'), Location.find_by(area: 'San Francisco Bay Area, US'), Location.find_by(area: 'Washington D.C. Metro Area, US')]
   end
+
+  def settings
+  end
+
+  def delete_account
+    @user = User.find(params[:id])
+    @user.deleted = true
+    @user.save
+    redirect_to signout_path
+  end
+
+
+
 end

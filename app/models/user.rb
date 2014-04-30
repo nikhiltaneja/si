@@ -96,7 +96,7 @@ class User < ActiveRecord::Base
   end
 
   def remove_unapproved_users
-    User.where(approved: "Yes")
+    User.where(approved: "Yes").where(deleted: false)
   end
 
   def remove_different_location(users)
@@ -229,6 +229,8 @@ class User < ActiveRecord::Base
       end
     end
   end
+
+
 
   private
   

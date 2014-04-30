@@ -26,18 +26,18 @@
     <% end %>
 
     <div class="form-group">
-      <h4>How many matches would you like per week?</h4>
+      <h4>How many introductions would you like per week?</h4>
       <%= f.select :number_of_matches, options_for_select([@user.number_of_matches, @alternative]) %>
     </div>
 
     <div class="form-group">
-      <h4>Display a premium badge on your profile and increase your chance of being matched with premium users</h4>
+      <h4>Display a premium badge on your profile and increase your chance of being introduced to other premium users</h4>
       <%= image_tag 'premium_badge.jpg', size: '70x60' %>
       <%= f.check_box(:badge) %>
     </div>
 
     <div class="form-group">
-      <h4>If you are interested in receiving suggested matches in additional cities, please select which ones below:</h4>
+      <h4>If you are interested in being introduced to users in additional cities, please select which ones below:</h4>
       <% @select_cities.each do |location| %>
         <% checked = current_user.location_interests.pluck(:location_id).include?(location.id) %>
           <div class="checkbox">

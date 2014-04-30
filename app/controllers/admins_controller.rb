@@ -18,7 +18,7 @@ class AdminsController < ApplicationController
   end
 
   def requests
-    @users = User.where(approved: "pending")
+    @users = User.where(approved: "pending").where(deleted: false)
   end
 
   def matches

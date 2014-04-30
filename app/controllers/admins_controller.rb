@@ -27,5 +27,7 @@ class AdminsController < ApplicationController
     @successful_matches_count = @all_matches.where(match_status: true).count
     @first_user_yes_count = @all_matches.where(first_user_status: 'Yes').count
     @second_user_yes_count = @all_matches.where(second_user_status: 'Yes').count
+    @first_user_no_count = @all_matches.where(first_user_status: 'No').count
+    @second_user_no_count = @all_matches.where(second_user_status: 'No').count
   end
 end

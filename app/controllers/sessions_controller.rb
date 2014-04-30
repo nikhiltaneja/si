@@ -6,9 +6,9 @@ class SessionsController < ApplicationController
     if user.approved != "Yes"
       redirect_to edit_user_path(user)
     elsif user.matches.empty?
-      redirect_to user_path(user), notice: "Thanks for signing in. We are currently identifying matches for you. Please check back soon!"
+      redirect_to user_path(user), notice: "Thanks for signing in. We are currently identifying potential introductions for you. Please check back soon!"
     else
-      redirect_to user_path(user), notice: "Signed in! Click on Current Match to see your match."
+      redirect_to user_path(user), notice: "Signed in! Click on Current Intro to see your suggested introduction."
     end
   end
 

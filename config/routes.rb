@@ -20,6 +20,8 @@ SwiftIntro::Application.routes.draw do
 
   get 'users/:id/invite', to: 'users#invite', as: 'user_invite'
   get 'users/:id/premium', to: 'users#premium', as: 'user_premium'
+  get 'users/:id/settings', to: 'users#settings', as: 'user_settings'
+  post 'users/:id/delete_account', to: 'users#delete_account', as: 'user_delete_account'
 
   resources :admins, only: [:index, :show]
   resources :dashboard, only: [:index]

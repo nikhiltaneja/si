@@ -55,6 +55,11 @@ class User < ActiveRecord::Base
         user.save!
       end
 
+      if user.deleted == true
+        user.deleted = false
+        user.save!
+      end
+
       user
     end
   end

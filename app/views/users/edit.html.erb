@@ -13,7 +13,7 @@
         </ul>
       </div>
     <% end %>
-
+    
     <div class="form-group">
       <h4>Which industry best describes your line of work?</h4>
       <%= f.collection_select(:industry_id, Industry.all.sort_by(&:name), :id, :name, include_blank: true) %>

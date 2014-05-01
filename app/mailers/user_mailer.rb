@@ -43,5 +43,5 @@ class UserMailer < ActionMailer::Base
 
   def active_notification(user)
     @user = user
-    mail to: [@user.email], subject: "#{@user.first_name}: Your account at SwiftIntro has been labled inactive"
+    mail to: [@user.email], subject: "#{@user.first_name}: Your account at SwiftIntro has been labeled inactive"
   end

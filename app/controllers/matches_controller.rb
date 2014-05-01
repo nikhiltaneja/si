@@ -39,6 +39,20 @@ class MatchesController < ApplicationController
     else
       Match.create!(first_user_id: params[:user_2], second_user_id: params[:user_1])
     end
+    user1 = User.find(params[:user_1])
+    user2 =  User.find(params[:user_2])
+
+    if user1.four_matches_pending
+      ActiveWorker.perform_async(user1.id)
+      user1.active = false
+      user1.save!
+    end
+
+    if user2.four_matches_pending
+      ActiveWorker.perform_async(user2.id)
+      user2.active = false
+      user2.save!
+    end
 
     PotentialmatchWorker.perform_async(params[:user_1], params[:user_2])
 
@@ -58,6 +72,12 @@ class MatchesController < ApplicationController
     end
 
     user_decision = current_user.id == @match.first_user_id ? @match.first_user_status : @match.second_user_status
+
+    if current_user.active = false
+      current_user.active = true
+      current_user.save!
+    end
+
 
     if user_decision == "Yes"
       redirect_to root_path, notice: "Thanks for submitting your response! We will email you soon if an introduction is made."

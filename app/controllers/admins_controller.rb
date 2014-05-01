@@ -2,9 +2,9 @@ class AdminsController < ApplicationController
   before_action :check_admin?
 
   def index
-    users = User.where(approved: "Yes")
+    users = User.where(approved: "Yes").where(deleted: false).where(active: true)
     @eligible_users  = users.select do |user|
-      user.eligible_for_new_match?
+        user.eligible_for_new_match?
     end
   end
 

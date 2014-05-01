@@ -8,7 +8,7 @@
     </thead>
 
     <tbody>
-      <% @matches.each do |match| %>
+      <% @matches.reverse.each do |match| %>
         <% if current_user.id == match.first_user_id %>
           <tr>
             <td><%= link_to match.second_user.name, user_match_path(match.second_user, match) %></td>

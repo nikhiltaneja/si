@@ -42,6 +42,7 @@ class User < ActiveRecord::Base
         user.save!
       end
 
+      
       ProfileWorker.perform_async(user.id)
       ConnectionWorker.perform_async(user.id)
 
@@ -50,6 +51,7 @@ class User < ActiveRecord::Base
       user.save!
 
       if user.signup_email == false
+        MailchimpWorker.perform_async(user.id)
         InitialSignupWorker.perform_async(user.id)
         user.signup_email = true
         user.save!
@@ -253,6 +255,11 @@ class User < ActiveRecord::Base
     else 
       return false
     end
+  end
+
+  def add_mailchimp
+    gb = Gibbon::API.new(ENV['MAILCHIMP_KEY'])
+    gb.lists.subscribe({:id => '54f2f26d18', :email => {:email => self.email}, :merge_vars => {:FNAME => self.first_name, :LNAME => self.last_name}, :double_optin => false})
   end
 
 

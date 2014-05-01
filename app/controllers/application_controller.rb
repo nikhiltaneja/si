@@ -57,4 +57,13 @@ class ApplicationController < ActionController::Base
       redirect_to user_path(current_user)
     end
   end
+
+  def correct_match?
+    @match = Match.find(params[:id])
+
+    if @match.first_user_id == params[:user_id].to_i || @match.second_user_id == params[:user_id].to_i
+    else
+      redirect_to user_path(current_user), alert: 'Access denied.'
+    end  
+  end
 end

@@ -4,6 +4,6 @@ class ActiveWorker
   def perform(user_id)
     user = User.find(user_id)
 
-   UserMailer.active_email(user).deliver
+   UserMailer.active_notification(user).deliver
   end
 end

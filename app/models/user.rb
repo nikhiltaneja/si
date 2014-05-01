@@ -101,7 +101,7 @@ class User < ActiveRecord::Base
   end
 
   def remove_unapproved_users
-    User.where(approved: "Yes").where(deleted: false)
+    User.where(approved: "Yes").where(deleted: false).where(active: true)
   end
 
   def remove_different_location(users)
@@ -232,6 +232,26 @@ class User < ActiveRecord::Base
           Education.find_or_create_by(user_id: user.id, school_id: school.id, subject_id: subject.id, degree_id: degree.id)
         # end
       end
+    end
+  end
+
+  def four_matches_pending
+    matches = self.matches
+    count = 0
+    4.times do |i|
+      if matches[-i] == nil
+        return false
+      end
+      if matches[-i].first_user_id == self.id && matches[-i].first_user_status == "pending" 
+        count = count + 1;
+      elsif matches[-i].second_user_id == self.id && matches[-i].second_user_status == "pending"
+        count = count + 1; 
+      end
+    end
+    if count == 4
+      return true
+    else 
+      return false
     end
   end
 

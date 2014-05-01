@@ -239,12 +239,12 @@ class User < ActiveRecord::Base
     matches = self.matches
     count = 0
     4.times do |i|
-      if matches[-i] == nil
+      if matches[-(i+1)] == nil
         return false
       end
-      if matches[-i].first_user_id == self.id && matches[-i].first_user_status == "pending" 
+      if matches[-(i+1)].first_user_id == self.id && matches[-(i+1)].first_user_status == "pending" 
         count = count + 1;
-      elsif matches[-i].second_user_id == self.id && matches[-i].second_user_status == "pending"
+      elsif matches[-(i+1)].second_user_id == self.id && matches[-(i+1)].second_user_status == "pending"
         count = count + 1; 
       end
     end

@@ -23,7 +23,7 @@ class UserMailer < ActionMailer::Base
     @first_user = first_user
     @second_user = second_user
 
-    mail to: [@first_user.email], subject: "Potential Match: Meet #{@second_user.first_name}, #{@second_user.headline}"
+    mail to: [@first_user.email], subject: "Suggested Intro: Meet #{@second_user.first_name}, #{@second_user.headline}"
   end
 
   def match_confirmation(first_user, second_user)

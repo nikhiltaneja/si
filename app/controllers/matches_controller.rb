@@ -73,7 +73,7 @@ class MatchesController < ApplicationController
 
     user_decision = current_user.id == @match.first_user_id ? @match.first_user_status : @match.second_user_status
 
-    if current_user.active = false
+    if current_user.active == false
       current_user.active = true
       current_user.save!
     end

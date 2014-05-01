@@ -10,4 +10,7 @@ class DashboardController < ApplicationController
 
   def faq
   end
+
+  def privacy
+  end
 end

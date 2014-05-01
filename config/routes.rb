@@ -28,6 +28,7 @@ SwiftIntro::Application.routes.draw do
 
   get '/contact', to: 'dashboard#contact', as: 'contact'
   get '/faq', to: 'dashboard#faq', as: 'faq'
+  get '/privacy', to: 'dashboard#privacy', as: 'privacy'
 
   get '/:ref', to: 'dashboard#index'
 end

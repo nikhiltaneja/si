@@ -1,6 +1,6 @@
 <p>Hi <%= @first_user.first_name %>,</p>
 
-<p>We found someone that you should consider meeting in the <%= @second_user.location.area %>.</p>
+<p>We found someone that you should consider meeting in the <%= @second_user.location.area.split(",").first %>.</p>
 
 <div style="display: inline-block">
   <div><%= image_tag @second_user.image, size: '150x150', alt: 'Profile Picture' %></div>

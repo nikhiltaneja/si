@@ -1,6 +1,6 @@
 Hi <%= @first_user.first_name %>,
 
-We found someone that you should consider meeting in the <%= @second_user.location.area %>.
+We found someone that you should consider meeting in the <%= @second_user.location.area.split(",").first %>.
 
 <%= @second_user.name %>
 <%= @second_user.headline %>

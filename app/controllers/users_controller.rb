@@ -105,7 +105,7 @@ class UsersController < ApplicationController
       @alternative = 1
     end
 
-    @select_cities = [Location.find_by(area: 'Greater Denver Area, US'), Location.find_by(area: 'Greater New York City Area, US'), Location.find_by(area: 'Greater Atlanta Area, US'), Location.find_by(area: 'San Francisco Bay Area, US'), Location.find_by(area: 'Washington D.C. Metro Area, US')]
+    @select_cities = [Location.find_by(area: 'Greater Denver Area, US'), Location.find_by(area: 'Greater New York City Area, US'), Location.find_by(area: 'Greater Atlanta Area, US'), Location.find_by(area: 'San Francisco Bay Area, US'), Location.find_by(area: 'Washington D.C. Metro Area, US'), Location.find_by(area: 'Greater Chicago Area, US'), Location.find_by(area: 'Greater Boston Area, US')]
   end
 
   def settings

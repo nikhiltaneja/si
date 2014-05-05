@@ -12,5 +12,6 @@ class ProfileWorker
     
     User.get_educations(user)
     User.get_jobs(user)
+    User.get_skills(user)
   end
 end

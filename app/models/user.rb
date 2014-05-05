@@ -251,6 +251,14 @@ class User < ActiveRecord::Base
     end
   end
 
+  def compare_skills_count(user)
+    skills1 = self.skill_interests.pluck(:skill_id)
+    skills2 = user.skill_interests.pluck(:skill_id)
+
+    shared_skills = skills1 & skills2
+    shared_skills.count
+  end
+
   def four_matches_pending
     matches = self.matches
     count = 0
@@ -275,6 +283,8 @@ class User < ActiveRecord::Base
     gb = Gibbon::API.new(ENV['MAILCHIMP_KEY'])
     gb.lists.subscribe({:id => '54f2f26d18', :email => {:email => self.email}, :merge_vars => {:FNAME => self.first_name, :LNAME => self.last_name}, :double_optin => false})
   end
+
+
 
 
 

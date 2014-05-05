@@ -12,9 +12,14 @@ class AdminsController < ApplicationController
     @user = User.find(params[:id])
     @potential_matches = @user.find_potential_matches
 
-    @shared = @potential_matches.collect do |potential_match|
+    @shared_connections = @potential_matches.collect do |potential_match|
       @user.shared_connections(potential_match.id).count
     end
+
+    @shared_skills = @potential_matches.collect do |potential_match|
+      @user.compare_skills_count(potential_match)
+    end
+
   end
 
   def requests
@@ -29,5 +34,6 @@ class AdminsController < ApplicationController
     @second_user_yes_count = @all_matches.where(second_user_status: 'Yes').count
     @first_user_no_count = @all_matches.where(first_user_status: 'No').count
     @second_user_no_count = @all_matches.where(second_user_status: 'No').count
+    @reference_count = Reference.all.count
   end
 end

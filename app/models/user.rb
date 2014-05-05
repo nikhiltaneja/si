@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_many :topic_interests
   has_many :location_interests
   has_many :references
+  has_many :skill_interests
 
   has_many :first_users, class_name: "Match", foreign_key: :first_user_id
   has_many :second_users, class_name: "Match", foreign_key: :second_user_id
@@ -233,6 +234,19 @@ class User < ActiveRecord::Base
         # else
           Education.find_or_create_by(user_id: user.id, school_id: school.id, subject_id: subject.id, degree_id: degree.id)
         # end
+      end
+    end
+  end
+
+  def self.get_skills(user)
+    client = LinkedIn::Client.new(ENV['LINKEDIN_API_KEY'], ENV['LINKEDIN_SECRET_KEY'])
+    client.authorize_from_access(user.token, user.secret)
+    skills = client.profile(:fields => %w(skills))
+
+    if skills['skills']['total'] > 0
+      skills['skills']['all'].each do |skill|
+        my_skill = Skill.find_or_create_by(name: skill["skill"]["name"])
+        SkillInterest.find_or_create_by(skill_id: my_skill.id , user_id: user.id)
       end
     end
   end

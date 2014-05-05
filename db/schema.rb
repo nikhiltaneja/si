@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140501180411) do
+ActiveRecord::Schema.define(version: 20140505174152) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -141,6 +141,22 @@ ActiveRecord::Schema.define(version: 20140501180411) do
     t.datetime "updated_at"
   end
 
+  create_table "skill_interests", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "skill_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "skill_interests", ["skill_id"], name: "index_skill_interests_on_skill_id", using: :btree
+  add_index "skill_interests", ["user_id"], name: "index_skill_interests_on_user_id", using: :btree
+
+  create_table "skills", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "subjects", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -180,9 +196,9 @@ ActiveRecord::Schema.define(version: 20140501180411) do
     t.boolean  "admin",             default: false
     t.float    "score",             default: 0.0
     t.string   "approved",          default: "pending"
-    t.integer  "industry_id"
     t.string   "token"
     t.string   "secret"
+    t.integer  "industry_id"
     t.integer  "linkedin_user_id"
     t.text     "seeking"
     t.boolean  "signup_email",      default: false

@@ -223,8 +223,6 @@ class User < ActiveRecord::Base
     client.authorize_from_access(user.token, user.secret)
     educations = client.profile(:fields => %w(educations))
 
-    binding.pry
-
     if educations['educations']['total'] > 0
       educations['educations']['all'].each do |education|
         school = School.find_or_create_by(name: education["school_name"])

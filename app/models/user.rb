@@ -223,6 +223,8 @@ class User < ActiveRecord::Base
     client.authorize_from_access(user.token, user.secret)
     educations = client.profile(:fields => %w(educations))
 
+    binding.pry
+
     if educations['educations']['total'] > 0
       educations['educations']['all'].each do |education|
         school = School.find_or_create_by(name: education["school_name"])
@@ -243,7 +245,7 @@ class User < ActiveRecord::Base
     client.authorize_from_access(user.token, user.secret)
     skills = client.profile(:fields => %w(skills))
 
-    if skills['skills']['total'] > 0
+    if skills['skills'] && skills['skills']['total'] > 0
       skills['skills']['all'].each do |skill|
         my_skill = Skill.find_or_create_by(name: skill["skill"]["name"])
         SkillInterest.find_or_create_by(skill_id: my_skill.id , user_id: user.id)

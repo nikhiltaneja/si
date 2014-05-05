@@ -177,7 +177,7 @@ class User < ActiveRecord::Base
       end
     end
     # doesn't account for people who don't respond
-    self.score = (meetups_requested.length / self.matches.length)*100
+    self.score = ((meetups_requested.length.to_f / self.matches.length.to_f)*100).round(2)
     self.save
   end
 

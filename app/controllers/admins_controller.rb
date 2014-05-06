@@ -29,7 +29,7 @@ class AdminsController < ApplicationController
   end
 
   def requests
-    @users = User.where(approved: "pending").where(deleted: false).page(params[:page])
+    @users = User.where(approved: "pending").where(deleted: false).order("created_at DESC").page(params[:page])
   end
 
   def matches

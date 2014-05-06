@@ -60,25 +60,10 @@
     </div> 
 
     <div class="row">
-      <div>
-        <% if !@user.topic_interests.empty? || (@user.seeking && !@user.seeking.empty?) %>
-            <h3>Interested In</h3>
-        <% end %>
-
-        <% if !@user.topic_interests.empty? %>
-          <ul>
-            <% @user.topic_interests.each do |topic_interest| %>
-              <li><%= topic_interest.topic.name %> </li>
-            <% end %>
-          </ul>
-        <% end %>
-      </div>
-
-      <div>
-        <% if @user.seeking %>
+      <% if @user.seeking && !@user.seeking.empty? %>
+          <h3>Interested In</h3>
           <p><%= @user.seeking %></p>
-        <% end %>
-      </div>
+      <% end %>
     </div>
 
   </div>

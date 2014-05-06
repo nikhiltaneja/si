@@ -17,11 +17,14 @@ class AdminsController < ApplicationController
     @shared_connections = []
     @shared_skills = []
     @shared_industry_interests = []
+    @rating = []
 
-    @potential_matches.each do |potential_match|
+    @potential_matches.each_with_index do |potential_match, index|
       @shared_connections << @user.shared_connections(potential_match.id).count
       @shared_skills << @user.compare_skills_count(potential_match)
       @shared_industry_interests << @user.compare_industry_interests_count(potential_match)
+
+      @rating << (@shared_connections[index] + (5 * @shared_skills[index]) + (10 * @shared_industry_interests[index]))
     end
   end
 

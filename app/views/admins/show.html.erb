@@ -14,6 +14,7 @@
       <th>Shared Industry Interests</th>
       <th>Shared Skills</th>
       <th>Shared Connections</th>
+      <th>Rating</th>
     </thead>
     <tbody>
       <% @potential_matches.each_with_index do |potential_match, index| %>
@@ -23,6 +24,7 @@
           <td><%= @shared_industry_interests[index] %></td>
           <td><%= @shared_skills[index] %></td>
           <td><%= @shared_connections[index] %></td>
+          <td><%= @rating[index] %></td>
           <td><%= button_to "Create Match", user_matches_path(@user, user_1: @user.id, user_2: potential_match.id), method: 'post', class: 'btn btn-primary' %></td>
         </tr>
       <% end %>

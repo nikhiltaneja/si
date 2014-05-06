@@ -3,7 +3,6 @@
     <thead>
       <th>Name</th>
       <th>Profile Picture</th>
-      <th>Industry</th>
       <th>Headline</th>
     </thead>
 
@@ -13,11 +12,6 @@
           <tr>
             <td><%= link_to match.second_user.name, user_match_path(match.second_user, match) %></td>
             <td><%= image_tag match.second_user.image, size: "30x30", alt: 'Profile Picture' %></td>    
-            <% if match.second_user.industry%>
-            <td><%= match.second_user.industry.name %></td>
-            <% else %>
-            <td></td>
-            <% end %>
             <td><%= match.second_user.headline %></td> 
           </tr>
         <% else %>

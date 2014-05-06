@@ -12,6 +12,7 @@
       <th>Potential match</th>
       <th>Industry</th>
       <th>User Score</th>
+      <th>Shared Industry Interests</th>
       <th>Shared Skills</th>
       <th>Shared Connections</th>
     </thead>
@@ -25,6 +26,7 @@
             <td></td>
           <% end %>
           <td><%= potential_match.score %></td>
+          <td><%= @shared_industry_interests[index] %></td>
           <td><%= @shared_skills[index] %></td>
           <td><%= @shared_connections[index] %></td>
           <td><%= button_to "Create Match", user_matches_path(@user, user_1: @user.id, user_2: potential_match.id), method: 'post', class: 'btn btn-primary' %></td>

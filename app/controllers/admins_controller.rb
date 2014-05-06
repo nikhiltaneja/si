@@ -3,8 +3,8 @@ class AdminsController < ApplicationController
 
   def index
     users = User.where(approved: "Yes").where(deleted: false).where(active: true)
-    @eligible_users  = users.select do |user|
-        user.eligible_for_new_match?
+    @eligible_users = users.select do |user|
+      user.eligible_for_new_match?
     end
   end
 
@@ -12,14 +12,15 @@ class AdminsController < ApplicationController
     @user = User.find(params[:id])
     @potential_matches = @user.find_potential_matches
 
-    @shared_connections = @potential_matches.collect do |potential_match|
-      @user.shared_connections(potential_match.id).count
-    end
+    @shared_connections = []
+    @shared_skills = []
+    @shared_industry_interests = []
 
-    @shared_skills = @potential_matches.collect do |potential_match|
-      @user.compare_skills_count(potential_match)
+    @potential_matches.each do |potential_match|
+      @shared_connections << @user.shared_connections(potential_match.id).count
+      @shared_skills << @user.compare_skills_count(potential_match)
+      @shared_industry_interests << @user.compare_industry_interests_count(potential_match)
     end
-
   end
 
   def requests

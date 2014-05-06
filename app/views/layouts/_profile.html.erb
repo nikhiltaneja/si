@@ -8,10 +8,6 @@
       <h4><%= @user.headline %></h4>
       <h4><%= @user.location.area %></h4>
 
-      <% if @user.industry %>
-        <h4>Industry: <%= @user.industry.name %></h4>
-      <% end %>
-
       <h4><%= link_to "LinkedIn Profile", @user.public_profile, target: 'blank' %></h4>
 
       <% if @user.badge %>

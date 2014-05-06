@@ -1,11 +1,7 @@
 <div class="container">
-  <h5>Potential matches for <%= @user.name %>. Score: <%= @user.score %>
-    <% if @user.industry %>
-      , Industry: <%= @user.industry.name %>
-    <% end %>
-
+  <h5>Potential matches for <%= @user.name %>. Score: <%= @user.score %>,
     <% if @user.industry_interests %>
-      , Interests: <% @user.industry_interests.each do |industry_interest| %>
+      Industry Interests: <% @user.industry_interests.each do |industry_interest| %>
         <%= industry_interest.industry.name %>
       <% end %>
     <% end %>

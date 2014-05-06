@@ -4,7 +4,7 @@
       <th>Users requesting invite to beta program</th>
     </thead>
     <tbody>
-      <% @users.sort.reverse.each do |user| %>
+      <% @users.each do |user| %>
         <tr>
           <td><%= link_to user.name, user_path(user) %></td>
           <td><%= user.location.area %></td>

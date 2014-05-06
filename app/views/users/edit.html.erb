@@ -19,7 +19,7 @@
       <div class="col-md-8">
         <% Industry.all.sort_by(&:name).each do |industry| %>
           <% checked = current_user.industry_interests.pluck(:industry_id).include?(industry.id) %>
-            <div class="checkbox-inline">
+            <div class="checkbox">
               <label style="font-weight:normal">
                 <%= check_box_tag("industry_interests[]", industry.id, checked) %> <%= industry.name %>
               </label>
@@ -29,13 +29,8 @@
     </div>
 
     <div class="form-group row">
-      <h4>Optional: Please write a short summary that describes you (example: Product Manager with an interest in web and mobile development).</h4>
+      <h4>Please write a short summary that describes you (example: Product Manager with an interest in web and mobile development).</h4>
       <%= f.text_area :summary, class: 'form-control' %>
-    </div>
-
-    <div class="form-group row">
-      <h4>Optional: Please describe in more detail who you are interested in meeting (e.g., people interested in big data, renewable energy, etc.).</h4>
-      <%= f.text_area :seeking, class: 'form-control' %>
     </div>
 
     <%= f.submit "Submit", class:"btn btn-primary" %>

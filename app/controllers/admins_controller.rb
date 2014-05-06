@@ -24,7 +24,7 @@ class AdminsController < ApplicationController
   end
 
   def requests
-    @users = User.where(approved: "pending").where(deleted: false)
+    @users = User.where(approved: "pending").where(deleted: false).page(params[:page])
   end
 
   def matches

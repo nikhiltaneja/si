@@ -97,36 +97,16 @@ class User < ActiveRecord::Base
   end
 
   def find_potential_matches
-    users_same_location = remove_different_location(remove_unapproved_users)
-    users_no_previous_matches = remove_previous_matches(users_same_location)
+    users_no_previous_matches = remove_previous_matches(remove_unapproved_users_and_different_location)
     users_no_first_degree_connections = remove_first_degree_connections(users_no_previous_matches)
     remove_oneself(users_no_first_degree_connections)
   end
 
-  def remove_unapproved_users
-    User.where(approved: "Yes").where(deleted: false).where(active: true)
-  end
-
-  def remove_different_location(users)
-    users.where(location_id: self.location.id)
+  def remove_unapproved_users_and_different_location
+    User.where(approved: "Yes").where(deleted: false).where(active: true).where(location_id: self.location.id)
   end
 
   def remove_previous_matches(users)
-    # filtered_users = []
-    # users.each do |user|
-    #   if self.id < user.id
-    #     unless Match.find_by(first_user_id: self.id, second_user_id: user.id)
-    #       filtered_users << user
-    #     end
-    #   else
-    #     unless Match.find_by(first_user_id: user.id, second_user_id: self.id)
-    #       filtered_users << user
-    #     end
-    #   end
-    # end
-    # filtered_users
-
-    #simon's code
     matched_user_ids1 = Match.where(first_user_id: self.id).pluck(:second_user_id)
     matched_user_ids2 = Match.where(second_user_id: self.id).pluck(:first_user_id)
     
@@ -257,6 +237,14 @@ class User < ActiveRecord::Base
 
     shared_skills = skills1 & skills2
     shared_skills.count
+  end
+
+  def compare_industry_interests_count(user)
+    industry_interests1 = self.industry_interests.pluck(:industry_id)
+    industry_interests2 = user.industry_interests.pluck(:industry_id)
+
+    shared_industry_interests = industry_interests1 & industry_interests2
+    shared_industry_interests.count
   end
 
   def four_matches_pending

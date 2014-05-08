@@ -80,8 +80,25 @@ class MatchesController < ApplicationController
 
 
     if user_decision == "Yes"
+      current_user.matches.where(match_status: false).each do |match|
+        if match.first_user_id == current_user.id && match.first_user_status == "pending"
+          return redirect_to user_matches_path(current_user), notice: "Thanks, we will email you soon if an introduction is made. Please respond to these pending intros in the meantime."
+        elsif match.second_user_id == current_user.id && match.second_user_status == "pending"
+          return redirect_to user_matches_path(current_user), notice: "Thanks, we will email you soon if an introduction is made. Please respond to these pending intros in the meantime."
+        end
+      end
+
       redirect_to root_path, notice: "Thanks for submitting your response! We will email you soon if an introduction is made."
+
     elsif user_decision == "No"
+      current_user.matches.where(match_status: false).each do |match|
+        if match.first_user_id == current_user.id && match.first_user_status == "pending"
+          return redirect_to user_matches_path(current_user), notice: "Thanks for submitting your response. Please respond to these pending intros in the meantime."
+        elsif match.second_user_id == current_user.id && match.second_user_status == "pending"
+          return redirect_to user_matches_path(current_user), notice: "Thanks for submitting your response. Please respond to these pending intros in the meantime."
+        end
+      end
+
       redirect_to root_path, notice: "Thanks for submitting your response."
     else
       redirect_to root_path

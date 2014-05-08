@@ -33,13 +33,11 @@
               <li><%= link_to "View Profile", user_path(current_user)%></li>
               <li><%= link_to "Edit Profile", edit_user_path(current_user)%></li>
               <li><%= link_to "Successful Intros", user_matches_prior_matches_path(current_user)%></li>
-              <li><%= link_to "Invite Friends", user_invite_path %></li>
+              <li><%= link_to "Invite Friends", user_invite_path(current_user) %></li>
               <li><%= link_to "Settings", user_settings_path(current_user)%></li>
               <li><%= link_to "Sign out", signout_path%></li>
             </ul>
           </li>
-
-
         <% end %>
       </ul>
     </div>

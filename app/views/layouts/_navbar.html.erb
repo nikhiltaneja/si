@@ -40,7 +40,10 @@
             </ul>
           </li>
 
-          <li><%= link_to "Logout", signout_path %></li>
+          <li><%= link_to signout_path do %>
+            <span class="glyphicon glyphicon-cog"></span>
+          <% end %>
+          </li>
         <% end %>
       </ul>
     </div>

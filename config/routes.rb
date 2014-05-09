@@ -16,7 +16,7 @@ SwiftIntro::Application.routes.draw do
   mount Sidekiq::Web, at: '/admins/sidekiq'
 
   get 'admins/requests'
-  get 'admins/matches'
+  get 'admins/metrics'
 
   get 'users/:id/invite', to: 'users#invite', as: 'user_invite'
   get 'users/:id/premium', to: 'users#premium', as: 'user_premium'

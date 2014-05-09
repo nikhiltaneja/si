@@ -32,7 +32,7 @@ class AdminsController < ApplicationController
     @users = User.where(approved: "pending").where(deleted: false).order("created_at DESC").page(params[:page])
   end
 
-  def matches
+  def metrics
     @all_users_count = User.all.count
     @all_matches = Match.all
     @successful_matches_count = @all_matches.where(match_status: true).count

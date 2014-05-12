@@ -21,6 +21,7 @@
             <td><%= link_to match.first_user.name, user_match_path(match.first_user, match) %></td>
             <td><%= image_tag match.first_user.image, size: "30x30", alt: 'Profile Picture' %></td>   
             <td><%= match.first_user.headline %></td>
+            <td><%= button_to "See Profile", user_match_path(match.second_user, match), method: 'get', class: 'btn btn-primary' %></td>
           </tr>
         <% end %>
       <% end %>

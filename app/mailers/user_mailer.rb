@@ -22,6 +22,7 @@ class UserMailer < ActionMailer::Base
   def potential_match(first_user, second_user)
     @first_user = first_user
     @second_user = second_user
+    @shared_connections_count = first_user.shared_connections(second_user.id).count
 
     mail to: [@first_user.email], subject: "Suggested Intro: Meet #{@second_user.first_name}, #{@second_user.headline}"
   end

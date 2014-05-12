@@ -2,6 +2,10 @@
 
 <p>We found someone that you should consider meeting in the <%= @second_user.location.area.split(",").first %>.</p>
 
+<% if @shared_connections_count > 1 %>
+  <p>You have <%= @shared_connections_count %> shared connections on LinkedIn.</p>
+<% end %>
+
 <div style="display: inline-block">
   <div><%= image_tag @second_user.image, size: '150x150', alt: 'Profile Picture' %></div>
   <div><%= @second_user.name %></div>

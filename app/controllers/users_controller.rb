@@ -22,7 +22,7 @@ class UsersController < ApplicationController
       @user.save
 
       if @user.approved == "Yes"
-        MailchimpWorker.perform_async(user.id)
+        MailchimpWorker.perform_async(@user.id)
       end
 
       return redirect_to :back

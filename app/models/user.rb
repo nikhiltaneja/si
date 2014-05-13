@@ -52,7 +52,6 @@ class User < ActiveRecord::Base
       user.save!
 
       if user.signup_email == false
-        MailchimpWorker.perform_async(user.id)
         InitialSignupWorker.perform_async(user.id)
         user.signup_email = true
         user.save!

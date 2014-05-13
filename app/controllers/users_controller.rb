@@ -20,6 +20,11 @@ class UsersController < ApplicationController
       DecisionWorker.perform_async(@user.id, params[:approved])
 
       @user.save
+
+      if @user.approved == "Yes"
+        MailchimpWorker.perform_async(@user.id)
+      end
+
       return redirect_to :back
     end
 

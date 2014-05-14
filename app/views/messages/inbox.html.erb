@@ -15,7 +15,7 @@
          <%= button_to "Reply","", class: 'btn btn-primary' %>
         </div>
       </div><br/>
-      <b>Sent:</b> <div style="display:inline-block" id="time<%=message.id%>"><%= message.updated_at.to_formatted_s(:long_ordinal)  %> </div><br/>
+      <b>Sent:</b> <div style="display:inline-block" id="time<%=message.id%>"><%= message.updated_at.in_time_zone('Pacific Time (US & Canada)').strftime('%b %y, %Y %I:%M %p PST') %> </div><br/>
       <b>Subject:</b> <div style="display:inline-block" id="title<%=message.id%>"><%=message.title%></div> <br/>
        <div id = "message-text<%= message.id %>"><%= simple_format h(message.body) %></div>
       

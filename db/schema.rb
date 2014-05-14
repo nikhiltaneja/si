@@ -210,9 +210,9 @@ ActiveRecord::Schema.define(version: 20140514201450) do
     t.boolean  "admin",             default: false
     t.float    "score",             default: 0.0
     t.string   "approved",          default: "pending"
+    t.integer  "industry_id"
     t.string   "token"
     t.string   "secret"
-    t.integer  "industry_id"
     t.integer  "linkedin_user_id"
     t.text     "seeking"
     t.boolean  "signup_email",      default: false

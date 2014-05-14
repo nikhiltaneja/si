@@ -3,8 +3,7 @@ class MessagesController < ApplicationController
   def inbox
     @user = User.find(params[:user_id])
     @message = Message.new
-    @messages = Message.where(receiver_id: @user.id).order("created_at DESC").page(params[:page]).per(10)
-    
+    @messages = Message.where(receiver_id: @user.id).order("created_at DESC").page(params[:page]).per(10) 
   end
 
   def sent
@@ -13,20 +12,18 @@ class MessagesController < ApplicationController
   end
 
   def create 
-
-      @match = Match.find(params[:match_id])
-      message_params = params.require(:message).permit(:title, :body)
-      receiver_id = current_user.id == @match.first_user_id ? @match.second_user_id : @match.first_user_id
-      @message = Message.new(message_params)
-      @message.sender_id = current_user.id
-      @message.receiver_id = receiver_id
-      @message.match_id = params[:match_id].to_i
-      if @message.save
-        redirect_to root_path, notice: "Message Sent!"
-      else 
-        render :back
-      end
-
+    @match = Match.find(params[:match_id])
+    message_params = params.require(:message).permit(:title, :body)
+    receiver_id = current_user.id == @match.first_user_id ? @match.second_user_id : @match.first_user_id
+    @message = Message.new(message_params)
+    @message.sender_id = current_user.id
+    @message.receiver_id = receiver_id
+    @message.match_id = params[:match_id].to_i
+    if @message.save
+      redirect_to root_path, notice: "Message Sent!"
+    else 
+      redirect_to user_match_path(current_user, @match), alert: 'Sorry, please try to send a message again'
+    end
   end
 
   def send_message
@@ -40,12 +37,10 @@ class MessagesController < ApplicationController
       if @message.save
          redirect_to root_path, notice: "Message Sent!"
       else 
-        render :back
+        redirect_to user_messages_inbox_path(current_user), alert: 'Sorry, please try to send a message again'
       end
     else
-        render :back
+      redirect_to user_messages_inbox_path(current_user), alert: 'Sorry, please try to send a message again'
     end
-
   end
-
 end

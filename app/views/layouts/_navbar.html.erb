@@ -33,8 +33,8 @@
             </ul>
           </li>
 
-        <li><%= link_to "Invite Friends", user_invite_path(current_user) %></li>
-        <li><%= link_to "Premium Features", user_premium_path(current_user) %></li>
+        <li><%= link_to "Invite", user_invite_path(current_user) %></li>
+        <li><%= link_to "Premium", user_premium_path(current_user) %></li>
 
           <% if !current_user.matches.empty? && current_user.approved == "Yes" %>
             <li><%= link_to "Pending Intros", user_matches_path(current_user) %></li>

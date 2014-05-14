@@ -1,13 +1,17 @@
 <div class="container">
-<h4>Sent Messages </h4>
-<% @messages.all.each do |message| %>
-<div class="message">
-  <%= image_tag User.find(message.receiver_id).image, size: "35x35" %> <%=link_to User.find(message.receiver_id).name, user_match_path(message.sender_id, message.match_id) %><br/>
-  <b>Sent:</b> <%= message.updated_at.to_formatted_s(:long_ordinal)  %><br/>
-  <b>Subject:</b> <%= message.title %><br/>
-  <%= simple_format h(message.body) %>
- </div>
-<% end %>
+  <% if @messages.empty? %>
+    <p>You have no sent messages at this time</p>
+  <% end %>
 
-<%= paginate @messages %>
+  <h4>Sent Messages </h4>
+  <% @messages.all.each do |message| %>
+  <div class="message">
+    <%= image_tag User.find(message.receiver_id).image, size: "35x35" %> <%=link_to User.find(message.receiver_id).name, user_match_path(message.sender_id, message.match_id) %><br/>
+    <b>Sent:</b> <%= message.updated_at.to_formatted_s(:long_ordinal)  %><br/>
+    <b>Subject:</b> <%= message.title %><br/>
+    <%= simple_format h(message.body) %>
+   </div>
+  <% end %>
+
+  <%= paginate @messages %>
 </div>

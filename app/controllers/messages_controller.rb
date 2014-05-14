@@ -2,7 +2,6 @@ class MessagesController < ApplicationController
 
   def inbox
     @user = User.find(params[:user_id])
-    @match = Match.new(id: "0")  #made up a fake id
     @message = Message.new
     @messages = Message.where(receiver_id: @user.id).order("created_at DESC").page(params[:page]).per(10)
     

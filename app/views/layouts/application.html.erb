@@ -22,11 +22,11 @@
 
 <body>
   <div id="wrap">
-    <%= render partial: 'layouts/flash' %>
-
     <% if current_user %>
       <%= render partial: 'layouts/navbar' %>
     <% end %>
+
+    <%= render partial: 'layouts/flash' %>
 
     <%= yield %>
 

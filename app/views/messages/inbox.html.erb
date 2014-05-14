@@ -4,13 +4,12 @@
 <div class="message">
   <div class = "respond">
     <div class = "<%= message.id %>">
-    <%= link_to "Respond" %>
+     <%= link_to "Respond" %>
+    </div>
   </div>
-</div>
-  <b>From:</b> <%= image_tag User.find(message.sender_id).image, size: "35x35" %> <%= User.find(message.sender_id).name %><br/>
+  <b>From:</b> <%= image_tag User.find(message.sender_id).image, size: "35x35" %> <%=link_to User.find(message.sender_id).name, user_match_path(message.receiver_id, message.match_id) %><br/>
   <b>Sent:</b> <%= message.updated_at.to_formatted_s(:long_ordinal)  %> <br/>
-  <b>Subject:</b> 
-  <div id="title<%=message.id%>"> <%= message.title %> </div> <br/>
+  <b>Subject:</b> <div id="title<%=message.id%>"> <%=message.title%> </div> <br/>
    <div id = "message-text<%= message.id %>"><%= simple_format h(message.body) %></div>
   
  </div>

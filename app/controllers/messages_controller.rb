@@ -1,20 +1,16 @@
 class MessagesController < ApplicationController
 
-  def show
-    @message = Message.where(message_id: params[:message_id])
-  end
-
   def inbox
     @user = User.find(params[:user_id])
     @match = Match.new(id: "0")  #made up a fake id
     @message = Message.new
-    @messages = Message.where(receiver_id: @user.id).page(params[:page]).per(10)
+    @messages = Message.where(receiver_id: @user.id).order("created_at DESC").page(params[:page]).per(10)
     
   end
 
   def sent
     @user = User.find(params[:user_id])
-    @messages = Message.where(sender_id: @user.id).page(params[:page]).per(10)
+    @messages = Message.where(sender_id: @user.id).order("created_at DESC").page(params[:page]).per(10)
   end
 
   def create 

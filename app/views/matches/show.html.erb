@@ -5,7 +5,7 @@
     <%= render partial: 'matches/decision_buttons' %>
   <% elsif current_user.id == @match.second_user_id && @match.second_user_status == "pending" %>
     <%= render partial: 'matches/decision_buttons' %>
-  <% elsif @match.status == true %>
+  <% elsif @match.match_status == true %>
   <%= render partial: 'layouts/message' %>
   <% end %>
   

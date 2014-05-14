@@ -1,15 +1,17 @@
 <div class="container">
 <h4>Inbox </h4>
 <% @messages.all.each do |message| %>
-<div class="message">
-  <div class = "respond">
+<div class="message" >
+  
+  <%= image_tag User.find(message.sender_id).image, size: "35x35" %> 
+  <div style="display:inline-block" id="name<%=message.id%>"><%=link_to User.find(message.sender_id).name, user_match_path(message.receiver_id, message.match_id) %></div>
+  <div class = "respond" style="display:inline-block">
     <div class = "<%= message.id %>">
-     <%= link_to "Respond" %>
+     <%= button_to "Reply","", class: 'btn btn-primary' %>
     </div>
-  </div>
-  <%= image_tag User.find(message.sender_id).image, size: "35x35" %> <%=link_to User.find(message.sender_id).name, user_match_path(message.receiver_id, message.match_id) %><br/>
-  <b>Sent:</b> <%= message.updated_at.to_formatted_s(:long_ordinal)  %> <br/>
-  <b>Subject:</b> <div id="title<%=message.id%>"> <%=message.title%> </div> <br/>
+  </div><br/>
+  <b>Sent:</b> <div style="display:inline-block" id="time<%=message.id%>"><%= message.updated_at.to_formatted_s(:long_ordinal)  %> </div><br/>
+  <b>Subject:</b> <div style="display:inline-block" id="title<%=message.id%>"><%=message.title%></div> <br/>
    <div id = "message-text<%= message.id %>"><%= simple_format h(message.body) %></div>
   
  </div>
@@ -31,7 +33,7 @@ $(function() {
     var message =  $(this).children().attr('class');
     $(".message-hidden").appendTo("#form"+message);
     $(".container").find("#message_title").val("Re: " + $(".container").find("#title"+message).text())
-    $(".container").find("#message_body").val("\n___________________\n" + $(".container").find("#message-text"+message).text())
+    $(".container").find("#message_body").val("\n___________________\n" +"On "+ $(".container").find("#time"+message).text() +" "+$(".container").find("#name"+message).text()+" wrote:\n"+ $(".container").find("#message-text"+message).text())
     $(".container").find("#message_id").val(message)
   });
 });  

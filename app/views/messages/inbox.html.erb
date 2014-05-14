@@ -2,13 +2,35 @@
 <h4>Inbox </h4>
 <% @messages.all.each do |message| %>
 <div class="message">
-  <b>To:</b> <%= image_tag User.find(message.receiver_id).image, size: "35x35" %> <%= User.find(message.receiver_id).name %><br/>
+  <div class = "respond">
+    <div class = "<%= message.id %>">
+    <%= link_to "Respond" %>
+  </div>
+</div>
+  <b>From:</b> <%= image_tag User.find(message.sender_id).image, size: "35x35" %> <%= User.find(message.sender_id).name %><br/>
   <b>Sent:</b> <%= message.updated_at.to_formatted_s(:long_ordinal)  %><br/>
-  <b>Subject:</b> <%= message.title %><br/>
-  <b>Message:</b> <%= simple_format h(message.body) %><br/>
+  <b>Subject:</b> <div id ="title<%= message.id %>"><%= message.title %></div><br/>
+   <div id ="message-text<%= message.id %>"><%= simple_format h(message.body) %></div>
   
  </div>
 <% end %>
+<div class="message-hidden">
+<%= render partial: 'layouts/messageresponse' %>
+</div>
 
 <%= paginate @messages %>
+
 </div>
+
+<script>
+$(function() {
+  $('.respond').click(function(event){
+    event.preventDefault();
+    $('.message-hidden').toggle();
+    var message =  $(this).children().attr('class');
+    $(".container").find("#message_title").val("Re: " + $(".container").find("#title"+message).text())
+    $(".container").find("#message_body").val("\n\n" + $(".container").find("#message-text"+message).text())
+    $(".container").find("#message_id").val(message)
+  });
+});  
+</script>

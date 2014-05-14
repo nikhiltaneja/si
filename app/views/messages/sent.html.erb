@@ -5,7 +5,7 @@
   <b>To:</b> <%= image_tag User.find(message.receiver_id).image, size: "35x35" %> <%= User.find(message.receiver_id).name %><br/>
   <b>Sent:</b> <%= message.updated_at.to_formatted_s(:long_ordinal)  %><br/>
   <b>Subject:</b> <%= message.title %><br/>
-  <b>Message:</b> <%= simple_format h(message.body) %><br/>
+  <%= simple_format h(message.body) %>
  </div>
 <% end %>
 

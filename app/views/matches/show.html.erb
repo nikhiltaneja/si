@@ -5,5 +5,21 @@
     <%= render partial: 'matches/decision_buttons' %>
   <% elsif current_user.id == @match.second_user_id && @match.second_user_status == "pending" %>
     <%= render partial: 'matches/decision_buttons' %>
-  <% end %>
+  <% elsif @match.match_status == true %>
+  <div class="message-click center">
+    <%= button_to "Send Message", "", class: 'btn btn-primary btn-lg' %>
+  </div>
+  <div class="message-hidden">
+    <%= render partial: 'layouts/message' %>
+  </div> 
+  <% end %>  
 </div>
+
+<script>
+$(function() {
+  $('.message-click').click(function(event){
+    event.preventDefault();
+    $('.message-hidden').toggle();
+  });
+});  
+</script>

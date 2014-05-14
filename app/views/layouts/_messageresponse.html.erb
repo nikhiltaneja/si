@@ -1,0 +1,14 @@
+<div class = "new-message">
+<%= form_for [@user, @message], :url => { :action => :send_message } do |f| %>
+    <%= f.label :Subject %>:
+    <%= f.text_field :title, class: 'form-control' %><br />
+
+    <%= f.label :Message %>:
+    <%= f.text_area :body, class: 'form-control', :rows=>5 %><br />
+    
+    <%= hidden_field_tag :message_id, "" %>
+    
+    <%= f.submit "Submit", class:"btn btn-primary" %>
+
+  <% end %>
+</div>

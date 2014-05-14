@@ -10,7 +10,13 @@ SwiftIntro::Application.routes.draw do
   
   resources :users, except: [:index] do
     get 'matches/prior_matches', to: 'matches#prior_matches'
-    resources :matches
+    resources :matches do
+      resources :messages, only: [:create]
+    end
+    get 'messages/inbox', to: 'messages#inbox', as: 'messages_inbox'
+    get 'messages/sent', to: 'messages#sent', as: 'messages_sent'
+    
+
   end
 
   mount Sidekiq::Web, at: '/admins/sidekiq'

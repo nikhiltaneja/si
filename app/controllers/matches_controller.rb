@@ -16,6 +16,7 @@ class MatchesController < ApplicationController
   end
 
   def show
+    @message = Message.new
     if params[:id]
       @match = Match.find(params[:id])
     else

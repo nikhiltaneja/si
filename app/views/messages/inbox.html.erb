@@ -1,0 +1,14 @@
+<div class="container">
+<h4>Inbox </h4>
+<% @messages.all.each do |message| %>
+<div class="message">
+  <b>To:</b> <%= image_tag User.find(message.receiver_id).image, size: "35x35" %> <%= User.find(message.receiver_id).name %><br/>
+  <b>Sent:</b> <%= message.updated_at.to_formatted_s(:long_ordinal)  %><br/>
+  <b>Subject:</b> <%= message.title %><br/>
+  <b>Message:</b> <%= simple_format h(message.body) %><br/>
+  
+ </div>
+<% end %>
+
+<%= paginate @messages %>
+</div>

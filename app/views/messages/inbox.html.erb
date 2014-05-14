@@ -8,11 +8,13 @@
   </div>
 </div>
   <b>From:</b> <%= image_tag User.find(message.sender_id).image, size: "35x35" %> <%= User.find(message.sender_id).name %><br/>
-  <b>Sent:</b> <%= message.updated_at.to_formatted_s(:long_ordinal)  %><br/>
-  <b>Subject:</b> <div id ="title<%= message.id %>"><%= message.title %></div><br/>
-   <div id ="message-text<%= message.id %>"><%= simple_format h(message.body) %></div>
+  <b>Sent:</b> <%= message.updated_at.to_formatted_s(:long_ordinal)  %> <br/>
+  <b>Subject:</b> 
+  <div id="title<%=message.id%>"> <%= message.title %> </div> <br/>
+   <div id = "message-text<%= message.id %>"><%= simple_format h(message.body) %></div>
   
  </div>
+ <div id ="form<%= message.id %>"></div>
 <% end %>
 <div class="message-hidden">
 <%= render partial: 'layouts/messageresponse' %>
@@ -28,8 +30,9 @@ $(function() {
     event.preventDefault();
     $('.message-hidden').toggle();
     var message =  $(this).children().attr('class');
+    $(".message-hidden").appendTo("#form"+message);
     $(".container").find("#message_title").val("Re: " + $(".container").find("#title"+message).text())
-    $(".container").find("#message_body").val("\n\n" + $(".container").find("#message-text"+message).text())
+    $(".container").find("#message_body").val("\n___________________\n" + $(".container").find("#message-text"+message).text())
     $(".container").find("#message_id").val(message)
   });
 });  

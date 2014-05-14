@@ -29,7 +29,7 @@ class MessagesController < ApplicationController
       if @message.save
         redirect_to root_path, notice: "Message Sent!"
       else 
-        render :new
+        render :back
       end
 
   end
@@ -45,10 +45,10 @@ class MessagesController < ApplicationController
       if @message.save
          redirect_to root_path, notice: "Message Sent!"
       else 
-        render :new
+        render :back
       end
     else
-        render :new
+        render :back
     end
 
   end

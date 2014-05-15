@@ -3,7 +3,7 @@
   <h4>Sent Messages </h4>
 
   <% if @messages.empty? %>
-    <p>You have no sent messages at this time</p>
+    <p>You have no sent messages at this time. You can only send messages to <%= link_to 'users that you have been successfully introduced to.', user_matches_prior_matches_path(current_user) %></p>
   <% end %>
 
   <% @messages.all.each do |message| %>

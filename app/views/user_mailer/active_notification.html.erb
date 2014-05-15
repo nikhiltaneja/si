@@ -1,7 +1,11 @@
 <p>Hi <%= @user.first_name %>,</p>
 
 <p>
-  Your account at SwiftIntro is approaching inactive status. If you would like to continue receiving introductions from SwiftIntro, please <%= link_to "login",  user_url(@user) %> to your account and respond to some of your pending intros. We look forward to seeing you soon.
+  Your account at SwiftIntro is approaching inactive status because you haven't responded to the most recent intros we have suggested.
+</p>
+
+<p>
+  We want to ensure that the community is comprised of professionals actively using the site. We would love to have you participate, so please <%= link_to "login",  user_url(@user) %> to your account and respond to some of your pending intros. We look forward to seeing you soon.
 </p>
 
 <p>-The SwiftIntro Team</p>

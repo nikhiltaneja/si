@@ -2,7 +2,7 @@
   <h4>Inbox</h4>
 
   <% if @messages.empty? %>
-    <p>You have no messages at this time</p>
+    <p>You have no messages at this time. You can only receive messages from <%= link_to 'users that you have been successfully introduced to.', user_matches_prior_matches_path(current_user) %></p>
   <% end %>
 
   <% @messages.all.each do |message| %>

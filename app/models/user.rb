@@ -84,7 +84,7 @@ class User < ActiveRecord::Base
       end
     else
       if self.current_match
-        (Time.now - self.current_match.created_at) > 432000 #five days
+        (Time.now - self.current_match.created_at) > 345600 #four days
       else
         true
       end

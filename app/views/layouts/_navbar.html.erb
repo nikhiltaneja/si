@@ -37,6 +37,9 @@
         <li><%= link_to "Premium", user_premium_path(current_user) %></li>
 
           <% if !current_user.matches.empty? && current_user.approved == "Yes" %>
+            <% if current_user.matches.where(match_status: true).count >= 1 %>
+              <li><%= link_to "Successful Intros", user_matches_prior_matches_path(current_user)%></li>
+            <% end %>
             <li><%= link_to "Pending Intros", user_matches_path(current_user) %></li>
             <li><%= link_to "Current Intro", user_match_path(current_user, current_user.current_match) %></li>
           <% end %>
@@ -46,8 +49,6 @@
             <ul class="dropdown-menu">
               <li><%= link_to "View Profile", user_path(current_user)%></li>
               <li><%= link_to "Edit Profile", edit_user_path(current_user)%></li>
-              <li class="divider"></li>
-              <li><%= link_to "Successful Intros", user_matches_prior_matches_path(current_user)%></li>
               <li class="divider"></li>
               <li><%= link_to "Settings", user_settings_path(current_user)%></li>
               <li><%= link_to "Sign out", signout_path%></li>

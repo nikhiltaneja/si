@@ -1,5 +1,5 @@
 <div class="container">
-  <h5>Potential matches for <%= @user.name %>. Score: <%= @user.score %>,
+  <h5>Potential matches for <%= link_to @user.name, user_path(@user) %>. Score: <%= @user.score %>,
     <% if @user.industry_interests %>
       Industry Interests: <% @user.industry_interests.each do |industry_interest| %>
         <%= industry_interest.industry.name %>

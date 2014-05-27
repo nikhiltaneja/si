@@ -68,8 +68,7 @@ class MatchesController < ApplicationController
     ScoreWorker.perform_async(other_user_id)
 
     if @match.match_status
-      # UserMailer.match_confirmation(@match.first_user, @match.second_user).deliver
-      MatchmadeWorker.perform_async(@match.first_user.id, @match.second_user.id)
+      MatchmadeWorker.perform_async(current_user.id, other_user_id)
     end
 
     user_decision = current_user.id == @match.first_user_id ? @match.first_user_status : @match.second_user_status
@@ -78,7 +77,6 @@ class MatchesController < ApplicationController
       current_user.active = true
       current_user.save!
     end
-
 
     if user_decision == "Yes"
       current_user.matches.where(match_status: false).each do |match|

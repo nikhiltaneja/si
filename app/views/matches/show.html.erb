@@ -6,12 +6,12 @@
   <% elsif current_user.id == @match.second_user_id && @match.second_user_status == "pending" %>
     <%= render partial: 'matches/decision_buttons' %>
   <% elsif @match.match_status == true %>
-    <div class="message-click center">
+    <!-- <div class="message-click center">
       <%= button_to "Send Message", "", class: 'btn btn-primary btn-lg' %>
     </div>
     <div class="message-hidden">
       <%= render partial: 'layouts/message' %>
-    </div>
+    </div> -->
   <% else %>
     <div class="response-received center bg-primary">
       <h4>Thanks for submitting your response. You will receive an email if both users request an intro.</h4>

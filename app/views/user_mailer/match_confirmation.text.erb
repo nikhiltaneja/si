@@ -2,12 +2,6 @@
 
 Congrats! Both of you expressed interest in meeting up.
 
-<%= @first_user.first_name %>: Since you were last to respond, you should get the ball rolling by suggesting a time and place to meet sometime this week or next. Both of you are located in the <%= @first_user.location.area.split(",").first %>.
-
-<% if @shared_connections_count > 1 %>
-  You have <%= @shared_connections_count %> shared connections on LinkedIn.
-<% end %>
-
 <%= image_tag @first_user.image, size: '150x150', alt: 'Profile Picture' %>
 <%= @first_user.name %>
 <%= @first_user.headline %>
@@ -16,4 +10,15 @@ Congrats! Both of you expressed interest in meeting up.
 <%= @second_user.name %>
 <%= @second_user.headline %>
 
--The SwiftIntro Team
+<% if @shared_connections_count > 1 %>
+  You have <%= @shared_connections_count %> shared connections on LinkedIn, and both of you are located in the <%= @first_user.location.area.split(",").first %>.
+<% else %>
+  Both of you are located in the <%= @first_user.location.area.split(",").first %>.
+<% end %>
+
+<%= @second_user.first_name %> — Thanks for responding first to the SwiftIntro!
+
+<%= @first_user.first_name %> — Why don't you get the ball rolling by suggesting a time and place to meet this week?
+
+Cheers,
+The SwiftIntro Team

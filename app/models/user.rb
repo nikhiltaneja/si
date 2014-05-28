@@ -15,7 +15,6 @@ class User < ActiveRecord::Base
 
   # validate :topic_interests_complete?, on: :update
 
-
   def self.from_omniauth(auth)
     where(auth.slice("provider", "uid")).first_or_initialize.tap do |user|
       user.provider = auth["provider"]
@@ -65,7 +64,6 @@ class User < ActiveRecord::Base
       user
     end
   end
-
 
   def matches
     Match.where("first_user_id = ? OR second_user_id = ?", self.id, self.id).order(:created_at)
@@ -270,9 +268,6 @@ class User < ActiveRecord::Base
     gb = Gibbon::API.new(ENV['MAILCHIMP_KEY'])
     gb.lists.subscribe({:id => '54f2f26d18', :email => {:email => self.email}, :merge_vars => {:FNAME => self.first_name, :LNAME => self.last_name}, :double_optin => false})
   end
-
-
-
 
 
   private

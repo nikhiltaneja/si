@@ -31,7 +31,7 @@ class UserMailer < ActionMailer::Base
     @first_user = first_user
     @second_user = second_user
     @shared_connections_count = first_user.shared_connections(second_user.id).count
-    if !@first_user.deleted || !@second_user.deleted
+    if !@first_user.deleted && !@second_user.deleted
       mail to: [@first_user.email, @second_user.email], subject: "Intro: #{@first_user.first_name} <> #{@second_user.first_name}"
     end
   end

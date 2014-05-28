@@ -29,8 +29,8 @@
     </div>
 
     <div class="form-group row">
-      <h4>Please write a short summary that describes you (example: Product Manager with an interest in web and mobile development).</h4>
-      <%= f.text_area :summary, class: 'form-control' %>
+      <h4>Introduce your professional self. Other users are 40% more likely to request an intro to you if you include a short summary.</h4>
+      <%= f.text_area :summary, class: 'form-control', :placeholder => "Example: Product Manager with an interest in web and mobile development" %>
     </div>
 
     <%= f.submit "Submit", class:"btn btn-primary" %>

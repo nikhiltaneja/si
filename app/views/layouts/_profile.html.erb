@@ -7,8 +7,16 @@
       <h2><%= @user.name %></h2>
       <h4><%= @user.headline %></h4>
       <h4><%= @user.location.area %></h4>
-
+      
       <h4><%= link_to "LinkedIn Profile", @user.public_profile, target: 'blank' %></h4>
+
+      <% if @user.connections.count > 499 %>
+        <h4>500+ Connections</h4>
+      <% elsif @user.connections.count > 0 %>
+        <h4><%= @user.connections.count %> Connections</h4>
+      <% else %>
+      <% end %>
+      
 
       <% if @user.badge %>
         <%= image_tag 'premium_badge.jpg', size: '70x60' %>

@@ -244,10 +244,10 @@ class User < ActiveRecord::Base
     shared_industry_interests.count
   end
 
-  def four_matches_pending
+  def five_matches_pending
     matches = self.matches
     count = 0
-    4.times do |i|
+    5.times do |i|
       if matches[-(i+1)] == nil
         return false
       end
@@ -257,7 +257,7 @@ class User < ActiveRecord::Base
         count = count + 1; 
       end
     end
-    if count == 4
+    if count == 5
       return true
     else 
       return false

@@ -1,8 +1,6 @@
 <% if @shared_count > 0 %>
-  <div class="row center">
-    <h4># of Shared LinkedIn Connections: <%= @shared_count %></h4>
+    <h5># of Shared Connections: <%= @shared_count %></h5>
       <% @shared_connection_images.each do |connection| %>
-        <%=image_tag connection[1], size: "35x35" %>
+        <%=image_tag connection[1], size: "40x40" %>
       <% end %>
-  </div>
 <% end %>

@@ -129,8 +129,8 @@ class User < ActiveRecord::Base
   end
 
   def shared_connections(user_id) #returns linkedin_user_id array
-    first_user_connections = Connection.where(user_id: self.id).pluck(:linkedin_user_id)
-    second_user_connections = Connection.where(user_id: user_id).pluck(:linkedin_user_id)
+    first_user_connections = Connection.where(user_id: self.id).where.not(image: nil).pluck(:linkedin_user_id)
+    second_user_connections = Connection.where(user_id: user_id).where.not(image: nil).pluck(:linkedin_user_id)
 
     mutual_connections = first_user_connections & second_user_connections
   end

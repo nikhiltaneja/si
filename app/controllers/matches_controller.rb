@@ -43,13 +43,13 @@ class MatchesController < ApplicationController
     user1 = User.find(params[:user_1])
     user2 =  User.find(params[:user_2])
 
-    if user1.four_matches_pending
+    if user1.five_matches_pending
       ActiveWorker.perform_async(user1.id)
       user1.active = false
       user1.save!
     end
 
-    if user2.four_matches_pending
+    if user2.five_matches_pending
       ActiveWorker.perform_async(user2.id)
       user2.active = false
       user2.save!

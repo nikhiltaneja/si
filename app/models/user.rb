@@ -135,14 +135,6 @@ class User < ActiveRecord::Base
     mutual_connections = first_user_connections & second_user_connections
   end
 
-   def shared_connections_pics(user_id) #returns connection images and first names array
-    first_user_connections = Connection.where(user_id: self.id).where.not(image: nil).pluck(:first_name, :image)
-    second_user_connections = Connection.where(user_id: user_id).where.not(image: nil).pluck(:first_name, :image)
-
-    mutual_connections = first_user_connections & second_user_connections
-    mutual_connections.sample(5)
-  end
-
   def calculate_score  #updates a user's score 
     meetups_requested = []
     #should do an if statement to see if matches.length > 10 to exclude new people
@@ -167,9 +159,12 @@ class User < ActiveRecord::Base
       client.connections["all"].each do |connection|
         unless connection["id"] == "private"
           linkedin_user = LinkedinUser.find_or_create_by(uid: connection["id"])
+          linkedin_user.image = connection['picture_url']
+          linkedin_user.first_name = connection['first_name']
+          linkedin_user.last_name = connection['last_name']
+          linkedin_user.save!
+
           c = Connection.find_or_create_by(user_id: user.id, linkedin_user_id: linkedin_user.id)
-          c.image = connection['picture_url']
-          c.first_name = connection['first_name']
           c.save!
         end
       end

@@ -2,10 +2,9 @@
   <div class="jumbotron container center">
     <div class="primary-text">
       <h1 style="font-family: Lobster, cursive">SwiftIntro <span style="font-size: 20px">Beta</span></h1>
-      <p>Networking is hard. Let us introduce you to one like-minded professional a week.</p>
-      <p>Currently serving San Francisco, NYC, Chicago, DC, Boston, Atlanta, and Denver/Boulder.</p>
-      <p>Launching in more cities soon, so please sign up even if you are in a different market.</p>
-      <p><%= button_to "Sign in with LinkedIn", "/auth/linkedin", method: "get", class: 'btn btn-primary btn-lg' %></p>
+      <h2>The smarter way to build your network</h2>
+      <h3>Let us introduce you to one like-minded professional a week</h3>
+      <%= link_to image_tag("linkedin_signin.png", class:"img-responsive", style:'margin:auto'),"/auth/linkedin" %>
     </div>
   </div>
 </div>
@@ -13,18 +12,18 @@
 <div class="container">
   <div class="row descriptions">
     <div class="col-md-4">
-      <%= image_tag 'glyphicons_envelope.png', class:'glyph-pic' %>
-      <h2>Receive an intro</h2>
-      <p>We'll send you one email per week that suggests a like-minded professional to meet.</p>
+      <i class="fa fa-link fa-5x"></i>
+      <h2>Get Connected</h2>
+      <p>We'll send you one email per week that suggests an interesting professional to meet.</p>
     </div>
     <div class="col-md-4">
-      <%= image_tag 'glyphicons_calendar.png', class:'glyph-pic' %>
-      <h2>Get together</h2>
+      <i class="fa fa-comments fa-5x"></i>
+      <h2>Enjoy the Conversation</h2>
       <p>If both people express interest, we'll put you in touch to coordinate a time and place to meet.</p>
     </div>
     <div class="col-md-4">
-      <%= image_tag 'glyphicons_coffee_cup.png', class:'glyph-pic' %>
-      <h2>Enjoy the conversation</h2>
+      <i class="fa fa-users fa-5x"></i>
+      <h2>Expand Your Network</h2>
       <p>Have fun meeting new people. Building your network has never been so easy.</p>
     </div>
   </div>

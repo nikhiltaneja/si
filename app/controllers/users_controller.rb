@@ -8,7 +8,6 @@ class UsersController < ApplicationController
     elsif current_user
       @user = current_user
     end
-
   end
 
   def update

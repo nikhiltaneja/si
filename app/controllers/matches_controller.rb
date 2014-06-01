@@ -5,7 +5,6 @@ class MatchesController < ApplicationController
   before_action :correct_match?, only: [:show]
 
   def index
-    # @matches = current_user.matches.where(match_status: false).where("first_user_status = ? OR second_user_status = ?", "pending", "pending")
     @matches = current_user.matches.where(match_status: false).select do |match|
       if match.first_user_id == current_user.id
         match.first_user_status == "pending"
@@ -29,9 +28,7 @@ class MatchesController < ApplicationController
       @user = @match.first_user
     end
 
-    @shared_count = current_user.shared_connections(@user.id).count
-    @shared_connection_images = current_user.shared_connections_pics(@user.id)
-    
+    @shared_connections = current_user.shared_connections(@user.id)    
   end
 
   def create

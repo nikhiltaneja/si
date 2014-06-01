@@ -154,10 +154,11 @@ class User < ActiveRecord::Base
     puts user.id
     client = LinkedIn::Client.new(ENV['LINKEDIN_API_KEY'], ENV['LINKEDIN_SECRET_KEY'])
     client.authorize_from_access(user.token, user.secret)
-    if client.connections["total"] != 0
-      user.total_connections = client.connections["total"]
+    user_connections = client.connections
+    if user_connections["total"] != 0
+      user.total_connections = user_connections["total"]
       user.save!
-      client.connections["all"].each do |connection|
+      user_connections["all"].each do |connection|
         unless connection["id"] == "private"
           linkedin_user = LinkedinUser.find_or_create_by(uid: connection["id"])
           linkedin_user.image = connection['picture_url']

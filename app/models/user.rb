@@ -151,6 +151,7 @@ class User < ActiveRecord::Base
   end
 
   def self.get_connections(user)
+    puts user.id
     client = LinkedIn::Client.new(ENV['LINKEDIN_API_KEY'], ENV['LINKEDIN_SECRET_KEY'])
     client.authorize_from_access(user.token, user.secret)
     if client.connections["total"] != 0

@@ -1,5 +1,7 @@
-<% if @user.total_connections && @user.total_connections > 10 %>
-    <h5>Total Connections: <%= @user.total_connections %></h5>
+<% if @user.total_connections && @user.total_connections > 499 %>
+  <h5>Total Connections: 500+</h5>
+<% elsif @user.total_connections && @user.total_connections > 10 %>
+  <h5>Total Connections: <%= @user.total_connections %></h5>
 <% end %>
 
 <% if @shared_connections.count > 0 %>

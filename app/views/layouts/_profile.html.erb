@@ -21,6 +21,16 @@
           <% end %>
         </p>
 
+        <% if @user.total_connections && @user.total_connections > 4999 %>
+          <h5>Total Connections: 5000+</h5>
+        <% elsif @user.total_connections && @user.total_connections > 999 %>
+          <h5>Total Connections: 1000+</h5>
+        <% elsif @user.total_connections && @user.total_connections > 499 %>
+          <h5>Total Connections: 500+</h5>
+        <% elsif @user.total_connections && @user.total_connections > 100 %>
+          <h5>Total Connections: <%= @user.total_connections %></h5>
+        <% end %>
+
         <% if @match %>
           <%= render partial: 'matches/mutual_connections' %>
         <% end %>

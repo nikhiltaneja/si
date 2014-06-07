@@ -84,12 +84,11 @@ class UsersController < ApplicationController
     end
 
     if cookies.signed['ref-id'] && Reference.where.not(other_user_id: current_user.id)
-      cookie_user = User.where(uid: cookies.signed['ref-id'])
-      if cookie_user.length == 1
-        Reference.create(user_id: cookie_user[0].id, other_user_id: current_user.id)
+      cookie_user = User.find_by(uid: cookies.signed['ref-id'])
+      if cookie_user && cookie_user.id != current_user.id
+        Reference.find_or_create_by(user_id: cookie_user.id, other_user_id: current_user.id)
       end
     end
-
   end
 
   def edit

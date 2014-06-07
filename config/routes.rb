@@ -16,8 +16,6 @@ SwiftIntro::Application.routes.draw do
     get 'messages/inbox', to: 'messages#inbox', as: 'messages_inbox'
     get 'messages/sent', to: 'messages#sent', as: 'messages_sent'
     post 'messages/send_message', to: 'messages#send_message', as: 'send_message'
-    
-
   end
 
   mount Sidekiq::Web, at: '/admins/sidekiq'

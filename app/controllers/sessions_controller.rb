@@ -4,6 +4,13 @@ class SessionsController < ApplicationController
     session[:user_id] = user.id
     
     if user.approved != "Yes"
+      if cookies['ref-id'] && Reference.where(other_user_id: current_user.id).empty?
+        cookie_user = User.find_by(uid: cookies['ref-id'])
+        if cookie_user && cookie_user.id != current_user.id
+          Reference.find_or_create_by(user_id: cookie_user.id, other_user_id: current_user.id)
+        end
+      end
+
       redirect_to edit_user_path(user)
     elsif user.matches.empty?
       redirect_to user_path(user), notice: "Thanks for signing in. We are currently identifying potential introductions for you. Please check back soon!"

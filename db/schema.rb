@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140601054725) do
+ActiveRecord::Schema.define(version: 20140608204841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,6 +119,22 @@ ActiveRecord::Schema.define(version: 20140601054725) do
 
   add_index "matches", ["first_user_id"], name: "index_matches_on_first_user_id", using: :btree
   add_index "matches", ["second_user_id"], name: "index_matches_on_second_user_id", using: :btree
+
+  create_table "meeting_interests", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "meeting_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "meeting_interests", ["meeting_id"], name: "index_meeting_interests_on_meeting_id", using: :btree
+  add_index "meeting_interests", ["user_id"], name: "index_meeting_interests_on_user_id", using: :btree
+
+  create_table "meetings", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "messages", force: true do |t|
     t.text     "title"

@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :location_interests
   has_many :references
   has_many :skill_interests
+  has_many :meeting_interests
 
   has_many :first_users, class_name: "Match", foreign_key: :first_user_id
   has_many :second_users, class_name: "Match", foreign_key: :second_user_id

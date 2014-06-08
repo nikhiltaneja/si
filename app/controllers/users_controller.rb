@@ -58,7 +58,9 @@ class UsersController < ApplicationController
       @user.seeking = params[:user][:seeking]
 
       @user.industry_interests.where.not(industry_id: params[:industry_interests]).delete_all
-      @user.topic_interests.where.not(topic_id: params[:topic_interests]).delete_all
+      # @user.topic_interests.where.not(topic_id: params[:topic_interests]).delete_all
+      @user.meeting_interests.where.not(meeting_id: params[:meeting_interests]).delete_all
+      @user.function_interests.where.not(function_id: params[:function_interests]).delete_all
 
       if params[:industry_interests]
         params[:industry_interests].each do |industry_interest_id|
@@ -66,9 +68,21 @@ class UsersController < ApplicationController
         end
       end
 
-      if params[:topic_interests]
-        params[:topic_interests].each do |topic_interest_id|
-          TopicInterest.find_or_create_by(user_id: @user.id, topic_id: topic_interest_id)
+      # if params[:topic_interests]
+      #   params[:topic_interests].each do |topic_interest_id|
+      #     TopicInterest.find_or_create_by(user_id: @user.id, topic_id: topic_interest_id)
+      #   end
+      # end
+
+      if params[:meeting_interests]
+        params[:meeting_interests].each do |meeting_interest_id|
+          MeetingInterest.find_or_create_by(user_id: @user.id, meeting_id: meeting_interest_id)
+        end
+      end
+
+      if params[:function_interests]
+        params[:function_interests].each do |function_interest_id|
+          FunctionInterest.find_or_create_by(user_id: @user.id, function_id: function_interest_id)
         end
       end
 

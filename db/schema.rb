@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140601054725) do
+ActiveRecord::Schema.define(version: 20140608214705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,22 @@ ActiveRecord::Schema.define(version: 20140601054725) do
   add_index "educations", ["school_id"], name: "index_educations_on_school_id", using: :btree
   add_index "educations", ["subject_id"], name: "index_educations_on_subject_id", using: :btree
   add_index "educations", ["user_id"], name: "index_educations_on_user_id", using: :btree
+
+  create_table "function_interests", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "function_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "function_interests", ["function_id"], name: "index_function_interests_on_function_id", using: :btree
+  add_index "function_interests", ["user_id"], name: "index_function_interests_on_user_id", using: :btree
+
+  create_table "functions", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "industries", force: true do |t|
     t.string   "name"
@@ -119,6 +135,22 @@ ActiveRecord::Schema.define(version: 20140601054725) do
 
   add_index "matches", ["first_user_id"], name: "index_matches_on_first_user_id", using: :btree
   add_index "matches", ["second_user_id"], name: "index_matches_on_second_user_id", using: :btree
+
+  create_table "meeting_interests", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "meeting_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "meeting_interests", ["meeting_id"], name: "index_meeting_interests_on_meeting_id", using: :btree
+  add_index "meeting_interests", ["user_id"], name: "index_meeting_interests_on_user_id", using: :btree
+
+  create_table "meetings", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "messages", force: true do |t|
     t.text     "title"

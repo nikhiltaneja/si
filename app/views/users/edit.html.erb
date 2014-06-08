@@ -1,4 +1,9 @@
 <div class="container">
+
+  <h3>We use the following information to suggest better intros. Answer the questions below to experience the best of SwiftIntro.</h3>
+
+  <br>
+
   <%= form_for @user do |f| %>
 
     <% if @user.errors.any? %>
@@ -14,14 +19,40 @@
       </div>
     <% end %>
 
-    <div class="form-group row">
-      <h4>What industries are you interested in? </h4>
-      <div class="col-md-8">
+    <div class="row">
+      <div class="col-md-4">
+        <h4>Would you like to meet people over:</h4>
+        <% Meeting.all.sort.each do |meeting| %>
+          <% checked = current_user.meeting_interests.pluck(:meeting_id).include?(meeting.id) %>
+            <div class="checkbox">
+              <label style="font-weight:normal">
+                <%= check_box_tag("meeting_interests[]", meeting.id, checked) %> <%= meeting.name %>
+              </label>
+            </div>        
+        <% end %>
+      </div>
+
+      <div class="col-md-4">
+        <h4>Which industries are you interested in?</h4>
+      
         <% Industry.all.sort_by(&:name).each do |industry| %>
           <% checked = current_user.industry_interests.pluck(:industry_id).include?(industry.id) %>
             <div class="checkbox">
               <label style="font-weight:normal">
                 <%= check_box_tag("industry_interests[]", industry.id, checked) %> <%= industry.name %>
+              </label>
+            </div>        
+        <% end %>
+      </div>
+
+      <div class="col-md-4">
+        <h4>Which functions are you interested in?</h4>
+
+        <% Function.all.sort.each do |function| %>
+          <% checked = current_user.function_interests.pluck(:function_id).include?(function.id) %>
+            <div class="checkbox">
+              <label style="font-weight:normal">
+                <%= check_box_tag("function_interests[]", function.id, checked) %> <%= function.name %>
               </label>
             </div>        
         <% end %>

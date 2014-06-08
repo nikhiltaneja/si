@@ -40,7 +40,18 @@
         <% end %>
       </div>
 
-      
+      <div class="col-md-4">
+        <h4>Which functions are you interested in?</h4>
+
+        <% Function.all.sort.each do |function| %>
+          <% checked = current_user.function_interests.pluck(:function_id).include?(function.id) %>
+            <div class="checkbox">
+              <label style="font-weight:normal">
+                <%= check_box_tag("function_interests[]", function.id, checked) %> <%= function.name %>
+              </label>
+            </div>        
+        <% end %>
+      </div>
     </div>
 
     <div class="form-group row">

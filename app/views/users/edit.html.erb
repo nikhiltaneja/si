@@ -1,8 +1,8 @@
 <div class="container">
 
-  <h3>We use the following information to suggest better intros. Answer the questions below to experience the best of SwiftIntro.</h3>
+  <h4 class="text-primary center">We use the following information to suggest better intros. Answer the questions below to experience the best of SwiftIntro.</h4>
 
-  <br>
+  <hr>
 
   <%= form_for @user do |f| %>
 
@@ -64,6 +64,8 @@
       <%= f.text_area :summary, class: 'form-control', :placeholder => "Example: Product Manager with an interest in web and mobile development" %>
     </div>
 
-    <%= f.submit "Submit", class:"btn btn-primary" %>
+    <div class="center" style="margin-bottom:10px">
+      <%= f.submit "Save profile information", class:"btn btn-primary btn-lg" %>
+    </div>
   <% end %>
 </div>

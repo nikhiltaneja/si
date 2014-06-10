@@ -20,17 +20,22 @@
   height: auto !important;
   height: 100%;
   /* Negative indent footer by it's height */
-  margin: 0 auto -80px;
+  margin: 0 auto -90px;
 }
 
 
 /* Set the fixed height of the footer here */
 #push, .contact {
-  height: 80px;
+  height: 90px;
 }
 
 .contact {
-  background-color: #0491bc;
+  background-color: #1abc9c;
+  /*background-color: #16a085;*/
+  /*background-color: #2ecc71;*/
+  /*background-color: #3498db;*/
+  /*background-color: #27ae60;*/
+  /*background-color: #2980b9;*/
   color: #fff;
   letter-spacing: .1em;
   font-size: 12px;

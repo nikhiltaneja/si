@@ -14,18 +14,45 @@
 
  
 
-
 /* Wrapper for page content to push down footer */
 #wrap {
   min-height: 100%;
   height: auto !important;
   height: 100%;
   /* Negative indent footer by it's height */
-  margin: 0 auto -60px;
+  margin: 0 auto -80px;
 }
 
 
 /* Set the fixed height of the footer here */
 #push, .contact {
-  height: 60px;
+  height: 80px;
+}
+
+.contact {
+  background-color: #0491bc;
+  color: #fff;
+  letter-spacing: .1em;
+  font-size: 12px;
+  padding-top: .75em;
+  text-align: center;
+}
+
+.footer-subitem {
+  display: inline;
+  padding: .75em;
+}
+
+.footer-subitem a {
+  color: white;
+  text-decoration: none;
+}
+
+.contact p {
+  margin: 2px;
+}
+
+.social-share-buttons a {
+  color: white;
+  text-decoration: none;
 }

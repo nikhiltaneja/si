@@ -1,23 +1,25 @@
-<% if @shared_connections.count > 0 %>
-  <% if @shared_connections.count > 50 %>
-    <h5># of Shared Connections: 50+</h5>
-  <% elsif @shared_connections.count > 40 %>
-    <h5># of Shared Connections: 40+</h5>
-  <% elsif @shared_connections.count > 30 %>
-    <h5># of Shared Connections: 30+</h5>
-  <% elsif @shared_connections.count > 20 %>
-    <h5># of Shared Connections: 20+</h5>
-  <% elsif @shared_connections.count > 10 %>
-    <h5># of Shared Connections: 10+</h5>
-  <% elsif @shared_connections.count > 5 %>
-    <h5># of Shared Connections: 5+</h5>
-  <% else %>
-    <h5># of Shared Connections: <%= @shared_connections.count %></h5>
-  <% end %>
-
-    <% @shared_connections.each do |connection| %>
-      <% if LinkedinUser.find(connection).image %>
-        <%= image_tag LinkedinUser.find(connection).image, size: "40x40" %>
-      <% end %>
+<div class="mutual-connections-box">
+  <% if @shared_connections.count > 0 %>
+    <% if @shared_connections.count > 50 %>
+      <h5># of Shared Connections: 50+</h5>
+    <% elsif @shared_connections.count > 40 %>
+      <h5># of Shared Connections: 40+</h5>
+    <% elsif @shared_connections.count > 30 %>
+      <h5># of Shared Connections: 30+</h5>
+    <% elsif @shared_connections.count > 20 %>
+      <h5># of Shared Connections: 20+</h5>
+    <% elsif @shared_connections.count > 10 %>
+      <h5># of Shared Connections: 10+</h5>
+    <% elsif @shared_connections.count > 5 %>
+      <h5># of Shared Connections: 5+</h5>
+    <% else %>
+      <h5># of Shared Connections: <%= @shared_connections.count %></h5>
     <% end %>
-<% end %>
+
+      <% @shared_connections.each do |connection| %>
+        <% if LinkedinUser.find(connection).image %>
+          <%= image_tag LinkedinUser.find(connection).image, size: "40x40" %>
+        <% end %>
+      <% end %>
+  <% end %>
+</div>

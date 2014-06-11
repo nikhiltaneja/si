@@ -57,3 +57,24 @@
   color: white;
   text-decoration: none;
 }
+
+.navbar {
+  background-color: white;
+  margin-bottom: 0px;
+}
+
+body {
+  background-color: #F0F0F0;
+}
+
+.btn-success {
+  background-color: #1abc9c;
+  border-color: #1abc9c;
+}
+
+.btn-success:hover {
+  background-color: #16a085;
+  border-color: #16a085;
+}
+
+

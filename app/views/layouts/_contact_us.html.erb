@@ -1,10 +1,21 @@
-<div class="contact center">
-  <%= link_to "Home", root_path %> |
-  <%= link_to "Blog", 'http://blog.swiftintro.com/', target: 'blank' %> |
-  <%= link_to "FAQ", faq_path %> |
-  <%= link_to "Contact", contact_path %> |
-  <%= link_to "Privacy", privacy_path %> |
-  <%= link_to "Terms", terms_path %> 
+<div class="contact">
+  <div class="footer-subitem"><%= link_to "Home", root_path %></div>
+  <div class="footer-subitem"><%= link_to "Blog", 'http://blog.swiftintro.com/', target: 'blank' %></div>
+  <div class="footer-subitem"><%= link_to "FAQ", faq_path %></div>
+  <div class="footer-subitem"><%= link_to "Contact", contact_path %></div>
+  <div class="footer-subitem"><%= link_to "Privacy", privacy_path %></div>
+  <div class="footer-subitem"><%= link_to "Terms", terms_path %></div> 
   <p>&copy; SwiftIntro 2014</p>
-</div>
 
+  <div class="social-share-buttons">
+    <%= link_to "https://www.facebook.com/swiftintro", target: 'blank' do %>
+      <i class="fa fa-facebook-square fa-2x"></i>
+    <% end %>
+    <%= link_to "https://twitter.com/SwiftIntro", target: 'blank' do %>
+      <i class="fa fa-twitter-square fa-2x"></i>
+    <% end %>
+    <%= link_to "http://blog.swiftintro.com/", target: 'blank' do %>
+      <i class="fa fa-tumblr-square fa-2x"></i>
+    <% end %>
+  </div>
+</div>

@@ -63,6 +63,15 @@
   margin-bottom: 0px;
 }
 
+.navbar-default .navbar-nav li a {
+  color: #1abc9c;
+}
+
+.navbar-default .navbar-brand {
+  color: #1abc9c;
+}
+
+
 body {
   background-color: #F0F0F0;
 }

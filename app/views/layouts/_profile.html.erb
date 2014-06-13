@@ -52,8 +52,8 @@
     <div class="row">
       <div>
         <% if !@user.jobs.empty? %>
-          <h3>Work Experience</h3>
-          <% @user.jobs.sort.each do |job| %>
+          <h3>Recent Experience</h3>
+          <% @user.jobs.sort.take(5).each do |job| %>
             <p><%= job.company.name %>, <%= job.position.name %> </p>
           <% end %>
         <% end %>

@@ -36,7 +36,6 @@ gem 'sidekiq'
 
 gem 'figaro'
 gem 'gibbon'
-gem 'kaminari'
 
 gem 'newrelic_rpm'
 

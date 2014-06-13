@@ -3,11 +3,9 @@ class AdminsController < ApplicationController
 
   def index
     users = User.where(approved: "Yes").where(deleted: false).where(active: true)
-    eligible_users = users.select do |user|
+    @eligible_users = users.select do |user|
       user.eligible_for_new_match?
     end
-
-    @eligible_users = Kaminari.paginate_array(eligible_users).page(params[:page])
   end
 
   def show

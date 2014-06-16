@@ -247,6 +247,14 @@ class User < ActiveRecord::Base
     shared_industry_interests.count
   end
 
+  def compare_function_interests_count(user)
+    function_interests1 = self.function_interests.pluck(:function_id)
+    function_interests2 = user.function_interests.pluck(:function_id)
+
+    shared_function_interests = function_interests1 & function_interests2
+    shared_function_interests.count
+  end
+
   def five_matches_pending
     matches = self.matches
     count = 0

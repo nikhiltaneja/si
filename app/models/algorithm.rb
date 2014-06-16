@@ -19,6 +19,16 @@ module Algorithm
     end
   end
 
+  def rate_shared_function_interests(shared_function_interests_count)
+    if shared_function_interests_count == 0
+      2
+    elsif shared_function_interests_count > 4
+      20
+    else
+      shared_function_interests_count * 5
+    end
+  end
+
   def rate_shared_connections(shared_connections)
     if shared_connections > 1 && shared_connections <= 5
       shared_connections * 3

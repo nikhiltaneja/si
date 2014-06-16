@@ -3,7 +3,6 @@
     <thead>
       <th>Users requiring a match</th>
       <th>Potential Matches</th>
-      <th># of Matches Requested Per Week</th>
       <th># of Matches to Date</th>
       <th>City</th>
     </thead>
@@ -12,7 +11,6 @@
         <tr>
           <td><%= link_to user.name, user_path(user) %></td>
           <td><%= link_to 'Potential Matches', admin_path(user) %></td>
-          <td><%= user.number_of_matches %></td>
           <td><%= user.matches.count %> </td>
           <td><%= user.location.area %></td>
         </tr>

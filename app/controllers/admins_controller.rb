@@ -30,6 +30,10 @@ class AdminsController < ApplicationController
     end
   end
 
+  def past_matches
+    @user = User.find(params[:id])
+  end
+
   def requests
     @users = User.where(approved: "pending").where(deleted: false).order("created_at DESC")
   end

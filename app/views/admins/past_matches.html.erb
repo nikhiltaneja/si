@@ -1,0 +1,30 @@
+<div class="container">
+  <table class="table">
+    <thead>
+      <th>Past Match</th>
+      <th>Headline</th>
+      <th>Intro's Response</th>
+      <th><%= @user.first_name %>'s Response</th>
+    </thead>
+    <tbody>
+      <% @user.matches.each do |past_match| %>
+        <% if past_match.first_user_id == @user.id %>
+          <tr>
+            <td><%= link_to past_match.second_user.name, user_path(past_match.second_user.id) %></td>
+            <td><%= past_match.second_user.headline %></td>
+            <td><%= past_match.second_user_status %></td>
+            <td><%= past_match.first_user_status %></td>
+          </tr>
+        <% else %>
+          <tr>
+            <td><%= link_to past_match.first_user.name, user_path(past_match.first_user.id) %></td>
+            <td><%= past_match.first_user.headline %></td>
+            <td><%= past_match.first_user_status %></td>
+            <td><%= past_match.second_user_status %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+

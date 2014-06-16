@@ -22,6 +22,7 @@ SwiftIntro::Application.routes.draw do
 
   get 'admins/requests'
   get 'admins/metrics'
+  get 'admins/:id/past_matches', to: 'admins#past_matches', as: 'admins_past_matches'
 
   get 'users/:id/invite', to: 'users#invite', as: 'user_invite'
   get 'users/:id/premium', to: 'users#premium', as: 'user_premium'

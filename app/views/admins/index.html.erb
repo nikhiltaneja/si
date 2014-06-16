@@ -1,18 +1,16 @@
 <div class="container">
   <table class="table">
     <thead>
-      <th>Users requiring a match</th>
-      <th>Potential Matches</th>
-      <th># of Matches Requested Per Week</th>
-      <th># of Matches to Date</th>
+      <th>Users Requiring an Intro</th>
+      <th>Potential Intros</th>
+      <th># of Intros to Date</th>
       <th>City</th>
     </thead>
     <tbody>
       <% @eligible_users.each do |user| %>
         <tr>
           <td><%= link_to user.name, user_path(user) %></td>
-          <td><%= link_to 'Potential Matches', admin_path(user) %></td>
-          <td><%= user.number_of_matches %></td>
+          <td><%= link_to 'Potential Intros', admin_path(user) %></td>
           <td><%= user.matches.count %> </td>
           <td><%= user.location.area %></td>
         </tr>

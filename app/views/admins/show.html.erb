@@ -1,6 +1,6 @@
 <div class="container">
-  <h5>Potential matches for <%= link_to @user.name, user_path(@user) %> Score: <%= @user.score %></h5>
-  <h5><%= link_to 'Past Matches', admins_past_matches_path(@user) %></h5>
+  <h5>Potential intros for <%= link_to @user.name, user_path(@user) %> Score: <%= @user.score %></h5>
+  <h5><%= link_to 'Past Intros', admins_past_matches_path(@user) %> (<%= @user.matches.count %> Total) </h5>
 
   <h5>
     <% if !@user.industry_interests.empty? %>
@@ -18,7 +18,7 @@
 
   <table class="table">
     <thead>
-      <th>Potential match</th>
+      <th>Potential Intro</th>
       <th>User Score</th>
       <th>Shared Industries</th>
       <th>Shared Functions</th>

@@ -24,7 +24,7 @@ class AdminsController < ApplicationController
       @shared_skills << @user.compare_skills_count(potential_match)
       @shared_industry_interests << @user.compare_industry_interests_count(potential_match)
       @shared_function_interests << @user.compare_function_interests_count(potential_match)
-      @number_of_intros << @user.matches.count
+      @number_of_intros << potential_match.matches.count
 
       @rating << (rate_shared_connections(@shared_connections[index]) + rate_shared_skills(@shared_skills[index]) + rate_shared_industry_interests(@shared_industry_interests[index]) + rate_shared_function_interests(@shared_function_interests[index]))
     end

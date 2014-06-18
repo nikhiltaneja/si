@@ -1,0 +1,21 @@
+<div class="container">
+  <table class="table">
+    <thead>
+      <th>First User</th>
+      <th>Second User</th>
+      <th>City</th>
+      <th></th>
+    </thead>
+    <tbody>
+      <% @matches.each do |match| %>
+          <tr>
+            <td><%= match.first_user.name %></td>
+            <td><%= match.second_user.name %></td>
+            <td><%= match.first_user.location.area %></td>
+            <td><%= button_to "Send Emails", user_send_potential_match_email_path(match.first_user.id, match.id), method: 'put', class: 'btn btn-primary' %></td>
+          </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+

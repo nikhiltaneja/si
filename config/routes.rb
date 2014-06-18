@@ -10,6 +10,7 @@ SwiftIntro::Application.routes.draw do
   
   resources :users, except: [:index] do
     get 'matches/prior_matches', to: 'matches#prior_matches'
+    put 'matches/:id/send_potential_match_email', to: 'matches#send_potential_match_email', as: 'send_potential_match_email'
     resources :matches do
       resources :messages, only: [:create]
     end
@@ -22,6 +23,7 @@ SwiftIntro::Application.routes.draw do
 
   get 'admins/requests'
   get 'admins/metrics'
+  get 'admins/queue'
   get 'admins/:id/past_matches', to: 'admins#past_matches', as: 'admins_past_matches'
 
   get 'users/:id/invite', to: 'users#invite', as: 'user_invite'
@@ -37,7 +39,6 @@ SwiftIntro::Application.routes.draw do
   get '/privacy', to: 'dashboard#privacy', as: 'privacy'
 
   get '/terms', to: 'dashboard#terms', as: 'terms'
-
 
   get '/:ref', to: 'dashboard#index'
 end

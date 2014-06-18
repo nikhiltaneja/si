@@ -37,22 +37,6 @@ class MatchesController < ApplicationController
     else
       Match.create!(first_user_id: params[:user_2], second_user_id: params[:user_1])
     end
-    user1 = User.find(params[:user_1])
-    user2 =  User.find(params[:user_2])
-
-    if user1.five_matches_pending
-      ActiveWorker.perform_async(user1.id)
-      user1.active = false
-      user1.save!
-    end
-
-    if user2.five_matches_pending
-      ActiveWorker.perform_async(user2.id)
-      user2.active = false
-      user2.save!
-    end
-
-    PotentialmatchWorker.perform_async(params[:user_1], params[:user_2])
 
     redirect_to admins_path, notice: "Intro successfully created!"
   end
@@ -103,5 +87,31 @@ class MatchesController < ApplicationController
 
   def prior_matches
     @matches = current_user.matches.where(match_status: true)
+  end
+
+  def send_potential_match_email
+    @match = Match.find(params[:id])
+    user1 = @match.first_user
+    user2 = @match.second_user
+
+    @match.email_status = true
+    
+    PotentialmatchWorker.perform_async(user1.id, user2.id)
+    
+    @match.save!
+
+    if user1.five_matches_pending
+      ActiveWorker.perform_async(user1.id)
+      user1.active = false
+      user1.save!
+    end
+
+    if user2.five_matches_pending
+      ActiveWorker.perform_async(user2.id)
+      user2.active = false
+      user2.save!
+    end
+
+    redirect_to admins_queue_path, notice: 'Emails sent!'
   end
 end

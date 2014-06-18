@@ -48,4 +48,8 @@ class AdminsController < ApplicationController
     @second_user_no_count = @all_matches.where(second_user_status: 'No').count
     @reference_count = Reference.all.count
   end
+
+  def queue
+    @matches = Match.where(email_status: false)
+  end
 end

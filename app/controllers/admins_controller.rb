@@ -40,6 +40,7 @@ class AdminsController < ApplicationController
 
   def metrics
     @all_users_count = User.all.count
+    @active_users_count = User.where(approved: 'Yes').where(active: true).where.not(deleted: true).count
     @all_matches = Match.all
     @successful_matches_count = @all_matches.where(match_status: true).count
     @first_user_yes_count = @all_matches.where(first_user_status: 'Yes').count

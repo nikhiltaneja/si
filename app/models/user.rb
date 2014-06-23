@@ -68,7 +68,7 @@ class User < ActiveRecord::Base
   end
 
   def matches
-    Match.where("first_user_id = ? OR second_user_id = ?", self.id, self.id).where(email_status: true).order(:created_at)
+    Match.where("first_user_id = ? OR second_user_id = ?", self.id, self.id).order(:created_at)
   end
 
   def current_match

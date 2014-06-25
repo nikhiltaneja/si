@@ -10,7 +10,7 @@
         <tr>
           <td><%= link_to user.name, user_path(user) %></td>
           <td><%= user.location.area %></td>
-          <td><%= link_to user.created_at.in_time_zone('Pacific Time (US & Canada)').strftime('%b %y, %Y %I:%M %p PST') %></td>
+          <td><%= link_to user.created_at.in_time_zone('Pacific Time (US & Canada)').strftime('%B %e, %l:%M %p PST') %></td>
           <td><%= button_to "Approve", user_path(user, approved: "Yes"), method: 'put', class: 'btn btn-success' %> </td>
           <td><%= button_to "Reject", user_path(user, approved: "No"), method: 'put', class: 'btn btn-danger' %> </td>
         </tr>
